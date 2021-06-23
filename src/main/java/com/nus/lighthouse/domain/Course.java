@@ -1,12 +1,10 @@
-package domain;
+package com.nus.lighthouse.domain;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 public class Course {
-    public Course() {
-    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int courseId;
@@ -20,7 +18,6 @@ public class Course {
     private LocalDate enrolBy;
     private LocalDate examDate;
 
-
-
-
+    public Course() {
+    }
 }

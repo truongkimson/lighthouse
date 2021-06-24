@@ -27,8 +27,7 @@ public class Course {
     public Course() {
     }
 
-    public Course(int Id, String courseName, String courseDes, int credits, int maxCap, int duration, LocalDate startDate, LocalDate enrollBy, LocalDate examDate) {
-        this.Id = Id;
+    public Course(String courseName, String courseDes, int credits, int maxCap, int duration, LocalDate startDate, LocalDate enrollBy, LocalDate examDate) {
         this.courseName = courseName;
         this.courseDes = courseDes;
         this.credits = credits;

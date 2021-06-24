@@ -8,14 +8,14 @@ import java.util.Collection;
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int courseId;
+    private int Id;
     private String courseName;
     private String courseDes;
     private int credits;
     private int maxCap;
     private int duration;
     private LocalDate startDate;
-    private LocalDate enrolBy;
+    private LocalDate enrollBy;
     private LocalDate examDate;
 
     @ManyToOne
@@ -27,24 +27,24 @@ public class Course {
     public Course() {
     }
 
-    public Course(int courseId, String courseName, String courseDes, int credits, int maxCap, int duration, LocalDate startDate, LocalDate enrolBy, LocalDate examDate) {
-        this.courseId = courseId;
+    public Course(int Id, String courseName, String courseDes, int credits, int maxCap, int duration, LocalDate startDate, LocalDate enrollBy, LocalDate examDate) {
+        this.Id = Id;
         this.courseName = courseName;
         this.courseDes = courseDes;
         this.credits = credits;
         this.maxCap = maxCap;
         this.duration = duration;
         this.startDate = startDate;
-        this.enrolBy = enrolBy;
+        this.enrollBy = enrollBy;
         this.examDate = examDate;
     }
 
-    public int getCourseId() {
-        return courseId;
+    public int getId() {
+        return Id;
     }
 
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
+    public void setId(int courseId) {
+        this.Id = courseId;
     }
 
     public String getCourseName() {
@@ -95,12 +95,12 @@ public class Course {
         this.startDate = startDate;
     }
 
-    public LocalDate getEnrolBy() {
-        return enrolBy;
+    public LocalDate getEnrollBy() {
+        return enrollBy;
     }
 
-    public void setEnrolBy(LocalDate enrolBy) {
-        this.enrolBy = enrolBy;
+    public void setEnrollBy(LocalDate enrolBy) {
+        this.enrollBy = enrolBy;
     }
 
     public LocalDate getExamDate() {
@@ -122,14 +122,14 @@ public class Course {
     @Override
     public String toString() {
         return "Course{" +
-                "courseId=" + courseId +
+                "courseId=" + Id +
                 ", courseName='" + courseName + '\'' +
                 ", courseDes='" + courseDes + '\'' +
                 ", credits=" + credits +
                 ", maxCap=" + maxCap +
                 ", duration=" + duration +
                 ", startDate=" + startDate +
-                ", enrolBy=" + enrolBy +
+                ", enrolBy=" + enrollBy +
                 ", examDate=" + examDate +
                 '}';
     }

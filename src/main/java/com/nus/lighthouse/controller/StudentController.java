@@ -4,13 +4,15 @@ import com.nus.lighthouse.domain.Student;
 import com.nus.lighthouse.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collection;
+import java.util.*;
 
 @Controller
-@RequestMapping("/student")
+@RequestMapping("student")
 public class StudentController {
 
     public final StudentService studentService;
@@ -20,10 +22,12 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping("/student/all")
-    public Collection<Student> getStudent()
+    @GetMapping("/home")
+    public String getStudent(Model model)
     {
-        return studentService.getStudent();
+        Collection<Student> students =  studentService.getStudent();
+        model.addAttribute("students", students);
+        return "student";
     }
 
 

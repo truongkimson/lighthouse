@@ -8,7 +8,7 @@ public class Enrolment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int enrolmentId;
-    private int courseId;
+    //private int courseId;
 
     private String grade;
     private LocalDate registeredDate;
@@ -16,6 +16,9 @@ public class Enrolment {
 
     @ManyToOne
     private Student student;
+
+    @ManyToOne
+    private Course course;
 
     public Enrolment() {
     }
@@ -28,13 +31,8 @@ public class Enrolment {
         this.enrolmentId = enrolmentId;
     }
 
-    public int getCourseId() {
-        return courseId;
-    }
 
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
-    }
+
 
     public String getGrade() {
         return grade;
@@ -72,7 +70,6 @@ public class Enrolment {
     public String toString() {
         return "Enrolment{" +
                 "enrolmentId=" + enrolmentId +
-                ", courseId=" + courseId +
                 ", grade='" + grade + '\'' +
                 ", registeredDate=" + registeredDate +
                 ", enrolmentStatus='" + enrolmentStatus + '\'' +

@@ -2,6 +2,7 @@ package com.nus.lighthouse.domain;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 @Entity
 @DiscriminatorValue("LEC")

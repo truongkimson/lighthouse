@@ -15,7 +15,7 @@ public class Student extends User {
     private double gpa;
 
     @OneToMany(mappedBy = "student")
-    private List<Enrolment> enrolments;
+    private Collection<Enrolment> enrolments;
 
     public Student() {
     }

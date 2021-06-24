@@ -1,5 +1,6 @@
 package com.nus.lighthouse.controller;
 
+import com.nus.lighthouse.domain.Enrolment;
 import com.nus.lighthouse.domain.Student;
 import com.nus.lighthouse.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ public class StudentController {
 
     public final StudentService studentService;
 
+
     @Autowired
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
@@ -29,6 +31,11 @@ public class StudentController {
         model.addAttribute("students", students);
         return "student";
     }
+
+//    public String getEnrolled(Model model)
+//    {
+//        Collection<Enrolment> enrolls =
+//    }
 
 
 }

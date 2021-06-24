@@ -1,0 +1,5 @@
+courseName,courseDesc,credits,maxCap,duration,startDate,enrollBy,examDate,lecturerId
+Software Analysis and Design,Fundamentals of Programming using C# - Object Oriented Programming using C# - User Interface Development with Visual Studio Net and C# - SQL Programming & DBMS - Enterprise System Development using .Net Framework,6,50,12,03/02/2021,01/02/2021,24/04/2021,11
+Enterprise Solutions Design and Development,Application Development Life Cycle I - Application Development Life Cycle II,8,80,16,04/03/2021,01/02/2021,25/04/2021,13
+Digital Product Management,"Planning, scheduling, resource allocation, execution, tracking and delivery of software projects.",4,30,8,05/07/2021,01/07/2021,29/07/2021,14
+Web Application Development,Java Programming - Java Object Persistence - Web-based J2EE Applications - Wireless Technology - J2EE Project,6,60,17,04/07/2021,01/07/2021,30/07/2021,12

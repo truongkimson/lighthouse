@@ -17,7 +17,8 @@
     <a th:href = "@{admin}">Admin</a>
 
     <form method="get" th:action="@{/student/enrollCourses}">
-        Filter: <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" required />
+        <label for = "keyword">Filter: </label>
+        <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" required />
         &nbsp;
         <input type="submit" value="Search" />
         &nbsp;

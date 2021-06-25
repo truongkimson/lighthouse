@@ -47,9 +47,17 @@ public class StudentService {
         return courseRepository.findAll();
     }
 
-    public Collection<Course> getSearchedCourses(){
-        String placeholder = "design";
-        return studentRepository.searchFunction(placeholder);
+//    public Collection<Course> getSearchedCourses(){
+//        String placeholder = "design";
+//        return studentRepository.searchFunction(placeholder);
+//    }
+
+    public Collection<Course> getSearchedCourses(String keyword){
+        if(keyword==null){
+            return courseRepository.findAll();
+        }
+        return courseRepository.searchFunction(keyword);
     }
+
 }
 

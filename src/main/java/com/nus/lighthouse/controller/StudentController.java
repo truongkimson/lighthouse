@@ -1,10 +1,10 @@
 package com.nus.lighthouse.controller;
 
 import com.nus.lighthouse.domain.Course;
-import com.nus.lighthouse.domain.Enrolment;
 import com.nus.lighthouse.domain.Student;
 import com.nus.lighthouse.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,30 +32,18 @@ public class StudentController {
         return "Student/student";
     }
 
-    @GetMapping("/enrolled")
-    public String getEnrolmentByStudent(Model model)
-    {
-        //add dummy student as the session is not done yet
-        Student stu =  studentService.getDummyStudent();
-        Collection<Enrolment> enrolls = studentService.getEnrolmentByStudent(stu);
-        model.addAttribute("enrolls",enrolls);
 
-        return "Student/studentEnrolled";
-    }
+    @RequestMapping("/enrollCourses")
+    public String getSearchedCourses(Model model, @Param("keyword") String keyword){
+        Collection<Course> courses = studentService.getSearchedCourses(keyword);
+        model.addAttribute("courses",courses);
+        model.addAttribute("keyword",keyword);
+        System.out.println("This is the course size = "+ courses.size());
 
-    @GetMapping("/enrollCourses")
-    public String getCoursesToEnroll(Model model){
-        Collection<Course> course = studentService.getAllCourse();
-        model.addAttribute("courses",course);
         return "Student/studentCourses";
     }
 
-    @GetMapping("/enrollCourses/searched")
-    public String getSearchedCourses(Model model){
-        Collection<Course>searchedCourse = studentService.getSearchedCourses();
-        model.addAttribute("courses",searchedCourse);
-        return "Student/studentSearched";
-    }
+
 
 
 }

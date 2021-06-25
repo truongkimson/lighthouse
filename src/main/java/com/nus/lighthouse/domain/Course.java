@@ -1,5 +1,10 @@
 package com.nus.lighthouse.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.nus.lighthouse.repo.EnrolmentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -18,14 +23,18 @@ public class Course {
     private LocalDate enrollBy;
     private LocalDate examDate;
 
+
+    @Transient
+    private int currCap;
+
+    @JsonBackReference
     @ManyToOne
     private Lecturer lecturer;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "course")
     private Collection<Enrolment> enrolment;
 
-    public Course() {
-    }
 
     public Course(String courseName, String courseDes, int credits, int maxCap, int duration, LocalDate startDate, LocalDate enrollBy, LocalDate examDate) {
         this.courseName = courseName;
@@ -36,6 +45,18 @@ public class Course {
         this.startDate = startDate;
         this.enrollBy = enrollBy;
         this.examDate = examDate;
+    }
+
+    public Course() {
+    }
+
+    public int getCurrCap() {
+
+        return currCap;
+    }
+
+    public void setCurrCap(int currCap) {
+        this.currCap = currCap;
     }
 
     public int getId() {
@@ -116,6 +137,14 @@ public class Course {
 
     public void setLecturer(Lecturer lecturer) {
         this.lecturer = lecturer;
+    }
+
+    public Collection<Enrolment> getEnrolment() {
+        return enrolment;
+    }
+
+    public void setEnrolment(Collection<Enrolment> enrolment) {
+        this.enrolment = enrolment;
     }
 
     @Override

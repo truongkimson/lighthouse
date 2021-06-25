@@ -1,5 +1,7 @@
 package com.nus.lighthouse.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.*;
@@ -14,6 +16,7 @@ public class Student extends User {
     @Transient
     private double gpa;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "student")
     private Collection<Enrolment> enrolments;
 
@@ -65,6 +68,14 @@ public class Student extends User {
     //Will have to implement the calculation of the GPA here
     public double getGpa() {
         return gpa;
+    }
+
+    public Collection<Enrolment> getEnrolments() {
+        return enrolments;
+    }
+
+    public void setEnrolments(Collection<Enrolment> enrolments) {
+        this.enrolments = enrolments;
     }
 
     @Override

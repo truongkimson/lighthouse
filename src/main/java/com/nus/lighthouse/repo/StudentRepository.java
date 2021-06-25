@@ -13,6 +13,12 @@ import java.util.Collection;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Integer> {
 
+    @Query("SELECT s FROM Student s WHERE s.firstName LIKE CONCAT('%',:query,'%')"
+            + "OR s.lastName LIKE CONCAT('%',:query,'%')"
+            + "OR s.email LIKE CONCAT('%',:query,'%')"
+            + "OR s.phone LIKE CONCAT('%',:query,'%')"
+            + "OR s.address LIKE CONCAT('%',:query,'%')")
+    Collection<Student> findStudentsByQuery(@Param("query") String query);
 
     @Query("SELECT DISTINCT c from Course c WHERE c.courseName like concat('%',:search,'%')")
     Collection<Course> searchFunction(@Param("search") String search);

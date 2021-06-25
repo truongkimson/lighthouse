@@ -12,8 +12,8 @@ import java.util.Collection;
 public class Lecturer extends User{
     private String designation;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "lecturer")
+    @JsonManagedReference
     private Collection<Course> teachCourses;
 
     public Lecturer() {

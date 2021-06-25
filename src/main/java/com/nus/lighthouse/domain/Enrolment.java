@@ -1,7 +1,6 @@
 package com.nus.lighthouse.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -17,12 +16,12 @@ public class Enrolment {
     private LocalDate registeredDate;
     private String enrolmentStatus;
 
-    @JsonBackReference
     @ManyToOne
+    @JsonBackReference
     private Student student;
 
-    @JsonBackReference
     @ManyToOne
+    @JsonBackReference
     private Course course;
 
     public Enrolment() {

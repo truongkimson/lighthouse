@@ -9,7 +9,7 @@ import javax.persistence.*;
         columnNames = {"email"})})
 public class User {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
     private String email;
     private String password;

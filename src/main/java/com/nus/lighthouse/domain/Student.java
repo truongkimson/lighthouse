@@ -2,9 +2,12 @@ package com.nus.lighthouse.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import javax.persistence.*;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.Collection;
 
 @Entity
 @DiscriminatorValue("STU")
@@ -16,8 +19,8 @@ public class Student extends User {
     @Transient
     private double gpa;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "student")
+    @JsonManagedReference
     private Collection<Enrolment> enrolments;
 
     public Student() {
@@ -65,17 +68,17 @@ public class Student extends User {
         this.enrolmentDate = enrolmentDate;
     }
 
-    //Will have to implement the calculation of the GPA here
-    public double getGpa() {
-        return gpa;
-    }
-
     public Collection<Enrolment> getEnrolments() {
         return enrolments;
     }
 
     public void setEnrolments(Collection<Enrolment> enrolments) {
         this.enrolments = enrolments;
+    }
+
+    //Will have to implement the calculation of the GPA here
+    public double getGpa() {
+        return gpa;
     }
 
     @Override

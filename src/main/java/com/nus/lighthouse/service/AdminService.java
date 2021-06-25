@@ -28,8 +28,16 @@ public class AdminService {
         return courseRepository.findAll();
     }
 
-    public Collection<Enrolment> getAllEnrolmentsByCourse(int courseId) {
-        Course c = courseRepository.findById(courseId).orElseThrow();
+    public Course getCourseById(int courseId) {
+        return courseRepository.findById(courseId).orElseThrow();
+    }
+
+    public Collection<Course> getCoursesByQuery(String query) {
+        return courseRepository.findCoursesByQuery(query);
+    }
+
+    public Collection<Enrolment> getEnrolmentsByCourse(Course c) {
         return enrolmentRepository.findEnrolmentsByCourse(c);
     }
+
 }

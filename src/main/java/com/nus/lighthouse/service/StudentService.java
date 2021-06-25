@@ -1,14 +1,13 @@
 package com.nus.lighthouse.service;
 
 
-import com.nus.lighthouse.domain.*;
+import com.nus.lighthouse.domain.Student;
 import com.nus.lighthouse.repo.EnrolmentRepository;
 import com.nus.lighthouse.repo.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Collection;
 
 
 @Service
@@ -23,10 +22,13 @@ public class StudentService {
         this.enrolmentRepository = enrolmentRepository;
     }
 
-
-    public Collection<Student> getStudent()
+    public Collection<Student> getAllStudents()
     {
         return studentRepository.findAll();
+    }
+
+    public Collection<Student> getAllStudentsByQuery(String query) {
+        return studentRepository.findStudentsByQuery(query);
     }
 
 //    public Collection<Enrolment> getEnrolled(){

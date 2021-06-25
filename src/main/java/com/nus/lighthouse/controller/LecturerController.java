@@ -20,6 +20,6 @@ public class LecturerController {
 
     @GetMapping("/lecturer/all")
     public Collection<Lecturer> getLecturer(){
-        return lecturerService.getLecturer();
+        return lecturerService.getAllLecturers();
     }
 }

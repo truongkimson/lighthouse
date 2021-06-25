@@ -1,5 +1,7 @@
 package com.nus.lighthouse.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -11,6 +13,7 @@ public class Lecturer extends User{
     private String designation;
 
     @OneToMany(mappedBy = "lecturer")
+    @JsonManagedReference
     private Collection<Course> teachCourses;
 
     public Lecturer() {

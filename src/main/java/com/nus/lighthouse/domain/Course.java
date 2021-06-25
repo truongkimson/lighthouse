@@ -1,5 +1,7 @@
 package com.nus.lighthouse.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -19,10 +21,12 @@ public class Course {
     private LocalDate examDate;
 
     @ManyToOne
+    @JsonBackReference
     private Lecturer lecturer;
 
     @OneToMany(mappedBy = "course")
-    private Collection<Enrolment> enrolment;
+    @JsonBackReference
+    private Collection<Enrolment> enrolments;
 
     public Course() {
     }
@@ -116,6 +120,14 @@ public class Course {
 
     public void setLecturer(Lecturer lecturer) {
         this.lecturer = lecturer;
+    }
+
+    public Collection<Enrolment> getEnrolments() {
+        return enrolments;
+    }
+
+    public void setEnrolments(Collection<Enrolment> enrolments) {
+        this.enrolments = enrolments;
     }
 
     @Override

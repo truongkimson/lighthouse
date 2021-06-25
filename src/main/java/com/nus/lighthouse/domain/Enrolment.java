@@ -1,5 +1,7 @@
 package com.nus.lighthouse.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -15,9 +17,11 @@ public class Enrolment {
     private String enrolmentStatus;
 
     @ManyToOne
+    @JsonBackReference
     private Student student;
 
     @ManyToOne
+    @JsonBackReference
     private Course course;
 
     public Enrolment() {

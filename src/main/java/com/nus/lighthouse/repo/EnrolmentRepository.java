@@ -12,11 +12,3 @@ public interface EnrolmentRepository extends JpaRepository<Enrolment,Integer> {
 
     Collection<Enrolment> findEnrolmentsByCourse(Course course);
 }
-
-
-//Collection<Enrol>
-//@Query("Select * from student s, enrolment e where s.id = e.student_id and s.id = 5")
-
-
-
-

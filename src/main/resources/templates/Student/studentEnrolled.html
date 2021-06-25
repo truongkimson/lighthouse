@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Student</title>
+</head>
+<body>
+    <p>Hello student!</p>
+    <p> Courses that you can enroll in</p>
+    <a th:href = "@{/student/home}">Student</a>
+    <a th:href = "@{/student/home}">Student</a>
+    <a th:href = "@{admin}">Admin</a>
+
+    <table>
+        <tr th:each="enrols:${enrolls}">
+            <td th:text="${enrols.getCourse().getId()}"></td>
+            <td th:text="${enrols.getCourse().getCourseName()}"></td>
+            <td th:text="${enrols.getCourse().getCredits()}"></td>
+
+
+        </tr>
+
+
+    </table>
+</body>
+</html>

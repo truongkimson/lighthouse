@@ -6,19 +6,18 @@
 </head>
 <body>
     <p>Hello student!</p>
-    <a th:href = "@{student}">Student</a>
+    <p> Courses that you can enroll in you have searched etc</p>
+    <a th:href = "@{/student/home}">Student</a>
     <a th:href = "@{lecturer}">Lecturer</a>
     <a th:href = "@{admin}">Admin</a>
 
     <table>
-        <tr th:each="student:${students}">
-            <td th:text="${student.firstName}"></td>
+        <tr th:each="courses:${courses}">
+            <td th:text="${courses.getCourseName()}"></td>
+            <td th:text="${courses.getCourseDes()}"></td>
         </tr>
 
 
     </table>
-
-
-
 </body>
 </html>

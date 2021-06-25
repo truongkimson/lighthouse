@@ -1,7 +1,5 @@
 package com.nus.lighthouse.repo;
 
-import com.nus.lighthouse.domain.Course;
-import com.nus.lighthouse.domain.Enrolment;
 import com.nus.lighthouse.domain.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,8 +18,7 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
             + "OR s.address LIKE CONCAT('%',:query,'%')")
     Collection<Student> findStudentsByQuery(@Param("query") String query);
 
-    @Query("SELECT DISTINCT c from Course c WHERE c.courseName like concat('%',:search,'%')")
-    Collection<Course> searchFunction(@Param("search") String search);
+
 }
 
 

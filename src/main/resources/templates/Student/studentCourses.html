@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Student</title>
+</head>
+<body>
+    <p>Hello student!</p>
+    <p> You have enrolled in the following</p>
+    <a th:href = "@{/student/home}">Student</a>
+    <a th:href = "@{enrollCourses/searched}">Searched</a>
+    <a th:href = "@{admin}">Admin</a>
+
+<!--    <form action="/" method="get">-->
+<!--        <label for="fname">First name:</label>-->
+<!--        <input type="text" id="fname" name="fname"><br><br>-->
+<!--        <label for="lname">Last name:</label>-->
+<!--        <input type="text" id="lname" name="lname"><br><br>-->
+<!--        <input type="submit" value="Submit">-->
+<!--    </form>-->
+
+    <table>
+        <tr th:each="course:${courses}">
+            <td th:text="${course.getCourseName()}"></td>
+        </tr>
+
+
+
+
+    </table>
+</body>
+</html>

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Collection;
 
 @Entity
@@ -17,10 +18,12 @@ public class Course {
     private int credits;
     private int maxCap;
     private int duration;
+    private int examDuration;
     private LocalDate startDate;
     private LocalDate enrollBy;
     private LocalDate examDate;
-
+    private LocalTime startTime;
+    private LocalTime examStartTime;
 
     @Transient
     private int currCap;
@@ -34,7 +37,6 @@ public class Course {
     @JsonBackReference
     private Collection<Enrolment> enrolments;
 
-
     public Course(String courseName, String courseDes, int credits, int maxCap, int duration, LocalDate startDate, LocalDate enrollBy, LocalDate examDate) {
         this.courseName = courseName;
         this.courseDes = courseDes;
@@ -46,7 +48,23 @@ public class Course {
         this.examDate = examDate;
     }
 
-    public Course() {
+    public Course(String courseName, String courseDes, int credits, int maxCap, int duration, int examDuration,
+			LocalDate startDate, LocalDate enrollBy, LocalDate examDate, LocalTime startTime, LocalTime examStartTime) {
+		super();
+		this.courseName = courseName;
+		this.courseDes = courseDes;
+		this.credits = credits;
+		this.maxCap = maxCap;
+		this.duration = duration;
+		this.examDuration = examDuration;
+		this.startDate = startDate;
+		this.enrollBy = enrollBy;
+		this.examDate = examDate;
+		this.startTime = startTime;
+		this.examStartTime = examStartTime;
+	}
+
+	public Course() {
     }
 
     public int getCurrCap() {
@@ -145,19 +163,36 @@ public class Course {
     public void setEnrolments(Collection<Enrolment> enrolments) {
         this.enrolments = enrolments;
     }
+    
+    public int getExamDuration() {
+		return examDuration;
+	}
 
-    @Override
-    public String toString() {
-        return "Course{" +
-                "courseId=" + Id +
-                ", courseName='" + courseName + '\'' +
-                ", courseDes='" + courseDes + '\'' +
-                ", credits=" + credits +
-                ", maxCap=" + maxCap +
-                ", duration=" + duration +
-                ", startDate=" + startDate +
-                ", enrolBy=" + enrollBy +
-                ", examDate=" + examDate +
-                '}';
-    }
+	public void setExamDuration(int examDuration) {
+		this.examDuration = examDuration;
+	}
+
+	public LocalTime getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(LocalTime startTime) {
+		this.startTime = startTime;
+	}
+
+	public LocalTime getExamStartTime() {
+		return examStartTime;
+	}
+
+	public void setExamStartTime(LocalTime examStartTime) {
+		this.examStartTime = examStartTime;
+	}
+	
+	@Override
+	public String toString() {
+		return "Course [Id=" + Id + ", courseName=" + courseName + ", courseDes=" + courseDes + ", credits=" + credits
+				+ ", maxCap=" + maxCap + ", duration=" + duration + ", examDuration=" + examDuration + ", startDate="
+				+ startDate + ", enrollBy=" + enrollBy + ", examDate=" + examDate + ", startTime=" + startTime
+				+ ", examStartTime=" + examStartTime + "]";
+	}
 }

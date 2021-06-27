@@ -6,8 +6,8 @@
 </head>
 <body>
     <p>Hello student!</p>
-    <a th:href = "@{student}">Student</a>
-    <a th:href = "@{lecturer}">Lecturer</a>
+    <a th:href = "@{enrolled}">Courses Enrolled</a>
+    <a th:href = "@{enrollCourses}">Enroll</a>
     <a th:href = "@{admin}">Admin</a>
 
     <table>
@@ -15,9 +15,7 @@
             <td th:text="${student.firstName}"></td>
         </tr>
 
-
     </table>
-
 
 
 </body>

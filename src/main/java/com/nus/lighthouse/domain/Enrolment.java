@@ -1,5 +1,7 @@
 package com.nus.lighthouse.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 import java.time.LocalDate;
@@ -16,38 +18,34 @@ public class Enrolment {
     private String enrolmentStatus;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference
     private Student student;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference
     private Course course;
 
     public Enrolment() {
     }
-    
-    
+
+    public Enrolment(int id, String grade, LocalDate registeredDate, String enrolmentStatus, Student student,
+                     Course course) {
+        super();
+        Id = id;
+        this.grade = grade;
+        this.registeredDate = registeredDate;
+        this.enrolmentStatus = enrolmentStatus;
+        this.student = student;
+        this.course = course;
+    }
+
+    public int getId() {
+        return Id;
+    }
 
     public void setId(int id) {
 		Id = id;
 	}
-
-
-
-	public Enrolment(int id, String grade, LocalDate registeredDate, String enrolmentStatus, Student student,
-			Course course) {
-		super();
-		Id = id;
-		this.grade = grade;
-		this.registeredDate = registeredDate;
-		this.enrolmentStatus = enrolmentStatus;
-		this.student = student;
-		this.course = course;
-	}
-
-
-
-	public int getId() {
-        return Id;
-    }
 
     public String getGrade() {
         return grade;

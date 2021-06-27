@@ -9,7 +9,7 @@ import javax.persistence.*;
 @DiscriminatorColumn(name = "user_type")
 public class User{
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
     private String email;
     private String password;
@@ -62,6 +62,8 @@ public class User{
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+    public String getFullName() { return firstName + " " + lastName; }
 
     @Override
     public String toString() {

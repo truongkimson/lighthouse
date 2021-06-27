@@ -24,18 +24,26 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    //@GetMapping("/home")
-    //public String getStudent(Model model)
-    //{
-        //Collection<Student> students =  studentService.getStudent();
-        //model.addAttribute("students", students);
-        //return "student";
-    //}
+    @GetMapping("/home")
+    public String getAllStudent(Model model)
+    {
+        Collection<Student> students =  studentService.getAllStudents();
+        model.addAttribute("students", students);
+        return "Student/student";
+    }
 
-//    public String getEnrolled(Model model)
-//    {
-//        Collection<Enrolment> enrolls =
-//    }
+
+    @RequestMapping("/enrollCourses")
+    public String getSearchedCourses(Model model, @Param("keyword") String keyword){
+        Collection<Course> courses = studentService.getSearchedCourses(keyword);
+        model.addAttribute("courses",courses);
+        model.addAttribute("keyword",keyword);
+        System.out.println("This is the course size = "+ courses.size());
+
+        return "Student/studentCourses";
+    }
+
+
 
 
 }

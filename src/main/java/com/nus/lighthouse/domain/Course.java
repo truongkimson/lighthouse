@@ -1,6 +1,13 @@
 package com.nus.lighthouse.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.Collection;
 
@@ -9,20 +16,41 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
+
+    @NotBlank
     private String courseName;
+    @NotBlank
     private String courseDes;
+    @Min(1)
     private int credits;
+    @Min(1)
     private int maxCap;
+    @Min(1)
     private int duration;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Future
     private LocalDate startDate;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Future
     private LocalDate enrollBy;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Future
     private LocalDate examDate;
 
+    @Transient
+    private int currCap;
+
     @ManyToOne
+    @JsonBackReference
     private Lecturer lecturer;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "course")
-    private Collection<Enrolment> enrolment;
+    @JsonBackReference
+    private Collection<Enrolment> enrolments;
 
     public Course() {
     }
@@ -38,12 +66,21 @@ public class Course {
         this.examDate = examDate;
     }
 
+    public int getCurrCap() {
+
+        return currCap;
+    }
+
+    public void setCurrCap(int currCap) {
+        this.currCap = currCap;
+    }
+
     public Collection<Enrolment> getEnrolment() {
-		return enrolment;
+		return enrolments;
 	}
 
 	public void setEnrolment(Collection<Enrolment> enrolment) {
-		this.enrolment = enrolment;
+		this.enrolments = enrolment;
 	}
 
 	public int getId() {
@@ -124,6 +161,14 @@ public class Course {
 
     public void setLecturer(Lecturer lecturer) {
         this.lecturer = lecturer;
+    }
+
+    public Collection<Enrolment> getEnrolments() {
+        return enrolments;
+    }
+
+    public void setEnrolments(Collection<Enrolment> enrolments) {
+        this.enrolments = enrolments;
     }
 
     @Override

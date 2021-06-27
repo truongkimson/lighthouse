@@ -49,7 +49,6 @@ public class Course {
 
     @JsonManagedReference
     @OneToMany(mappedBy = "course")
-    @JsonBackReference
     private Collection<Enrolment> enrolments;
 
 

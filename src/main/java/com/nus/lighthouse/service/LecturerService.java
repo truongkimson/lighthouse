@@ -20,4 +20,8 @@ public class LecturerService {
         return lecturerRepository.findAll();
     }
 
+    public Collection<Lecturer> getLecturersByQuery(String query) {
+        return lecturerRepository.findLecturersByQuery(query);
+    }
+
 }

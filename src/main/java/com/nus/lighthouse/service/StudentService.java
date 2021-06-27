@@ -30,7 +30,7 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-    public Collection<Student> getAllStudentsByQuery(String query) {
+    public Collection<Student> getStudentsByQuery(String query) {
         return studentRepository.findStudentsByQuery(query);
     }
 

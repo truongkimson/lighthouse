@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Enrolment form</title>
+</head>
+<body>
+<h1>Enrolment form</h1>
+	<form action="#" th:object="${enrolment}" th:action="@{/lecturer/save}"
+		method="post">
+		<fieldset>
+			Enrolment ID<input type="number" th:field="*{Id}" th:readonly=true>
+		</fieldset>		
+		<fieldset>
+			Grade <input type="text" th:field="*{grade}">
+		</fieldset>
+		<fieldset>
+			Date Registered<input type="date" th:field="*{registeredDate}" th:readonly=true>
+		</fieldset>
+		<fieldset>
+			Enrollment Status<input type="text" th:field="*{enrolmentStatus}" th:readonly=true>
+		</fieldset>
+				<fieldset>
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+		</fieldset>
+		<fieldset>
+			<input type="submit" value="Save"/>
+			&nbsp; &nbsp; 	
+			<input type="reset" value="Reset"/>
+		</fieldset>
+
+	</form>
+<a href = "http://localhost:8080/lecturer/home">Back to home</a>
+</body>
+</html>

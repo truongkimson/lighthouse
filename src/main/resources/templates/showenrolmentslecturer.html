@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="ISO-8859-1">
+<title>View course enrolments</title>
+</head>
+<body>
+<h1 th:if="${not #lists.isEmpty(enrolments)}">View course enrolments</h1>
+	<table th:if="${not #lists.isEmpty(enrolments)}" >
+		<tr >
+			<th>Course name</th>
+			<th>Student name</th>
+
+		</tr>
+		<tr th:each="EnrolDataByCourse:${enrolments}" >
+			<td th:text=${EnrolDataByCourse.coursename}>Id</td>
+			<td th:text="${EnrolDataByCourse.firstname}+' '+${EnrolDataByCourse.lastname}"> Name</td>
+
+		</tr>
+	</table>
+<a href = "http://localhost:8080/lecturer/home">Back to home</a>
+</body>
+</html>

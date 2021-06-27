@@ -16,8 +16,8 @@ public class Lecturer extends User{
     public Lecturer() {
     }
 
-    public Lecturer(String email, String password, String firstName, String lastName, String designation) {
-        super(email, password, firstName, lastName);
+    public Lecturer(int id,String email, String password, String firstName, String lastName, String designation) {
+        super(id,email, password, firstName, lastName);
         this.designation = designation;
     }
 

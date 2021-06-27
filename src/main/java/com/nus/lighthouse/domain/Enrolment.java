@@ -1,6 +1,7 @@
 package com.nus.lighthouse.domain;
 
 import javax.persistence.*;
+
 import java.time.LocalDate;
 
 @Entity
@@ -14,16 +15,37 @@ public class Enrolment {
     private LocalDate registeredDate;
     private String enrolmentStatus;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Student student;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Course course;
 
     public Enrolment() {
     }
+    
+    
 
-    public int getId() {
+    public void setId(int id) {
+		Id = id;
+	}
+
+
+
+	public Enrolment(int id, String grade, LocalDate registeredDate, String enrolmentStatus, Student student,
+			Course course) {
+		super();
+		Id = id;
+		this.grade = grade;
+		this.registeredDate = registeredDate;
+		this.enrolmentStatus = enrolmentStatus;
+		this.student = student;
+		this.course = course;
+	}
+
+
+
+	public int getId() {
         return Id;
     }
 
@@ -77,4 +99,9 @@ public class Enrolment {
                 ", student=" + student +
                 '}';
     }
+
+	public boolean isPresent() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

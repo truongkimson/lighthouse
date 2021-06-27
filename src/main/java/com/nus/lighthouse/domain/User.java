@@ -1,13 +1,13 @@
 package com.nus.lighthouse.domain;
 
+
 import javax.persistence.*;
 
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(name = "unique_email",columnNames = {"email"})})
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "user_type")
-@Table(uniqueConstraints = {@UniqueConstraint(name = "unique_email",
-        columnNames = {"email"})})
-public class User {
+public class User{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int Id;
@@ -19,7 +19,8 @@ public class User {
     public User() {
     }
 
-    public User(String email, String password, String firstName, String lastName) {
+    public User(int Id,String email, String password, String firstName, String lastName) {
+    	this.Id=Id;
         this.email = email;
         this.password = password;
         this.firstName = firstName;

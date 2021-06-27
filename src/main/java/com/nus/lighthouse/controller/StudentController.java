@@ -24,13 +24,13 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping("/home")
-    public String getStudent(Model model)
-    {
-        Collection<Student> students =  studentService.getStudent();
-        model.addAttribute("students", students);
-        return "student";
-    }
+    //@GetMapping("/home")
+    //public String getStudent(Model model)
+    //{
+        //Collection<Student> students =  studentService.getStudent();
+        //model.addAttribute("students", students);
+        //return "student";
+    //}
 
 //    public String getEnrolled(Model model)
 //    {

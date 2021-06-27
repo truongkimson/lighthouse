@@ -38,7 +38,15 @@ public class Course {
         this.examDate = examDate;
     }
 
-    public int getId() {
+    public Collection<Enrolment> getEnrolment() {
+		return enrolment;
+	}
+
+	public void setEnrolment(Collection<Enrolment> enrolment) {
+		this.enrolment = enrolment;
+	}
+
+	public int getId() {
         return Id;
     }
 

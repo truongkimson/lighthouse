@@ -20,10 +20,10 @@ public class Student extends User {
     public Student() {
     }
 
-    public Student(String email, String password, String firstName,
+    public Student(int id, String email, String password, String firstName,
                    String lastName, String phone, String address,
                    LocalDate dob, LocalDate enrolmentDate) {
-        super(email, password, firstName, lastName);
+        super(id, email, password, firstName, lastName);
         this.phone = phone;
         this.address = address;
         this.dob = dob;
@@ -67,7 +67,15 @@ public class Student extends User {
         return gpa;
     }
 
-    @Override
+    public Collection<Enrolment> getEnrolments() {
+		return enrolments;
+	}
+
+	public void setEnrolments(Collection<Enrolment> enrolments) {
+		this.enrolments = enrolments;
+	}
+
+	@Override
     public String toString() {
         return super.toString() + "Student{" +
                 "phone='" + phone + '\'' +

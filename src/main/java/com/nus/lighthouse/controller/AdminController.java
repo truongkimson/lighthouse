@@ -18,9 +18,9 @@ public class AdminController {
         this.adminService = adminService;
     }
 
-    @GetMapping("/admin/all")
-    public Collection<Admin> getAdmin(){
-        return adminService.getAdmin();
-    }
+    //@GetMapping("/admin/all")
+    //public Collection<Admin> getAdmin(){
+    //    return adminService.getAdmin();
+    //}
 
 }

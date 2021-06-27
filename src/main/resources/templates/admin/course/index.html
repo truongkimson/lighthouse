@@ -19,6 +19,9 @@
     <input type="text" name="q" id="search-bar"/>
   </form>
 </div>
+<div>
+  <a th:href="@{/admin/course/create}">Create new course</a>
+</div>
 <table class="table">
   <tr>
     <th>Course Id</th>
@@ -41,8 +44,12 @@
     <td th:text="${course.enrollBy}">Enroll by</td>
     <td th:text="${course.startDate}">Enroll by</td>
     <td th:text="${course.lecturer.getFullName()}">Enroll by</td>
-    <td><a th:href="@{course/{id}/edit(id=${course.id})}">Edit</a></td>
-    <td><a th:href="@{course/{id}/delete(id=${course.id})}">Delete</a></td>
+    <td><a th:href="@{course/{id}/update(id=${course.id})}">Edit</a></td>
+    <td>
+      <form th:action="@{course/{id}/delete(id=${course.id})}" method="post">
+        <input type="submit" value="Delete" />
+      </form>
+    </td>
   </tr>
 </table>
 

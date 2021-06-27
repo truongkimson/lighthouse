@@ -10,11 +10,10 @@ import com.nus.lighthouse.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collection;
 
 @Controller
@@ -26,7 +25,7 @@ public class AdminController {
 
     @Autowired
     public AdminController(AdminService adminService, StudentService studentService,
-    LecturerService lecturerService) {
+                           LecturerService lecturerService) {
         this.adminService = adminService;
         this.studentService = studentService;
         this.lecturerService = lecturerService;
@@ -60,7 +59,7 @@ public class AdminController {
         return "admin/lecturer/index";
     }
 
-//  Course related
+    //  Course related
     @GetMapping("/course")
     public String getAllCourses(Model model) {
         Collection<Course> courseList = adminService.getAllCourses();
@@ -75,8 +74,58 @@ public class AdminController {
         return "admin/course/index";
     }
 
+    @GetMapping("/course/create")
+    public String createCourse(Model model) {
+        Course course = new Course();
+        model.addAttribute("course", course);
+        return "admin/course/create";
+    }
+
+    @PostMapping("/course/create")
+    public String createCourse(@ModelAttribute("course") @Valid Course course, BindingResult bindingResult,
+                               Model model) {
+        if (bindingResult.hasErrors()) {
+            return "admin/course/create";
+        }
+        System.out.println(course);
+        adminService.createCourse(course);
+        return "redirect:/admin/course";
+    }
+
+    @GetMapping("/course/{courseId}/update")
+    public String updateCourse(Model model, @PathVariable("courseId") int courseId) {
+        Course course = adminService.getCourseById(courseId);
+        model.addAttribute("course", course);
+        return "admin/course/update";
+    }
+
+    @PostMapping("/course/{courseId}/update")
+    public String updateCourse(@ModelAttribute("course") @Valid Course course, BindingResult bindingResult,
+                               Model model, @PathVariable("courseId") int courseId) {
+        if (bindingResult.hasErrors()) {
+            return "/admin/course/update";
+        }
+        adminService.updateCourse(course);
+        return "redirect:/admin/course";
+    }
+
+    @GetMapping("/course/{courseId}/delete")
+    public String deleteCourse(Model model, @PathVariable("courseId") int courseId) {
+        Course course = adminService.getCourseById(courseId);
+        model.addAttribute("course", course);
+        return "/admin/course/delete";
+    }
+
+    @PostMapping("/course/{courseId}/delete")
+    public String deleteCourse(@PathVariable("courseId") int courseId) {
+        adminService.deleteCourseById(courseId);
+        return "redirect:/admin/course";
+    }
+
+
+    // Enrolment related
     @GetMapping("/enrolment/{courseId}")
-    public String getEnrolmentsByCourse(Model model, @PathVariable int courseId) {
+    public String getEnrolmentsByCourse(Model model, @PathVariable("courseId") int courseId) {
         Course course = adminService.getCourseById(courseId);
         Collection<Enrolment> enrolmentList = adminService.getEnrolmentsByCourse(course);
         model.addAttribute("enrolmentList", enrolmentList);

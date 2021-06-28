@@ -35,10 +35,10 @@ public class LoginController {
 		if (b=="Admin"){
 			return "admin/";
 		}
-		else if (b="Lecturer"){			
+		else if (b=="Lecturer"){			
 			return "lecturer/";			
 		}
-		else if (b="Student") {
+		else if (b=="Student") {
 			return "student/";
 		}
 		else {

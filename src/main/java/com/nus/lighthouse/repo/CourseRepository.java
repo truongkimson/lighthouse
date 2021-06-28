@@ -18,5 +18,11 @@ public interface CourseRepository extends JpaRepository<Course,Integer> {
 
     @Query("SELECT DISTINCT c from Course c WHERE c.courseName like %?1%")
     Collection<Course> searchFunction(String keyword);
+    
+	@Query(value = " SELECT  * FROM lighthouse.course c "
+			+ " WHERE (c.id = (SELECT en.student_id FROM lighthouse.enrolment en "
+			+ " WHERE (en.enrolment_status = 'ENROLLED') "
+			+ " AND (en.student_id = (:id)))) ", nativeQuery = true)
+	    Collection<Course> getTimetableDetails(Integer id);
 
 }

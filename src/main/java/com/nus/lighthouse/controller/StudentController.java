@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Collection;
@@ -42,8 +43,12 @@ public class StudentController {
 
         return "Student/studentCourses";
     }
-
-
-
+    
+    @GetMapping("/timetable/{id}")
+    public String getTimetableDetails(@PathVariable(name = "id", required = true)Integer id, Model model){
+        Collection<Course> courses =  studentService.getTimetableDetails(id);
+        model.addAttribute("courses", courses);
+        return "Student/studentTimetable";
+    }
 
 }

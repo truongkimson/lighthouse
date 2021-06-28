@@ -58,6 +58,10 @@ public class StudentService {
         }
         return courseRepository.searchFunction(keyword);
     }
+    
+    public Collection<Course> getTimetableDetails(Integer id){
+        return courseRepository.getTimetableDetails(id);
+}
 
 }
 

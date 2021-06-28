@@ -1,26 +1,28 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en" >
+<html xmlns:th="http://thymeleaf.org" lang="en" >
 <head>
     <meta charset="UTF-8">
     <title>Student</title>
 </head>
 <body>
     <p>Hello student!</p>
-    <p> Courses that you can enroll in</p>
+    <p>These are the courses that you have applied in.</p>
     <a th:href = "@{/student/home}">Student</a>
     <a th:href = "@{/student/home}">Student</a>
     <a th:href = "@{admin}">Admin</a>
 
     <table>
-        <tr th:each="enrols:${enrolls}">
+        <tr align="left">
+            <th>Course Id</th>
+            <th>Course Name</th>
+            <th>Credits</th>
+        </tr>
+        <tr th:each="enrols:${enrolls}">\
             <td th:text="${enrols.getCourse().getId()}"></td>
             <td th:text="${enrols.getCourse().getCourseName()}"></td>
             <td th:text="${enrols.getCourse().getCredits()}"></td>
 
-
         </tr>
-
-
     </table>
 </body>
 </html>

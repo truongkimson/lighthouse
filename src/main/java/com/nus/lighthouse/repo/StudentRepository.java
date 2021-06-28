@@ -19,6 +19,7 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
     Collection<Student> findStudentsByQuery(@Param("query") String query);
 
 
+
 }
 
 

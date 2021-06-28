@@ -23,16 +23,23 @@
         <input type="submit" value="Search" />
         &nbsp;
         <input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
+
     </form>
 
+
     <table>
+        <tr>
+            <th align="left">Course Name</th>
+        </tr>
         <tr th:each="course:${courses}">
             <td th:text="${course.getCourseName()}"></td>
-        </tr>
-        <tr>
-            <td th:text ="${keyword}"> what is the keyword </td>
+            <td><form th:action ="@{enrollCourses/description/{courseId}(courseId=${course.id})}" method="get">
+                <input type="submit" name ="selected" value ="Description">
+
+            </form></td>
         </tr>
     </table>
+
 
 </body>
 </html>

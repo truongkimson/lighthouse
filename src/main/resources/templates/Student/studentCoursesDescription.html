@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Student</title>
+    <script type="text/javascript">
+        function clearSearch() {
+            window.location = "[[@{student/enrollCourses}]]";
+        }
+    </script>
+</head>
+<body>
+    <p>Hello student!</p>
+    <p> You have enrolled in the following 1</p>
+    <a th:href = "@{/student/home}">Student</a>
+    <a th:href = "@{enrollCourses/searched}">Searched</a>
+    <a th:href = "@{admin}">Admin</a>
+
+<!--    <form method="get" th:action="@{/student/enrollCourses}">-->
+<!--        <label for = "keyword">Filter: </label>-->
+<!--        <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" required />-->
+<!--        &nbsp;-->
+<!--        <input type="submit" value="Search" />-->
+<!--        &nbsp;-->
+<!--        <input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />-->
+<!--    </form>-->
+
+    <table>
+        <tr>
+            <th align="left">Course Name</th>
+            <th align="left">Course Description</th>
+        </tr>
+        <tr>
+            <td th:text="${selected.getCourseName()}"></td>
+            <td th:text="${selected.getCourseDes()}"></td>
+        </tr>
+    </table>
+
+</body>
+</html>

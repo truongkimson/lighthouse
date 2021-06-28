@@ -16,11 +16,12 @@
 </head>
 <body>
 <h3 th:text="'Update course: ' + ${course.courseName}">Update Course</h3>
-<form action="#" method="post" th:action="@{/admin/course/{courseId}/update(courseId=${course.id})}">
-    <table th:object="${course}">
-<!--        <tr>-->
-<!--            <td><input hidden readonly th:field="*{id}" type="number"/></td>-->
-<!--        </tr>-->
+<form action="#" method="post" th:action="@{/admin/course/{courseId}/update(courseId=${course.id})}"
+      th:object="${course}">
+    <table>
+        <tr>
+            <td><input hidden readonly th:field="*{id}" type="number"/></td>
+        </tr>
         <tr>
             <td><label for="course-name">Course Name</label></td>
             <td><input id="course-name" th:field="*{courseName}" type="text"/></td>
@@ -85,12 +86,10 @@
             <td class="alert alert-danger" colspan="2" th:errors="*{examDate}"
                 th:if="${#fields.hasErrors('examDate')}"></td>
         </tr>
-    </table>
-    <table th:object="${lecturer}">
         <tr>
             <td><label for="lecturer">Lecturer</label></td>
             <td>
-                <select id="lecturer" th:field="*{id}">
+                <select id="lecturer" name="lecturerId">
                     <option th:each="currLecturer: ${lecturerList}"
                             th:selected="(${currLecturer.id == lecturer.id})"
                             th:text="${currLecturer.getFullName()}"

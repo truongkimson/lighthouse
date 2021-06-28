@@ -47,7 +47,7 @@
         <td th:text="${course.enrollBy}">Enroll by</td>
         <td th:text="${course.startDate}">Enroll by</td>
         <td th:text="${course.lecturer.getFullName()}">Enroll by</td>
-        <td><a th:href="@{course/{id}/update(id=${course.id})}">Edit</a></td>
+        <td><a th:href="@{/admin/course/{id}/update(id=${course.id})}">Edit</a></td>
         <td>
             <!-- Button trigger modal -->
             <button class="btn btn-primary" th:data-target="'#exampleModal-' + ${course.id}" data-toggle="modal" type="button">
@@ -74,7 +74,7 @@
                         <div class="modal-footer">
                             <button class="btn btn-secondary" data-dismiss="modal" type="button">Close
                             </button>
-                            <form method="post" th:action="@{course/{id}/delete(id=${course.id})}">
+                            <form method="post" th:action="@{/admin/course/{id}/delete(id=${course.id})}">
                                 <input class="btn btn-primary" th:value="Delete"
                                        type="submit">
                             </form>

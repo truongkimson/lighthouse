@@ -121,23 +121,21 @@ public class AdminController {
     public String createCourse(Model model) {
         Course course = new Course();
         Lecturer lecturer = new Lecturer();
-        Collection<Lecturer> lecturerList = lecturerService.getAllLecturers();
         model.addAttribute("course", course);
         model.addAttribute("lecturer", lecturer);
-        model.addAttribute("lecturerList", lecturerList);
         return "admin/course/create";
     }
 
     @PostMapping("/course/create")
-    public String createCourse(@ModelAttribute("course") @Valid Course course, BindingResult bindingResult,
-                               @ModelAttribute("lecturer") Lecturer lecturer,
-                               Model model) {
+    public String createCourse(@ModelAttribute("course") @Valid Course course,
+                               BindingResult bindingResult,
+                               @RequestParam("lecturerId") int lecturerId, Model model) {
         if (bindingResult.hasErrors()) {
             Collection<Lecturer> lecturerList = lecturerService.getAllLecturers();
             model.addAttribute("lecturerList", lecturerList);
             return "admin/course/create";
         }
-        adminService.createCourse(course, lecturer.getId());
+        adminService.createCourse(course, lecturerId);
         return "redirect:/admin/course";
     }
 
@@ -145,27 +143,26 @@ public class AdminController {
     public String updateCourse(Model model, @PathVariable("courseId") int courseId) {
         Course course = adminService.getCourseById(courseId);
         Lecturer lecturer = adminService.getCourseById(courseId).getLecturer();
-        Collection<Lecturer> lecturerList = lecturerService.getAllLecturers();
         model.addAttribute("course", course);
         model.addAttribute("lecturer", lecturer);
-        model.addAttribute("lecturerList", lecturerList);
         return "admin/course/update";
     }
 
     @PostMapping("/course/{courseId}/update")
-    public String updateCourse(@ModelAttribute("lecturer") Lecturer lecturer,
-                               @ModelAttribute("course") @Valid Course course, BindingResult bindingResult,
-                               Model model, @PathVariable("courseId") int courseId) {
+    public String updateCourse(@ModelAttribute("course") @Valid Course course,
+                               BindingResult bindingResult,
+                               Model model, @PathVariable("courseId") int courseId,
+                               @RequestParam("lecturerId") int lecturerId) {
         if (bindingResult.hasErrors()) {
-            Collection<Lecturer> lecturerList = lecturerService.getAllLecturers();
-            model.addAttribute("lecturerList", lecturerList);
-            // set courseId again, don't worry about it
-            course.setId(courseId);
-            System.out.println(lecturer);
+//            set courseId again, don't worry about it
+//            course.setId(courseId);
+            Lecturer lecturer = adminService.getCourseById(courseId).getLecturer();
+            model.addAttribute("lecturer", lecturer);
+            System.out.println(lecturerId);
             System.out.println(course);
             return "/admin/course/update";
         }
-        adminService.updateCourse(course, courseId, lecturer.getId());
+        adminService.updateCourse(course, courseId, lecturerId);
         return "redirect:/admin/course";
     }
 
@@ -184,5 +181,10 @@ public class AdminController {
         model.addAttribute("enrolmentList", enrolmentList);
         model.addAttribute("course", course);
         return "admin/enrolment/detail";
+    }
+
+    @ModelAttribute("lecturerList")
+    public Collection<Lecturer> createLecturerList() {
+        return lecturerService.getAllLecturers();
     }
 }

@@ -85,12 +85,10 @@
         <tr>
             <td><label for="lecturer">Lecturer</label></td>
             <td>
-                <div th:object="${lecturer}">
-                    <select id="lecturer" th:field="*{id}">
-                        <option th:each="lecturer: ${lecturerList}" th:text="${lecturer.getFullName()}"
-                                th:value="${lecturer.id}"></option>
-                    </select>
-                </div>
+                <select id="lecturer" name="lecturerId">
+                    <option th:each="lecturer: ${lecturerList}" th:text="${lecturer.getFullName()}"
+                            th:value="${lecturer.id}"></option>
+                </select>
             </td>
         </tr>
         <tr>

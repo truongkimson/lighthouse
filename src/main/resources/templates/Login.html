@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>lighthouse</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        #parent {
+            width: 500px;
+            height: 200px;
+            margin-top: 20%;
+            margin-left: 50%;
+            transform: translate(-50%, -50%);
+            background: #009688;
+        }
+        
+        .password,
+        .subBtn {
+            margin-top: 2%;
+            margin-left: 3%;
+        }
+        
+        .loginHeader {
+            padding-top: 1%;
+        }
+    </style>
+</head>
+
+<body class="login_bg">
+    <div id="parent">
+        <section class="loginBox">
+            <header class="loginHeader" style="text-align:center; ">
+                <h1>lighthouse</h1>
+            </header>
+            <section class="loginCont">
+                <form class="loginForm" action="/user/login" method="post" onsubmit="return check()">
+                    <div class="inputbox" style="text-align:center; ">
+                        <label for="user">user:</label>
+                        <input id="user" type="text" name="id" placeholder="userinput" required="required" />
+                    </div>
+                    <div class="password" style="text-align:center; ">
+                        <label for="mima">password:</label>
+                        <input id="mima" type="password" name="password" placeholder="passwordinput" required="required" />
+                    </div>
+                    <div class="subBtn" style="text-align:center; ">
+                        <input type="submit" value="login" />
+                    </div>
+                </form>
+            </section>
+        </section>
+    </div>
+</body>
+
+</html>

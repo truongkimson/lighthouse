@@ -15,4 +15,7 @@ public interface LecturerRepository extends JpaRepository<Lecturer, Integer> {
             "OR l.lastName LIKE CONCAT('%',:query,'%')" +
             "OR l.email LIKE CONCAT('%',:query,'%')")
     Collection<Lecturer> findLecturersByQuery(@Param("query") String query);
+    
+    @Query("Select l from Lecturer l where l.id = id")
+	List<Lecturer> findlecturerById(@Param("id") String id);
 }

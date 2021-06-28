@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AdminRepository extends JpaRepository<Admin,Integer> {
+	@Query("Select a from Admin a where a.id = id")
+	List<Admin> findadminById(@Param("id") String id);
 
 
 }

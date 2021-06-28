@@ -18,6 +18,8 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
             + "OR s.address LIKE CONCAT('%',:query,'%')")
     Collection<Student> findStudentsByQuery(@Param("query") String query);
 
+    @Query("Select s from Student s where s.id = id")
+	List<Student> findstudentById(@Param("id") String id);
 
 }
 

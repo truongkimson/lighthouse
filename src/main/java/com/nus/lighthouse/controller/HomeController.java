@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
-    @GetMapping("/")
+    @RequestMapping(value="/login.go")
     public String home() {
-        return("index");
+        return("Login");
     }
 }

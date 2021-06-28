@@ -2,6 +2,7 @@ package com.nus.lighthouse.service;
 
 import com.nus.lighthouse.domain.Course;
 import com.nus.lighthouse.domain.Enrolment;
+import com.nus.lighthouse.domain.Lecturer;
 import com.nus.lighthouse.repo.AdminRepository;
 import com.nus.lighthouse.repo.CourseRepository;
 import com.nus.lighthouse.repo.EnrolmentRepository;
@@ -9,6 +10,7 @@ import com.nus.lighthouse.repo.LecturerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Collection;
 
 @Service
@@ -41,16 +43,22 @@ public class AdminService {
         return courseRepository.findCoursesByQuery(query);
     }
 
-    public void createCourse(Course course) {
-        // set default lecturer to user id 11 (Tin)
-        course.setLecturer(lecturerRepository.findById(11).orElseThrow());
+    @Transactional
+    public void createCourse(Course course, int lecturerId) {
+        Lecturer lecturer = lecturerRepository.findById(lecturerId).orElseThrow();
+        course.setLecturer(lecturer);
         courseRepository.save(course);
     }
 
-    public void updateCourse(Course course) {
+    @Transactional
+    public void updateCourse(Course course, int courseId, int lecturerId) {
+        Lecturer lecturer = lecturerRepository.findById(lecturerId).orElseThrow();
+        course.setId(courseId);
+        course.setLecturer(lecturer);
         courseRepository.save(course);
     }
 
+    @Transactional
     public void deleteCourseById(int courseId) {
         courseRepository.deleteById(courseId);
     }

@@ -1,10 +1,111 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Admin - Edit course</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <!-- Bootstrap CSS -->
+    <link crossorigin="anonymous"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          rel="stylesheet">
+
+    <title>Admin - Update Course</title>
 </head>
 <body>
-<p>Not implemented yet</p>
+<h3 th:text="'Update course: ' + ${course.courseName}">Update Course</h3>
+<form action="#" method="post" th:action="@{/admin/course/{courseId}/update(courseId=${course.id})}">
+    <table th:object="${course}">
+<!--        <tr>-->
+<!--            <td><input hidden readonly th:field="*{id}" type="number"/></td>-->
+<!--        </tr>-->
+        <tr>
+            <td><label for="course-name">Course Name</label></td>
+            <td><input id="course-name" th:field="*{courseName}" type="text"/></td>
+        </tr>
+        <tr>
+            <td class="alert alert-danger" colspan="2" th:errors="*{courseName}"
+                th:if="${#fields.hasErrors('courseName')}"></td>
+        </tr>
+        <tr>
+            <td><label for="course-desc">Course Description</label></td>
+            <td><textarea id="course-desc" th:field="*{courseDes}"></textarea></td>
+        </tr>
+        <tr>
+            <td class="alert alert-danger" colspan="2" th:errors="*{courseDes}"
+                th:if="${#fields.hasErrors('courseDes')}"></td>
+        </tr>
+        <tr>
+            <td><label for="credits">Credits</label></td>
+            <td><input id="credits" th:field="*{credits}" type="number"/></td>
+        </tr>
+        <tr>
+            <td class="alert alert-danger" colspan="2" th:errors="*{credits}"
+                th:if="${#fields.hasErrors('credits')}"></td>
+        </tr>
+        <tr>
+            <td><label for="duration">Duration</label></td>
+            <td><input id="duration" th:field="*{duration}" type="number"/></td>
+        </tr>
+        <tr>
+            <td class="alert alert-danger" colspan="2" th:errors="*{duration}"
+                th:if="${#fields.hasErrors('duration')}"></td>
+        </tr>
+        <tr>
+            <td><label for="max-cap">Max Capacity</label></td>
+            <td><input id="max-cap" th:field="*{maxCap}" type="number"/></td>
+        </tr>
+        <tr>
+            <td class="alert alert-danger" colspan="2" th:errors="*{maxCap}"
+                th:if="${#fields.hasErrors('maxCap')}"></td>
+        </tr>
+        <tr>
+            <td><label for="start-date">Start Date</label></td>
+            <td><input id="start-date" th:field="*{startDate}" type="date"/></td>
+        </tr>
+        <tr>
+            <td class="alert alert-danger" colspan="2" th:errors="*{startDate}"
+                th:if="${#fields.hasErrors('startDate')}"></td>
+        </tr>
+        <tr>
+            <td><label for="enroll-by">Enroll By</label></td>
+            <td><input id="enroll-by" th:field="*{enrollBy}" type="date"/></td>
+        </tr>
+        <tr>
+            <td class="alert alert-danger" colspan="2" th:errors="*{enrollBy}"
+                th:if="${#fields.hasErrors('enrollBy')}"></td>
+        </tr>
+        <tr>
+            <td><label for="exam-date">Exam Date</label></td>
+            <td><input id="exam-date" th:field="*{examDate}" type="date"/></td>
+        </tr>
+        <tr>
+            <td class="alert alert-danger" colspan="2" th:errors="*{examDate}"
+                th:if="${#fields.hasErrors('examDate')}"></td>
+        </tr>
+    </table>
+    <table th:object="${lecturer}">
+        <tr>
+            <td><label for="lecturer">Lecturer</label></td>
+            <td>
+                <select id="lecturer" th:field="*{id}">
+                    <option th:each="currLecturer: ${lecturerList}"
+                            th:selected="(${currLecturer.id == lecturer.id})"
+                            th:text="${currLecturer.getFullName()}"
+                            th:value="${currLecturer.id}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Update"/></td>
+        </tr>
+    </table>
+</form>
+
+<script crossorigin="anonymous"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

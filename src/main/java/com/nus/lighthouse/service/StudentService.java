@@ -9,6 +9,7 @@ import com.nus.lighthouse.repo.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Collection;
 
 
@@ -59,5 +60,24 @@ public class StudentService {
         return courseRepository.searchFunction(keyword);
     }
 
+    public Student getStudentById(int studentId) {
+        return studentRepository.findById(studentId).orElseThrow();
+    }
+
+    @Transactional
+    public void createStudent(Student student) {
+        studentRepository.save(student);
+    }
+
+    @Transactional
+    public void updateStudent(Student student, int studentId) {
+        student.setId(studentId);
+        studentRepository.save(student);
+    }
+
+    @Transactional
+    public void deleteStudentById(int studentId) {
+        studentRepository.deleteById(studentId);
+    }
 }
 

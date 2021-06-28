@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
@@ -29,15 +28,12 @@ public class Course {
     private int duration;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Future
     private LocalDate startDate;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Future
     private LocalDate enrollBy;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Future
     private LocalDate examDate;
 
     @Transient
@@ -48,7 +44,7 @@ public class Course {
     private Lecturer lecturer;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private Collection<Enrolment> enrolments;
 
 

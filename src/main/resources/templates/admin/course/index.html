@@ -50,20 +50,20 @@
         <td><a th:href="@{course/{id}/update(id=${course.id})}">Edit</a></td>
         <td>
             <!-- Button trigger modal -->
-            <button class="btn btn-primary" data-target="#exampleModal" data-toggle="modal" type="button">
+            <button class="btn btn-primary" th:data-target="'#exampleModal-' + ${course.id}" data-toggle="modal" type="button">
                 Delete
             </button>
 
             <!--             Modal -->
-            <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="exampleModal"
+            <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" th:id="'exampleModal-' + ${course.id}"
                  role="dialog"
                  tabindex="-1">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button aria-label="Close" class="close" data-dismiss="modal" type="button">
-                                <span aria-hidden="true">&times;</span>
+                            <h5 class="modal-title" id="exampleModalLabel">Warning</h5>
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span>&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">

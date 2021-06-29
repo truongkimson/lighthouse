@@ -19,4 +19,5 @@ public interface CourseRepository extends JpaRepository<Course,Integer> {
     @Query("SELECT DISTINCT c from Course c WHERE c.courseName like %?1%")
     Collection<Course> searchFunction(String keyword);
 
+
 }

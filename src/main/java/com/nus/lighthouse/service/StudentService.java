@@ -16,7 +16,10 @@ public interface StudentService {
     public Student getStudentById(int id);
     public Collection<Enrolment> findEnrolmentByStudentAndStatus(int student, String status);
     public Course getCourseById(int id);
-
+    public Enrolment createEnrolment(Enrolment enrolment);
+    public Collection<Enrolment> findEnrolmentByStudentAndStatusAndCourse(int student, String status, int course);
+    public boolean ifMaxCapacityExceeded(int courseId);
+    public void deleteEnrolment(int id);
 
 
 }

@@ -62,8 +62,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()               .antMatchers().permitAll()
                 .anyRequest().authenticated().and() // set login page
-                .formLogin().loginPage("/loginPage")
-                .loginProcessingUrl("/login")//sent ajax
+                .formLogin().loginPage("/Login")
+                .loginProcessingUrl("/Login")//sent ajax
                 .usernameParameter("username")
                 .passwordParameter("password")
                 // set login successful page
@@ -73,7 +73,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 //  .passwordParameter("password")
                 .and().logout().permitAll().invalidateHttpSession(true).
                 deleteCookies("JSESSIONID").logoutSuccessHandler(logoutSuccessHandler()).
-                and().sessionManagement().maximumSessions(10).expiredUrl("/loginPage");
+                and().sessionManagement().maximumSessions(10).expiredUrl("/Login");
         http.csrf().disable();// close csrf
         http.headers().frameOptions().sameOrigin();
     }
@@ -93,14 +93,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new LogoutSuccessHandler() {
             @Override
             public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-                SecurityUser user = null;
+                User user = null;
                 try {
-                    user = (SecurityUser) authentication.getPrincipal();
-                    log.info("USER : " + user.getUsername() + " LOGOUT SUCCESS !  ");
+                    user = (User) authentication.getPrincipal();
+                    log.info("USER : " + user.getFirstName() + " LOGOUT SUCCESS !  ");
                 } catch (Exception e) {
                     log.info("LOGOUT EXCEPTION , e : " + e.getMessage());
                 }
-                httpServletResponse.sendRedirect("/loginPage");
+                httpServletResponse.sendRedirect("/Login");
             }
         };
     }
@@ -134,7 +134,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new SavedRequestAwareAuthenticationSuccessHandler() {
             @Override
             public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-                SecurityUser userDetails = (SecurityUser) authentication.getPrincipal();
+                User userDetails = (User) authentication.getPrincipal();
                 logger.info("USER : " + userDetails.getUsername() + " LOGIN SUCCESS !  ");
                 ResponseResult jsonData = new ResponseResult("register OK", null, 200);
                 String json = objectMapper.writeValueAsString(jsonData);
@@ -151,15 +151,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public UserDetailsService userDetailsService() {    //login successful
         return new UserDetailsService() {
             @Autowired
-            private SystemUserRepository systemUserRepository;
+            private UserRepository UserRepository;
 
             @Override
-            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+            public UserDetails loadUserByUsername(int id) throws UsernameNotFoundException {
 
-                SystemUser systemUser = systemUserRepository.findByLoginNameAndDel(username, false);
-                if (systemUser != null) {
-                    return new SecurityUser(systemUser);
-                } else throw new UsernameNotFoundException("Username " + username + " not found");
+                User User = UserRepository.findById(id);
+                if (User != null) {
+                    return new User(User);
+                } else throw new UsernameNotFoundException("Username " + id + " not found");
             }
         };
     }

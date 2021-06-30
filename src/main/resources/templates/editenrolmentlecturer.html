@@ -2,17 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
+<script>
+function validateForm() {
+  let x = document.forms["myForm"]["grade"].value;
+  var validgrades = ["A+", "A", "A-","B+", "B", "B-","C", "D", "E"];
+  var flag= new Boolean();
+    for (let i = 0; i < validgrades.length; i++) {
+	  if (x==validgrades[i])
+		{flag=!flag;}
+  }
+  alert("Invalid grade");
+  return !flag;
+}
+</script>
 <title>Enrolment form</title>
 </head>
 <body>
 <h1>Enrolment form</h1>
-	<form action="#" th:object="${enrolment}" th:action="@{/lecturer/save}"
-		method="post">
+	<form name="myForm" action="#" th:object="${enrolment}" th:action="@{/lecturer/save}"
+		method="post" onsubmit="return validateForm()">
 		<fieldset>
 			Enrolment ID<input type="number" th:field="*{Id}" th:readonly=true>
 		</fieldset>		
 		<fieldset>
-			Grade <input type="text" th:field="*{grade}">
+			Grade <input name="grade" type="text" th:field="*{grade}">
 		</fieldset>
 		<fieldset>
 			Date Registered<input type="date" th:field="*{registeredDate}" th:readonly=true>

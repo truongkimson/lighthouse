@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Student</title>
+</head>
+<body>
+<p>Hello student!</p>
+<p> Courses that you can enroll in</p>
+<a th:href = "@{/student/home}">Student</a>
+<a th:href = "@{/student/home}">Student</a>
+<a th:href = "@{admin}">Admin</a>
+<br>
+<table>
+    <tr>
+        <th>GPA</th>
+    </tr>
+    <tr><td th:text="${student.getGpa()}"></td></tr>
+</table>
+
+<table>
+    <tr align="left">
+        <th>Course Id</th>
+        <th>Course Name</th>
+        <th>Credits</th>
+        <th>Grade</th>
+        <th>GPA</th>
+    </tr>
+    <tr th:each="enrols:${enrolls}">
+        <td th:text="${enrols.getCourse().getId()}">Course Id</td>
+        <td th:text="${enrols.getCourse().getCourseName()}">Course Name</td>
+        <td th:text="${enrols.getCourse().getCredits()}">Credits</td>
+        <td th:text="${enrols.getGrade()}">Grade</td>
+    </tr>
+</table>
+</body>
+</html>

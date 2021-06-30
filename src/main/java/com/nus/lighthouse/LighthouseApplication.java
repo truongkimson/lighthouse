@@ -25,7 +25,6 @@ public class LighthouseApplication {
         this.enrolmentRepo = enrolmentRepo;
     }
 
-
     public static void main(String[] args) {
         SpringApplication.run(LighthouseApplication.class, args);
     }

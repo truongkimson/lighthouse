@@ -62,6 +62,15 @@ public class Course {
     public Course() {
     }
 
+    public int getCurrCap() {
+        if (enrolments==null){
+            return 0;
+        }
+        else{
+            return enrolments.size();
+        }
+    }
+
     public void setCurrCap(int currCap) {
         this.currCap = currCap;
     }

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Student</title>
+<!--    <script type="text/javascript">-->
+<!--        function clearSearch() {-->
+<!--            window.location = "[[@{student/enrollCourses}]]";-->
+<!--        }-->
+<!--    </script>-->
+</head>
+<body>
+    <p>Hello student!</p>
+    <p> You have enrolled in the following 1</p>
+    <a th:href = "@{/student/home}">Student</a>
+    <a th:href = "@{enrollCourses/searched}">Searched</a>
+    <a th:href = "@{admin}">Admin</a>
+
+
+    <table>
+        <tr>
+            <th align="left">Course Name</th>
+            <th align="left">Course Description</th>
+            <th align="left">Credits</th>
+            <th align="left">Capacity</th>
+        </tr>
+        <tr>
+            <td th:text="${selected.getCourseName()}"></td>
+            <td th:text="${selected.getCourseDes()}"></td>
+            <td th:text="${selected.getCredits()}"></td>
+            <td th:text="${#lists.size(selected.enrolments)} +'/'+ ${selected.getMaxCap()}"></td>
+        </tr>
+        <tr>
+            <td><form th:action ="@{/student/enrollCourses/enrol/{courseId}(courseId=${selected.id})}" method="get">
+                <input type="submit" value ="Enroll Course">
+            </form></td>
+        </tr>
+    </table>
+
+</body>
+</html>

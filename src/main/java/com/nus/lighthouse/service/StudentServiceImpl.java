@@ -144,5 +144,9 @@ public class StudentServiceImpl implements StudentService {
             enrolmentRepository.delete(enrolmentRepository.getById(id));
         }
     }
-
+    
+    @Transactional
+    public Collection<Course> getTimetableDetails(Integer id){
+        return courseRepository.getTimetableDetails(id);
+}
 }

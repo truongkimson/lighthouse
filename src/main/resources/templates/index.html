@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en" >
-<head>
+<head th:replace = "fragments::header-home">
     <meta charset="UTF-8">
     <title>Home</title>
 </head>
 <body>
-    <p>Hello World!</p>
+    <p>To be implemented</p>
     <a th:href = "@{student/home}">Student</a>
     <a th:href = "@{lecturer}">Lecturer</a>
     <a th:href = "@{/admin/}">Admin</a>
 
 
-
+    <div th:replace = "fragments::footer"></div>
 </body>
 </html>

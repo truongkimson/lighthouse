@@ -3,21 +3,47 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Student performance</title>
+<script>
+function showgpa()
+{
+	let result=0;
+	var allgrades = document.getElementsByClassName("points");
+	var obj = {
+		    "A+": 5,
+		    "A": 5,
+		    "A-": 4.5,
+		    "B+": 4,
+		    "B": 3.5,
+		    "B-": 3,
+		    "C+": 2.5,
+		    "C": 2,
+		    "D+": 1.5,
+		    "D": 1,
+		    "F":0,
+		    null:0
+		};
+    for (let i = 0; i < allgrades.length; i++) {
+    	  result+=obj[allgrades[i].innerHTML];
+      }
+	document.getElementById('gpa').innerHTML=result/allgrades.length;
+}
+</script>
 </head>
 <body>
 <h1 th:if="${not #lists.isEmpty(performance)}">View Student Performance (<span th:text="${performance[0].firstname} +' '+ ${performance[0].lastname} "></span>) </h1>
 	<table th:if="${not #lists.isEmpty(performance)}" >
 		<tr >
 			<th>Course Name</th>
-			<th>grade</th>
+			<th>Grade</th>
 
 		</tr>
 		<tr th:each="EnrolDataByCourse:${performance}" >
 			<td th:text=${EnrolDataByCourse.coursename}>Id</td>
-			<td th:text="${EnrolDataByCourse.grade}"> Grade</td>
+			<td th:text="${EnrolDataByCourse.grade}" class="points"> Grade</td>
 		</tr>
 	</table>
-
+<button onclick="showgpa()">Calculate CGPA</button>
+<p id="gpa"></p>
 <a href = "http://localhost:8080/lecturer/home">Back to home</a>
 </body>
 </html>

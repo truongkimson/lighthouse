@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Collection;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -88,6 +89,11 @@ public class AdminController {
     }
 
     // lecturer related
+    @ModelAttribute("lecturerList")
+    public Collection<Lecturer> createLecturerList() {
+        return lecturerService.getAllLecturers();
+    }
+
     @GetMapping("/lecturer")
     public String getAllLecturers(Model model) {
         Collection<Lecturer> lecturerList = lecturerService.getAllLecturers();
@@ -100,6 +106,47 @@ public class AdminController {
         Collection<Lecturer> foundLecturers = lecturerService.getLecturersByQuery(query);
         model.addAttribute("lecturerList", foundLecturers);
         return "admin/lecturer/index";
+    }
+
+    @GetMapping("/lecturer/create")
+    public String createLecturer(Model model) {
+        Lecturer lecturer = new Lecturer();
+        model.addAttribute("lecturer", lecturer);
+        return "admin/lecturer/create";
+    }
+
+    @PostMapping("/lecturer/create")
+    public String createLecturer(@ModelAttribute @Valid Lecturer lecturer, BindingResult bindingResult,
+                                 Model model) {
+        if (bindingResult.hasErrors()) {
+            return "admin/lecturer/create";
+        }
+        lecturerService.createLecturer(lecturer);
+        return "redirect:/admin/lecturer";
+    }
+
+    @GetMapping("/lecturer/{lecturerId}/update")
+    public String updateLecturer(Model model, @PathVariable("lecturerId") int lecturerId) {
+        Lecturer lecturer = lecturerService.getLecturerById(lecturerId);
+        model.addAttribute("lecturer", lecturer);
+        return "admin/lecturer/update";
+    }
+
+    @PostMapping("/lecturer/{lecturerId}/update")
+    public String updateLecturer(@ModelAttribute("lecturer") @Valid Lecturer lecturer,
+                                 BindingResult bindingResult,
+                                 Model model, @PathVariable("lecturerId") int lecturerId) {
+        if (bindingResult.hasErrors()) {
+            return "admin/lecturer/update";
+        }
+        lecturerService.updateLecturer(lecturer, lecturerId);
+        return "redirect:/admin/lecturer";
+    }
+
+    @PostMapping("/lecturer/{lecturerId}/delete")
+    public String deleteLecturer(@PathVariable("lecturerId") int lecturerId) {
+        lecturerService.deleteLecturerById(lecturerId);
+        return "redirect:/admin/lecturer";
     }
 
     //  Course related
@@ -154,8 +201,6 @@ public class AdminController {
                                Model model, @PathVariable("courseId") int courseId,
                                @RequestParam("lecturerId") int lecturerId) {
         if (bindingResult.hasErrors()) {
-//            set courseId again, don't worry about it
-//            course.setId(courseId);
             Lecturer lecturer = adminService.getCourseById(courseId).getLecturer();
             model.addAttribute("lecturer", lecturer);
             System.out.println(lecturerId);
@@ -174,8 +219,23 @@ public class AdminController {
 
 
     // Enrolment related
-    @GetMapping("/enrolment/{courseId}")
-    public String getEnrolmentsByCourse(Model model, @PathVariable("courseId") int courseId) {
+    @GetMapping("/enrolment")
+    public String getCourses(Model model) {
+        Collection<Course> courseList = adminService.getAllCourses();
+        model.addAttribute("courseList", courseList);
+        return "admin/enrolment/index";
+    }
+
+    @GetMapping("/enrolment/")
+    public String getEnrolmentCoursesByQuery(Model model, @RequestParam("q") String query) {
+        Collection<Course> foundCourses = adminService.getCoursesByQuery(query);
+        model.addAttribute("courseList", foundCourses);
+        return "admin/enrolment/index";
+    }
+
+
+    @GetMapping("/enrolment/{courseId}/detail")
+    public String getEnrolmentDetail(Model model, @PathVariable("courseId") int courseId) {
         Course course = adminService.getCourseById(courseId);
         Collection<Enrolment> enrolmentList = adminService.getEnrolmentsByCourse(course);
         model.addAttribute("enrolmentList", enrolmentList);
@@ -183,8 +243,37 @@ public class AdminController {
         return "admin/enrolment/detail";
     }
 
-    @ModelAttribute("lecturerList")
-    public Collection<Lecturer> createLecturerList() {
-        return lecturerService.getAllLecturers();
+    @GetMapping("/enrolment/{courseId}/create")
+    public String createEnrolments(Model model, @PathVariable("courseId") int courseId) {
+        Collection<Student> availableStudents = studentService.getStudentsAvailToEnrolByCourseId(courseId);
+        Course course = adminService.getCourseById(courseId);
+        for (Student s : availableStudents) {
+            System.out.println(s.getFirstName());
+        }
+
+        model.addAttribute("course", course);
+        model.addAttribute("studentList", availableStudents);
+        return "/admin/enrolment/create";
+    }
+
+    @GetMapping("/enrolment/{courseId}/create/")
+    public String createEnrolments(Model model, @PathVariable("courseId") int courseId,
+                                   @RequestParam("q") String query) {
+        Collection<Student> availableStudents =
+                studentService.getStudentsAvailToEnrolByCourseIdAndQuery(courseId, query);
+        Course course = adminService.getCourseById(courseId);
+        model.addAttribute("course", course);
+        model.addAttribute("studentList", availableStudents);
+        return "/admin/enrolment/create";
+    }
+
+    @PostMapping("/enrolment/{courseId}/create}")
+    public String createEnrolments(List<Integer> studentIdList, @PathVariable("courseId") int courseId) {
+        return "";
+    }
+
+    @PostMapping("/enrolment/{enrolmentId}/delete")
+    public String deleteEnrolment(@PathVariable("enrolemntId") int enrolmentId) {
+        return "";
     }
 }

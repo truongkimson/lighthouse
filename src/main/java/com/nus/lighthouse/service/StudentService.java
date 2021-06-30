@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -20,14 +21,14 @@ public class StudentService {
     public final CourseRepository courseRepository;
 
     @Autowired
-    public StudentService(StudentRepository studentRepository, EnrolmentRepository enrolmentRepository, CourseRepository courseRepository) {
+    public StudentService(StudentRepository studentRepository, EnrolmentRepository enrolmentRepository,
+                          CourseRepository courseRepository) {
         this.studentRepository = studentRepository;
         this.enrolmentRepository = enrolmentRepository;
         this.courseRepository = courseRepository;
     }
 
-    public Collection<Student> getAllStudents()
-    {
+    public Collection<Student> getAllStudents() {
         return studentRepository.findAll();
     }
 
@@ -35,16 +36,16 @@ public class StudentService {
         return studentRepository.findStudentsByQuery(query);
     }
 
-    public Collection<Enrolment> getEnrolmentByStudent(Student stu){
+    public Collection<Enrolment> getEnrolmentByStudent(Student stu) {
 
         return stu.getEnrolments();
     }
 
-    public Student getDummyStudent(){
+    public Student getDummyStudent() {
         return studentRepository.getById(1);
     }
 
-    public Collection<Course> getAllCourse(){
+    public Collection<Course> getAllCourse() {
         return courseRepository.findAll();
     }
 
@@ -53,8 +54,8 @@ public class StudentService {
 //        return studentRepository.searchFunction(placeholder);
 //    }
 
-    public Collection<Course> getSearchedCourses(String keyword){
-        if(keyword==null){
+    public Collection<Course> getSearchedCourses(String keyword) {
+        if (keyword == null) {
             return courseRepository.findAll();
         }
         return courseRepository.searchFunction(keyword);
@@ -78,6 +79,22 @@ public class StudentService {
     @Transactional
     public void deleteStudentById(int studentId) {
         studentRepository.deleteById(studentId);
+    }
+
+    public Collection<Student> getStudentsAvailToEnrolByCourseId(int courseId) {
+        Course course = courseRepository.getById(courseId);
+        Collection<Enrolment> enrolmentsByCourse = enrolmentRepository.findEnrolmentsByCourse(course);
+        Collection<Student> studentsEnrolledInCourse =
+                enrolmentsByCourse.stream().map(Enrolment::getStudent).collect(Collectors.toList());
+        return studentRepository.findAll().stream().filter(s -> !studentsEnrolledInCourse.contains(s))
+                        .collect(Collectors.toList());
+    }
+
+    public Collection<Student> getStudentsAvailToEnrolByCourseIdAndQuery(int courseId, String query) {
+        Collection<Student> availStudents = getStudentsAvailToEnrolByCourseId(courseId);
+        return availStudents.stream().filter(s -> s.getFirstName()
+                                                   .contains(query) ||
+                s.getLastName().contains(query) || s.getEmail().contains(query)).collect(Collectors.toList());
     }
 }
 

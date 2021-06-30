@@ -14,7 +14,7 @@ import java.util.Collection;
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    private int id;
 
     @NotBlank
     private String courseName;
@@ -62,21 +62,16 @@ public class Course {
     public Course() {
     }
 
-    public int getCurrCap() {
-
-        return currCap;
-    }
-
     public void setCurrCap(int currCap) {
         this.currCap = currCap;
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int courseId) {
-        this.Id = courseId;
+        this.id = courseId;
     }
 
     public String getCourseName() {
@@ -159,10 +154,16 @@ public class Course {
         this.enrolments = enrolments;
     }
 
+    public int getCurrCap() {
+        if (enrolments != null)
+            return enrolments.size();
+        return 0;
+    }
+
     @Override
     public String toString() {
         return "Course{" +
-                "courseId=" + Id +
+                "courseId=" + id +
                 ", courseName='" + courseName + '\'' +
                 ", courseDes='" + courseDes + '\'' +
                 ", credits=" + credits +

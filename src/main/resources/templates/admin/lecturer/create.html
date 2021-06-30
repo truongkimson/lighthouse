@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+
+  <!-- Bootstrap CSS -->
+  <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+
+  <title>Admin - Create Lecturer</title>
+</head>
+<body>
+<h3> Create new Lecturer</h3>
+<form action="#" method="post" th:action="@{/admin/lecturer/create}" th:object="${lecturer}">
+  <table>
+    <tr>
+      <td><label for="first-name">First Name</label></td>
+      <td><input id="first-name" type="text" th:field="*{firstName}"/></td>
+    </tr>
+    <tr>
+      <td class="alert alert-danger" colspan="2" th:errors="*{firstName}"
+          th:if="${#fields.hasErrors('firstName')}"></td>
+    </tr>
+    <tr>
+      <td><label for="last-name"></label>Last Name</td>
+      <td><input id="last-name" type="text" th:field="*{lastName}"/></td>
+    </tr>
+    <tr>
+      <td class="alert alert-danger" colspan="2" th:errors="*{lastName}"
+          th:if="${#fields.hasErrors('lastName')}"></td>
+    </tr>
+    <tr>
+      <td><label for="email">Email</label></td>
+      <td><input id="email" type="text" th:field="*{email}"/></td>
+    </tr>
+    <tr>
+      <td class="alert alert-danger" colspan="2" th:errors="*{email}"
+          th:if="${#fields.hasErrors('email')}"></td>
+    </tr>
+    <tr>
+      <td><label for="designation">Designation</label></td>
+      <td><input id="designation" type="text" th:field="*{designation}"/></td>
+    </tr>
+    <tr>
+      <td><input type="submit" value="Create"></td>
+    </tr>
+  </table>
+</form>
+
+<script crossorigin="anonymous"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+</body>
+</html>

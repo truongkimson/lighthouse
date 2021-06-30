@@ -13,12 +13,17 @@
 
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
-    <title>Admin - Course enrolment</title>
+    <title>Admin - Create enrolment</title>
 </head>
 <body>
-<h3 th:text="${course.id} + ' - ' + ${course.courseName}"></h3>
 <div>
-    <a th:href="@{/admin/enrolment/{id}/create(id=${course.id})}">Enroll students</a>
+    <form action="#" method="GET" th:action="@{/admin/enrolment/{courseId}/create/(courseId=${course.id})}">
+        <label for="search-bar">Search</label>
+        <input id="search-bar" name="q" type="text"/>
+    </form>
+</div>
+<div>
+    <a th:href="@{/admin/student/create}">Create new Student</a>
 </div>
 <table class="table">
     <tr>
@@ -26,27 +31,31 @@
         <th>Email</th>
         <th>First Name</th>
         <th>Last Name</th>
-        <th>Enrolment Status</th>
-        <th>Registered Date</th>
-        <th>Grade</th>
+        <th>Phone</th>
+        <th>Address</th>
+        <th>Date of birth</th>
+        <th>Enrollment date</th>
+        <th>Edit</th>
         <th>Delete</th>
     </tr>
-    <tr th:each="enrolment : ${enrolmentList}">
-        <td th:text="${enrolment.student.id}">Id</td>
-        <td th:text="${enrolment.student.email}">Email</td>
-        <td th:text="${enrolment.student.firstName}">First Name</td>
-        <td th:text="${enrolment.student.lastName}">Last Name</td>
-        <td th:text="${enrolment.enrolmentStatus}">Last Name</td>
-        <td th:text="${enrolment.registeredDate}">Last Name</td>
-        <td th:text="${enrolment.grade}">Last Name</td>
+    <tr th:each="student : ${studentList}">
+        <td th:text="${student.id}">Id</td>
+        <td th:text="${student.email}">Email</td>
+        <td th:text="${student.firstName}">First Name</td>
+        <td th:text="${student.lastName}">Last Name</td>
+        <td th:text="${student.phone}">Phone</td>
+        <td th:text="${student.address}">Address</td>
+        <td th:text="${student.dob}">DOB</td>
+        <td th:text="${student.enrolmentDate}">Date of enrollment</td>
+        <td><a th:href="@{/admin/student/{id}/update(id=${student.id})}">Edit</a></td>
         <td>
             <!-- Button trigger modal -->
-            <button class="btn btn-primary" th:data-target="'#exampleModal-' + ${enrolment.id}" data-toggle="modal" type="button">
-                Remove
+            <button class="btn btn-primary" th:data-target="'#exampleModal-' + ${student.id}" data-toggle="modal" type="button">
+                Delete
             </button>
 
             <!--             Modal -->
-            <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" th:id="'exampleModal-' + ${enrolment.id}"
+            <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" th:id="'exampleModal-' + ${student.id}"
                  role="dialog"
                  tabindex="-1">
                 <div class="modal-dialog" role="document">
@@ -58,14 +67,15 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div>Are you sure you want to remove this Student from the Course?
+                            <div>Deleting this Student will also delete Enrolment records related to this
+                                student
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-secondary" data-dismiss="modal" type="button">Close
                             </button>
-                            <form method="post" th:action="@{/admin/enrolment/{id}/delete(id=${enrolment.id})}">
-                                <input class="btn btn-primary" th:value="Remove"
+                            <form method="post" th:action="@{/admin/student/{id}/delete(id=${student.id})}">
+                                <input class="btn btn-primary" th:value="Delete"
                                        type="submit">
                             </form>
                         </div>
@@ -75,6 +85,7 @@
         </td>
     </tr>
 </table>
+
 
 <script crossorigin="anonymous"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

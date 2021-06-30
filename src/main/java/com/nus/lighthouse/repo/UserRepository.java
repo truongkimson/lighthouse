@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 
 //If we intend to do the login methods, we might want to do it here
 public interface UserRepository extends JpaRepository<User,Integer>{
-	@Query("Select m from Member m where m.firstName LIKE :name")
-	 List<Member> findMemberByFirstName(@Param("name") String name);
+	
 
 }

@@ -1,55 +1,142 @@
 <!DOCTYPE html>
-<html>
-
-<head lang="en">
+<html lang="en">
+<head>
     <meta charset="UTF-8">
-    <title>lighthouse</title>
-    <link rel="stylesheet" href="css/style.css" />
-    <style>
-        #parent {
-            width: 500px;
-            height: 200px;
-            margin-top: 20%;
-            margin-left: 50%;
-            transform: translate(-50%, -50%);
-            background: #009688;
+    <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <title></title>
+    <style type="text/css">
+        html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            /*font-style: sans-serif;*/
         }
-        
-        .password,
-        .subBtn {
-            margin-top: 2%;
-            margin-left: 3%;
+
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            background-color: #ffffff;
         }
-        
-        .loginHeader {
-            padding-top: 1%;
+
+        #login {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -170px 0 0 -400px;
+            width: 800px;
+            height: 350px;
+            border: none;
+        }
+
+        #login h1 {
+            color: #39abff;
+            text-align: center;
+        }
+
+        #login h2 {
+            color: #999;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        #login form {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin: 0.67em 0;
+        }
+
+        input {
+            width: 278px;
+            height: 18px;
+            margin-bottom: 10px;
+            outline: none;
+            padding: 10px;
+            font-size: 13px;
+            color: #000000;
+            border-top: 1px solid #312E3D;
+            border-left: 1px solid #312E3D;
+            border-right: 1px solid #312E3D;
+            border-bottom: 1px solid #56536A;
+            border-radius: 4px;
+        }
+
+        .but {
+            width: 300px;
+            min-height: 20px;
+            background-color: #39abff;
+            border: 1px solid #39abff;
+            color: #fff;
+            padding: 9px 14px;
+            font-size: 15px;
+            line-height: normal;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
+
+        .divtop {
+            width: 100%;
+            height: 120px;
+            background-color: #39abff;
         }
     </style>
 </head>
+<body>
+<div class="divtop"></div>
+<div id="login">
+    <h1></h1>
+    <!--<h2>login</h2>-->
+    <form method="post">
+        <div style="border: solid 2px #39abff;border-radius: 8px; width:400px; margin-left:200px; margin-top:10px; padding-top:20px; padding-bottom: 20px;">
+            <div><input type="text" id="username" name="username" lay-verify="required" placeholder="username"
+                        autocomplete="off"/></div>
+            <div><input type="password" id="password" name="password" lay-verify="required" placeholder="password"
+                        autocomplete="off"/></div>
+            <div>
+                <button id="submit" lay-submit="" lay-filter="submit" class="but" type="button">login</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="/lib/layui/layui.js"></script>
+<script type="text/javascript">
+    layui.use(['form', 'layer', 'jquery'], function () {
+        var form = layui.form;
+        var $ = layui.jquery;
+        form.on('submit(submit)', function (data) {
+            var username = $('#username').val();
+            var password = $('#password').val();
 
-<body class="login_bg">
-    <div id="parent">
-        <section class="loginBox">
-            <header class="loginHeader" style="text-align:center; ">
-                <h1>lighthouse</h1>
-            </header>
-            <section class="loginCont">
-                <form class="loginForm" action="/user/login" method="post" onsubmit="return check()">
-                    <div class="inputbox" style="text-align:center; ">
-                        <label for="user">user:</label>
-                        <input id="user" type="text" name="id" placeholder="userinput" required="required" />
-                    </div>
-                    <div class="password" style="text-align:center; ">
-                        <label for="mima">password:</label>
-                        <input id="mima" type="password" name="password" placeholder="passwordinput" required="required" />
-                    </div>
-                    <div class="subBtn" style="text-align:center; ">
-                        <input type="submit" value="login" />
-                    </div>
-                </form>
-            </section>
-        </section>
-    </div>
+            $.ajax({
+                url: "/login",
+                data: {
+                    "username": username,
+                    "password": password,
+                },
+                dataType: "json", type: 'post', async: false, success: function (data) {
+                    if (data.code == 402) {
+                        layer.alert("user not exist", function () {
+                            window.location.href = "/Login"
+                        });
+                    } else if (data.code == 403) {
+                        layer.alert(data.msg, function () {
+                            window.location.href = "/Login"
+                        });
+                    } else {
+                        layer.msg("Login successfull", {
+                            icon: 1,
+                            time: 1000
+                        }, function () {
+                            top.location.href = '/index';
+                        });
+                    }
+                }
+            });
+        });
+    });
+</script>
 </body>
-
 </html>

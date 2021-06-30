@@ -9,18 +9,54 @@
     * {
 	   box-sizing: border-box;
 	  }
- 
- </style>
+	  </style>
 </head>
+
 <body>
     <h2 style="text-align: center; font-family:Segoe UI,Arial,sans-serif;" >Lecturer Timetable</h2>
-<script th:inline="javascript">
+    <script th:inline="javascript">
     var courses = /*[[${courses}]]*/ ;
-</script>
+    </script>
+
 	<div style=" margin: 5%;">
 		<div id='calendar' class="fc fc-media-screen fc-direction-ltr fc-theme-standard"></div>
 	</div>
+	
 <script>
+	function addWorkDays(startDate, days) {
+    if(isNaN(days)) {
+        console.log("Value provided for \"days\" is not a number");
+        return
+    }
+    if(!(startDate instanceof Date)) {
+        console.log("Value provided for \"startDate\" is not a Date object");
+        return
+    }
+    
+    // Get the day of the week as a number (0 = Sunday, 1 = Monday, .... 6 = Saturday)
+    var dow = startDate.getDay();
+    var daysToAdd = parseInt(days);
+    // If the current day is Sunday add one day
+    if (dow == 0)
+        daysToAdd++;
+    // If the start date plus the additional days falls on or after the closest Saturday calculate weekends
+    if (dow + daysToAdd >= 6) {
+        //Subtract days in current working week from work days
+        var remainingWorkDays = daysToAdd - (5 - dow);
+        //Add current working week's weekend
+        daysToAdd += 2;
+        if (remainingWorkDays > 5) {
+            //Add two days for each working week by calculating how many weeks are included
+            daysToAdd += 2 * Math.floor(remainingWorkDays / 5);
+            //Exclude final weekend if remainingWorkDays resolves to an exact number of weeks
+            if (remainingWorkDays % 5 == 0)
+                daysToAdd -= 2;
+        }
+    }
+    startDate.setDate(startDate.getDate() + daysToAdd);
+    return startDate;
+}
+
 
 	var data = [];
     for(var k in courses){
@@ -28,9 +64,6 @@
 	    if(courses[k].startTime == null ||  courses[k].startTime.length == 0){
 	    	courses[k].startTime = '09:00:00';
 	    }
-	    /*if(courses[k].examStartTime == null ||  courses[k].examStartTime.length == 0){
-	    	courses[k].examStartTime = '09:00:00';
-	    }*/
 	    
 	    //course header note
 	    var courseobj = {};
@@ -38,8 +71,10 @@
 		courseobj["startRecur"] = courses[k].startDate;
 	    var timestamp = Date.parse(courses[k].startDate);
 		var now = new Date(timestamp);
-		now.setDate(now.getDate() + courses[k].duration);
-	    courseobj["endRecur"] = now.toISOString().substring(0, 10);
+		//now.setDate(now.getDate() + courses[k].duration );
+		//now.setDate(now.getDate() + courses[k].duration + getWeekendCountBetweenDates(new Date(timestamp) , now.getDate()));
+	    courseobj["endRecur"] = new Date(addWorkDays(now, (courses[k].duration-1)));
+	    courseobj["daysOfWeek"] = [1,2,3,4,5];
 	    if(courses[k].startTime == '09:00:00'){ 
 	    	courseobj["startTime"] = '09:00:00';
 	    }else{
@@ -53,9 +88,12 @@
 		coursexobj["startRecur"] = courses[k].startDate;
 	    var timestamp = Date.parse(courses[k].startDate);
 		var now = new Date(timestamp);
-		now.setDate(now.getDate() + courses[k].duration);
-	    coursexobj["endRecur"] = now.toISOString().substring(0, 10);
-	    data.push(coursexobj);
+		//now.setDate( new Date(addWorkDays(now, courses[k].duration)));
+		//now.setDate(now.getDate() + courses[k].duration);
+		//now.setDate(now.getDate() + getWeekendCountBetweenDates(new Date(timestamp) , now.getDate()));
+	    coursexobj["endRecur"] = new Date(addWorkDays(now, (courses[k].duration-1)));
+	    coursexobj["daysOfWeek"] = [1,2,3,4,5];
+	    data.push(coursexobj);   
     	}
     }
     drawcalander(data);

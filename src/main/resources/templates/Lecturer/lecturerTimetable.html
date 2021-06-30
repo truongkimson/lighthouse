@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Lecturer Timetable</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.js"></script>
+    <style>
+    * {
+	   box-sizing: border-box;
+	  }
+ 
+ </style>
+</head>
+<body>
+    <h2 style="text-align: center; font-family:Segoe UI,Arial,sans-serif;" >Lecturer Timetable</h2>
+<script th:inline="javascript">
+    var courses = /*[[${courses}]]*/ ;
+</script>
+	<div style=" margin: 5%;">
+		<div id='calendar' class="fc fc-media-screen fc-direction-ltr fc-theme-standard"></div>
+	</div>
+<script>
+
+	var data = [];
+    for(var k in courses){
+    	if (courses.hasOwnProperty(k)) {
+	    if(courses[k].startTime == null ||  courses[k].startTime.length == 0){
+	    	courses[k].startTime = '09:00:00';
+	    }
+	    /*if(courses[k].examStartTime == null ||  courses[k].examStartTime.length == 0){
+	    	courses[k].examStartTime = '09:00:00';
+	    }*/
+	    
+	    //course header note
+	    var courseobj = {};
+		courseobj["title"] = courses[k].courseName;
+		courseobj["startRecur"] = courses[k].startDate;
+	    var timestamp = Date.parse(courses[k].startDate);
+		var now = new Date(timestamp);
+		now.setDate(now.getDate() + courses[k].duration);
+	    courseobj["endRecur"] = now.toISOString().substring(0, 10);
+	    if(courses[k].startTime == '09:00:00'){ 
+	    	courseobj["startTime"] = '09:00:00';
+	    }else{
+	    	courseobj["startTime"] = courses[k].startTime; 
+	    }
+	    data.push(courseobj);
+	    
+	    //course body note
+	    var coursexobj = {};
+		coursexobj["title"] = "Lesson";
+		coursexobj["startRecur"] = courses[k].startDate;
+	    var timestamp = Date.parse(courses[k].startDate);
+		var now = new Date(timestamp);
+		now.setDate(now.getDate() + courses[k].duration);
+	    coursexobj["endRecur"] = now.toISOString().substring(0, 10);
+	    data.push(coursexobj);
+    	}
+    }
+    drawcalander(data);
+    console.log(data);
+function drawcalander(data) {
+  var calendarEl = document.getElementById('calendar');
+  var xD = new Date().toISOString().slice(0, 10);
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'dayGridMonth',
+    initialDate: xD,
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth'
+    },
+    height: 650,
+    events: data	
+  });
+
+  calendar.render();
+}
+</script>
+
+</body>
+</html>

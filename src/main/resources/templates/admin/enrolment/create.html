@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <!-- Bootstrap CSS -->
+    <link crossorigin="anonymous"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          rel="stylesheet">
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+    <title>Admin - Create enrolment</title>
+</head>
+<body>
+<h3 th:text="'Select students to enroll in course ' + ${course.courseName}"></h3>
+<div>
+    <form action="#" method="GET"
+          th:action="@{/admin/enrolment/{courseId}/create/search/(courseId=${course.id})}">
+        <label for="search-bar">Search</label>
+        <input id="search-bar" name="q" type="text"/>
+    </form>
+</div>
+<div>
+    <p>Current capacity: <span th:text="${course.getCurrCap()} + ' / ' + ${course.maxCap}"></span></p>
+</div>
+<table class="table">
+    <tr>
+        <th>Student Id</th>
+        <th>Email</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Phone</th>
+        <th>Address</th>
+        <th>Date of birth</th>
+        <th>Enrollment date</th>
+        <th>Select</th>
+    </tr>
+    <tr th:each="student : ${studentList}">
+        <td th:text="${student.id}">Id</td>
+        <td th:text="${student.email}">Email</td>
+        <td th:text="${student.firstName}">First Name</td>
+        <td th:text="${student.lastName}">Last Name</td>
+        <td th:text="${student.phone}">Phone</td>
+        <td th:text="${student.address}">Address</td>
+        <td th:text="${student.dob}">DOB</td>
+        <td th:text="${student.enrolmentDate}">Date of enrollment</td>
+        <td>
+            <form th:action="@{/admin/enrolment/{courseId}/create/{studentId}(courseId=${course.id},studentId=${student.id})}"
+                  method="post">
+                <input class="btn btn-primary" type="submit" value="Enroll">
+            </form>
+        </td>
+    </tr>
+</table>
+
+
+<script crossorigin="anonymous"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+</body>
+</html>

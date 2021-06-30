@@ -1,25 +1,33 @@
 package com.nus.lighthouse.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Transient;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.util.Collection;
 
 @Entity
 @DiscriminatorValue("STU")
 public class Student extends User {
+    @NotBlank
+    @Pattern(regexp = "[0-9]{8}")
     private String phone;
+    @NotBlank
     private String address;
+    @Past
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dob;
+    @Past
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate enrolmentDate;
     @Transient
     private double gpa;
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     @JsonManagedReference
     private Collection<Enrolment> enrolments;
 

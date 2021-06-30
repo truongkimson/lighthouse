@@ -14,6 +14,7 @@ public class LighthouseApplication {
     private final CourseRepository courseRepo;
     private final EnrolmentRepository enrolmentRepo;
 
+    @Autowired
     public LighthouseApplication(StudentRepository studentRepo, LecturerRepository lecturerRepo,
                                  AdminRepository adminRepo, CourseRepository courseRepo,
                                  EnrolmentRepository enrolmentRepo) {
@@ -24,10 +25,10 @@ public class LighthouseApplication {
         this.enrolmentRepo = enrolmentRepo;
     }
 
-    @Autowired
     public static void main(String[] args) {
         SpringApplication.run(LighthouseApplication.class, args);
     }
+
 
 //    // This method of importing test data doesn't work when trying to insert records
 //    // that don't meet validation constraints at the point of import (course start date, enroll by)

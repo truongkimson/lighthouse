@@ -5,11 +5,14 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.PreRemove;
+import javax.validation.constraints.NotBlank;
 import java.util.Collection;
 
 @Entity
 @DiscriminatorValue("LEC")
 public class Lecturer extends User{
+    @NotBlank
     private String designation;
 
     // some random comments
@@ -40,5 +43,13 @@ public class Lecturer extends User{
 
     public void setTeachCourses(Collection<Course> teachCourses) {
         this.teachCourses = teachCourses;
+    }
+
+    @PreRemove
+    public void unlinkTeachingCourses() {
+        for (Course c : teachCourses) {
+            c.setLecturer(null);
+        }
+
     }
 }

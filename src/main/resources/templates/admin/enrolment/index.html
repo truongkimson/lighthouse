@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <!-- Bootstrap CSS -->
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          rel="stylesheet">
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+    <title>Admin - Enrolment</title>
+</head>
+<body>
+<div>
+    <form action="#" method="GET" th:action="@{/admin/enrolment/}">
+        <label for="search-bar">Search</label>
+        <input id="search-bar" name="q" type="text"/>
+    </form>
+</div>
+<table class="table">
+    <tr>
+        <th>Course Id</th>
+        <th>Course Name</th>
+        <th>Credits</th>
+        <th>Current capacity</th>
+        <th>Max Capacity</th>
+        <th>Enroll by</th>
+        <th>Start date</th>
+        <th>Details</th>
+    </tr>
+    <tr th:each="course : ${courseList}">
+        <td th:text="${course.id}">Id</td>
+        <td th:text="${course.courseName}">Course name</td>
+        <td th:text="${course.credits}">Credits</td>
+        <td th:text="${course.getCurrCap()}">Current Capacity</td>
+        <td th:text="${course.maxCap}">Max Capacity</td>
+        <td th:text="${course.enrollBy}">Enroll by</td>
+        <td th:text="${course.startDate}">Enroll by</td>
+        <td><a th:href="@{/admin/enrolment/{id}/detail(id=${course.id})}">Details</a></td>
+    </tr>
+</table>
+
+<script crossorigin="anonymous"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+</body>
+</html>

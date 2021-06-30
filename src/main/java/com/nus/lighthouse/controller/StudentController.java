@@ -4,9 +4,9 @@ import com.nus.lighthouse.domain.Course;
 import com.nus.lighthouse.domain.Enrolment;
 import com.nus.lighthouse.domain.Student;
 import com.nus.lighthouse.service.StudentService;
+
 import com.nus.lighthouse.service.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,10 +20,7 @@ import java.util.Collection;
 @Controller
 @RequestMapping("student")
 public class StudentController {
-
-    final
-    StudentService studentService;
-
+    private final StudentServiceImpl studentService;
 
     @Autowired
     public StudentController(StudentServiceImpl studentService) {
@@ -134,8 +131,4 @@ public class StudentController {
         model.addAttribute("course",courseEnrol);
         return "Student/studentCoursesEnrolled";
     }
-
-
-
-
 }

@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
@@ -15,7 +14,7 @@ import java.util.Collection;
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    private int id;
 
     @NotBlank
     private String courseName;
@@ -29,15 +28,12 @@ public class Course {
     private int duration;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Future
     private LocalDate startDate;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Future
     private LocalDate enrollBy;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Future
     private LocalDate examDate;
 
     @Transient
@@ -48,8 +44,7 @@ public class Course {
     private Lecturer lecturer;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "course")
-    @JsonBackReference
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private Collection<Enrolment> enrolments;
 
 
@@ -81,11 +76,11 @@ public class Course {
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int courseId) {
-        this.Id = courseId;
+        this.id = courseId;
     }
 
     public String getCourseName() {
@@ -168,10 +163,16 @@ public class Course {
         this.enrolments = enrolments;
     }
 
+    public int getCurrCap() {
+        if (enrolments != null)
+            return enrolments.size();
+        return 0;
+    }
+
     @Override
     public String toString() {
         return "Course{" +
-                "courseId=" + Id +
+                "courseId=" + id +
                 ", courseName='" + courseName + '\'' +
                 ", courseDes='" + courseDes + '\'' +
                 ", credits=" + credits +

@@ -17,6 +17,10 @@
 </head>
 <body>
 <h3 th:text="${course.id} + ' - ' + ${course.courseName}"></h3>
+
+<div>
+    <p>Current capacity: <span th:text="${course.getCurrCap()} + ' / ' + ${course.maxCap}"></span></p>
+</div>
 <div>
     <a th:href="@{/admin/enrolment/{id}/create(id=${course.id})}">Enroll students</a>
 </div>
@@ -29,7 +33,7 @@
         <th>Enrolment Status</th>
         <th>Registered Date</th>
         <th>Grade</th>
-        <th>Delete</th>
+        <th>Remove</th>
     </tr>
     <tr th:each="enrolment : ${enrolmentList}">
         <td th:text="${enrolment.student.id}">Id</td>
@@ -64,7 +68,7 @@
                         <div class="modal-footer">
                             <button class="btn btn-secondary" data-dismiss="modal" type="button">Close
                             </button>
-                            <form method="post" th:action="@{/admin/enrolment/{id}/delete(id=${enrolment.id})}">
+                            <form method="post" th:action="@{/admin/enrolment/{courseId}/delete/{enrolmentId}(courseId=${course.id},enrolmentId=${enrolment.id})}">
                                 <input class="btn btn-primary" th:value="Remove"
                                        type="submit">
                             </form>

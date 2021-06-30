@@ -17,6 +17,9 @@
 </head>
 <body>
 <h3> Create new Lecturer</h3>
+<div>
+  <p class="alert alert-danger " th:if="${error} != null" th:text="${error}"></p>
+</div>
 <form action="#" method="post" th:action="@{/admin/lecturer/create}" th:object="${lecturer}">
   <table>
     <tr>

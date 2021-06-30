@@ -4,6 +4,7 @@ import com.nus.lighthouse.domain.Course;
 import com.nus.lighthouse.domain.Enrolment;
 import com.nus.lighthouse.domain.Lecturer;
 import com.nus.lighthouse.domain.Student;
+import com.nus.lighthouse.exception.EmailAlreadyExistsException;
 import com.nus.lighthouse.service.AdminService;
 import com.nus.lighthouse.service.LecturerService;
 import com.nus.lighthouse.service.StudentService;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Collection;
-import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -60,7 +60,14 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "admin/student/create";
         }
-        studentService.createStudent(student);
+
+        try {
+            studentService.createStudent(student);
+        }
+        catch (EmailAlreadyExistsException e) {
+            model.addAttribute("error", e.getMessage());
+            return "admin/student/create";
+        }
         return "redirect:/admin/student";
     }
 
@@ -78,7 +85,15 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "admin/student/update";
         }
-        studentService.updateStudent(student, studentId);
+
+        try {
+            studentService.updateStudent(student, studentId);
+        }
+        catch (EmailAlreadyExistsException e){
+            model.addAttribute("error", e.getMessage());
+            return "admin/student/update";
+        }
+
         return "redirect:/admin/student";
     }
 
@@ -121,7 +136,15 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "admin/lecturer/create";
         }
-        lecturerService.createLecturer(lecturer);
+
+        try {
+            lecturerService.createLecturer(lecturer);
+        }
+        catch (EmailAlreadyExistsException e) {
+            model.addAttribute("error", e.getMessage());
+            return "admin/lecturer/create";
+        }
+
         return "redirect:/admin/lecturer";
     }
 
@@ -139,7 +162,15 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "admin/lecturer/update";
         }
-        lecturerService.updateLecturer(lecturer, lecturerId);
+
+        try {
+            lecturerService.updateLecturer(lecturer, lecturerId);
+        }
+        catch (EmailAlreadyExistsException e) {
+            model.addAttribute("error", e.getMessage());
+            return "admin/lecturer/update";
+        }
+        
         return "redirect:/admin/lecturer";
     }
 
@@ -247,17 +278,14 @@ public class AdminController {
     public String createEnrolments(Model model, @PathVariable("courseId") int courseId) {
         Collection<Student> availableStudents = studentService.getStudentsAvailToEnrolByCourseId(courseId);
         Course course = adminService.getCourseById(courseId);
-        for (Student s : availableStudents) {
-            System.out.println(s.getFirstName());
-        }
 
         model.addAttribute("course", course);
         model.addAttribute("studentList", availableStudents);
         return "/admin/enrolment/create";
     }
 
-    @GetMapping("/enrolment/{courseId}/create/")
-    public String createEnrolments(Model model, @PathVariable("courseId") int courseId,
+    @GetMapping("/enrolment/{courseId}/create/search/")
+    public String createEnrolmentsFilterByQuery(Model model, @PathVariable("courseId") int courseId,
                                    @RequestParam("q") String query) {
         Collection<Student> availableStudents =
                 studentService.getStudentsAvailToEnrolByCourseIdAndQuery(courseId, query);
@@ -267,13 +295,16 @@ public class AdminController {
         return "/admin/enrolment/create";
     }
 
-    @PostMapping("/enrolment/{courseId}/create}")
-    public String createEnrolments(List<Integer> studentIdList, @PathVariable("courseId") int courseId) {
-        return "";
+    @PostMapping("/enrolment/{courseId}/create/{studentId}")
+    public String createEnrolments(@PathVariable("studentId") int studentId, @PathVariable("courseId") int courseId) {
+        adminService.enrolStudent(studentId, courseId);
+        return "redirect:/admin/enrolment/" + courseId + "/create";
     }
 
-    @PostMapping("/enrolment/{enrolmentId}/delete")
-    public String deleteEnrolment(@PathVariable("enrolemntId") int enrolmentId) {
-        return "";
+    @PostMapping("/enrolment/{courseId}/delete/{enrolmentId}")
+    public String deleteEnrolment(@PathVariable("enrolmentId") int enrolmentId,
+                                  @PathVariable("courseId") int courseId) {
+        adminService.removeEnrolment(enrolmentId);
+        return "redirect:/admin/enrolment/" + courseId + "/detail";
     }
 }

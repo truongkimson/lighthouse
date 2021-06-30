@@ -3,14 +3,13 @@ package com.nus.lighthouse.service;
 import com.nus.lighthouse.domain.Course;
 import com.nus.lighthouse.domain.Enrolment;
 import com.nus.lighthouse.domain.Lecturer;
-import com.nus.lighthouse.repo.AdminRepository;
-import com.nus.lighthouse.repo.CourseRepository;
-import com.nus.lighthouse.repo.EnrolmentRepository;
-import com.nus.lighthouse.repo.LecturerRepository;
+import com.nus.lighthouse.domain.Student;
+import com.nus.lighthouse.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.Collection;
 
 @Service
@@ -19,15 +18,18 @@ public class AdminService {
     public final CourseRepository courseRepository;
     public final EnrolmentRepository enrolmentRepository;
     public final LecturerRepository lecturerRepository;
+    public final StudentRepository studentRepository;
 
     @Autowired
     public AdminService(AdminRepository adminRepository, CourseRepository courseRepository,
                         EnrolmentRepository enrolmentRepository,
-                        LecturerRepository lecturerRepository) {
+                        LecturerRepository lecturerRepository,
+                        StudentRepository studentRepository) {
         this.adminRepository = adminRepository;
         this.courseRepository = courseRepository;
         this.enrolmentRepository = enrolmentRepository;
         this.lecturerRepository = lecturerRepository;
+        this.studentRepository = studentRepository;
     }
 
     // Course services
@@ -66,6 +68,19 @@ public class AdminService {
     // Enrolment services
     public Collection<Enrolment> getEnrolmentsByCourse(Course c) {
         return enrolmentRepository.findEnrolmentsByCourse(c);
+    }
+
+    @Transactional
+    public void enrolStudent(int studentId, int courseId) {
+        Student student = studentRepository.findById(studentId).orElseThrow();
+        Course course = courseRepository.findById(courseId).orElseThrow();
+        Enrolment enrolment = new Enrolment(student, course, LocalDate.now());
+        enrolmentRepository.save(enrolment);
+    }
+
+    @Transactional
+    public void removeEnrolment(int enrolmentId) {
+        enrolmentRepository.deleteById(enrolmentId);
     }
 
 }

@@ -16,6 +16,9 @@
     <title>Admin - Update Lecturer</title>
 </head>
 <body>
+<div>
+    <p class="alert alert-danger " th:if="${error} != null" th:text="${error}"></p>
+</div>
 <form action="#" method="post" th:action="@{/admin/lecturer/{lecturerId}/update(lecturerId=${lecturer.id})}"
       th:object="${lecturer}">
     <table>

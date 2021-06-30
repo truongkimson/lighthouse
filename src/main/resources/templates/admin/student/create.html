@@ -17,6 +17,9 @@
 </head>
 <body>
 <h3> Create new Student</h3>
+<div>
+    <p class="alert alert-danger " th:if="${error} != null" th:text="${error}"></p>
+</div>
 <form action="#" method="post" th:action="@{/admin/student/create}" th:object="${student}">
     <table>
         <tr>

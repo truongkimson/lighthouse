@@ -3,6 +3,7 @@ package com.nus.lighthouse.service;
 import com.nus.lighthouse.domain.Course;
 import com.nus.lighthouse.domain.Enrolment;
 import com.nus.lighthouse.domain.Student;
+import com.nus.lighthouse.exception.EmailAlreadyExistsException;
 import com.nus.lighthouse.repo.CourseRepository;
 import com.nus.lighthouse.repo.EnrolmentRepository;
 import com.nus.lighthouse.repo.StudentRepository;
@@ -19,13 +20,15 @@ public class StudentService {
     public final StudentRepository studentRepository;
     public final EnrolmentRepository enrolmentRepository;
     public final CourseRepository courseRepository;
+    public final UserService userService;
 
     @Autowired
     public StudentService(StudentRepository studentRepository, EnrolmentRepository enrolmentRepository,
-                          CourseRepository courseRepository) {
+                          CourseRepository courseRepository, UserService userService) {
         this.studentRepository = studentRepository;
         this.enrolmentRepository = enrolmentRepository;
         this.courseRepository = courseRepository;
+        this.userService = userService;
     }
 
     public Collection<Student> getAllStudents() {
@@ -66,12 +69,19 @@ public class StudentService {
     }
 
     @Transactional
-    public void createStudent(Student student) {
+    public void createStudent(Student student) throws EmailAlreadyExistsException {
+        if (userService.checkEmailExists(student.getEmail())) {
+            throw new EmailAlreadyExistsException("Email already exists in the system");
+        }
         studentRepository.save(student);
     }
 
     @Transactional
-    public void updateStudent(Student student, int studentId) {
+    public void updateStudent(Student student, int studentId) throws EmailAlreadyExistsException {
+        if (userService.checkEmailUpdateExists(student.getEmail(), studentId)) {
+            throw new EmailAlreadyExistsException("Updated email already exists in the system");
+        }
+
         student.setId(studentId);
         studentRepository.save(student);
     }

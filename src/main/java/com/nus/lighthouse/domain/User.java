@@ -1,7 +1,5 @@
 package com.nus.lighthouse.domain;
 
-import com.nus.lighthouse.annotation.UniqueEmail;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -17,7 +15,6 @@ public class User {
     private int Id;
     @Email
     @NotBlank
-    @UniqueEmail
     private String email;
     private String password;
     @NotBlank

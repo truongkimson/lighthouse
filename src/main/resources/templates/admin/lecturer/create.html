@@ -48,6 +48,10 @@
       <td><input id="designation" type="text" th:field="*{designation}"/></td>
     </tr>
     <tr>
+      <td class="alert alert-danger" colspan="2" th:errors="*{designation}"
+          th:if="${#fields.hasErrors('designation')}"></td>
+    </tr>
+    <tr>
       <td><input type="submit" value="Create"></td>
     </tr>
   </table>

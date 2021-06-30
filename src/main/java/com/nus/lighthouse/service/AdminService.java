@@ -2,6 +2,7 @@ package com.nus.lighthouse.service;
 
 import com.nus.lighthouse.domain.Course;
 import com.nus.lighthouse.domain.Enrolment;
+import com.nus.lighthouse.exception.CourseFullException;
 
 import java.util.Collection;
 
@@ -16,6 +17,6 @@ public interface AdminService {
 
     // Enrolment related
     Collection<Enrolment> getEnrolmentsByCourse(Course c);
-    void enrolStudent(int studentId, int courseId);
+    void enrolStudent(int studentId, int courseId) throws CourseFullException;
     void removeEnrolment(int enrolmentId);
 }

@@ -45,8 +45,8 @@
         <td th:text="${course.duration}">Duration</td>
         <td th:text="${course.maxCap}">Max Capacity</td>
         <td th:text="${course.enrollBy}">Enroll by</td>
-        <td th:text="${course.startDate}">Enroll by</td>
-        <td th:text="${course.lecturer.getFullName()}">Enroll by</td>
+        <td th:text="${course.startDate}">Start Date</td>
+        <td><span th:if="${course.lecturer != null}" th:text="${course.lecturer.getFullName()}">-</span></td>
         <td><a th:href="@{/admin/course/{id}/update(id=${course.id})}">Edit</a></td>
         <td>
             <!-- Button trigger modal -->

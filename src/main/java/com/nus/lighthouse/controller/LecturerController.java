@@ -1,7 +1,7 @@
 package com.nus.lighthouse.controller;
 
 import com.nus.lighthouse.domain.Lecturer;
-import com.nus.lighthouse.service.LecturerService;
+import com.nus.lighthouse.service.LecturerServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,9 +12,9 @@ import java.util.Collection;
 @RequestMapping("/lecturer")
 public class LecturerController {
 
-    public final LecturerService lecturerService;
+    public final LecturerServiceImpl lecturerService;
 
-    public LecturerController(LecturerService lecturerService) {
+    public LecturerController(LecturerServiceImpl lecturerService) {
         this.lecturerService = lecturerService;
     }
 

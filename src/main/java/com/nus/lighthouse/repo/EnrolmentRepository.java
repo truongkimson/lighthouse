@@ -21,7 +21,7 @@ public interface EnrolmentRepository extends JpaRepository<Enrolment,Integer> {
     @Query("SELECT e FROM  Enrolment  e JOIN e.student s WHERE s.Id = :student AND e.enrolmentStatus = :status ")
     Collection<Enrolment> findEnrolmentByStudentAndStatus(@Param("student") int studentId,@Param("status") String status );
 
-    @Query("SELECT e FROM  Enrolment  e JOIN e.student s JOIN e.course c WHERE s.Id = :student AND e.enrolmentStatus = :status AND c.Id= :course")
+    @Query("SELECT e FROM  Enrolment  e JOIN e.student s JOIN e.course c WHERE s.Id = :student AND e.enrolmentStatus = :status AND c.id = :course")
     Collection<Enrolment> findEnrolmentByStudentAndStatusAndCourse(@Param("student") int studentId,@Param("status") String status,@Param("course") int courseId );
 
 

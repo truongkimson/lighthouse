@@ -44,10 +44,6 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findStudentsByQuery(query);
     }
 
-    public Student getStudentById(int studentId) {
-        return studentRepository.findById(studentId).orElseThrow();
-    }
-
     @Transactional
     public void createStudent(Student student) throws EmailAlreadyExistsException {
         if (userService.checkEmailExists(student.getEmail())) {
@@ -87,15 +83,15 @@ public class StudentServiceImpl implements StudentService {
                 s.getLastName().contains(query) || s.getEmail().contains(query)).collect(Collectors.toList());
     }
 
-    @Transactional
-    public Collection<Enrolment> getEnrolmentByStudentAndEnrolmentStatus(Student student, String status){
-        return getEnrolmentByStudentAndEnrolmentStatus(student, status);
-    }
+//    @Transactional
+//    public Collection<Enrolment> getEnrolmentByStudentAndEnrolmentStatus(Student student, String status){
+//        return getEnrolmentByStudentAndEnrolmentStatus(student, status);
+//    }
 
-    @Transactional
-    public Collection<Course> getAllCourse(){
-        return courseRepository.findAll();
-    }
+//    @Transactional
+//    public Collection<Course> getAllCourse(){
+//        return courseRepository.findAll();
+//    }
 
 
     @Transactional
@@ -144,7 +140,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Transactional
     public void deleteEnrolment(int id){
-        if (enrolmentRepository.getById(id)!=null){
+        if (enrolmentRepository.getById(id) !=null){
             enrolmentRepository.delete(enrolmentRepository.getById(id));
         }
     }

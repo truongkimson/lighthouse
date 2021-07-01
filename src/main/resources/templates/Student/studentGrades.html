@@ -7,40 +7,36 @@
 </head>
 
 <style>
-.table1 {
-float:right;
+.course {
+margin: 180px;
+font-size: 20px;
 }
 
-.table2 {
+.table1 {
   margin-left: auto;
   margin-right: auto;
-}
-
-.course {
-margin: 250px;
-font-size: 18px;
+  font-size: 1.17em; 
+  font-weight: bolder;
 }
 </style>
 
 <body>
 <div class="course">
-<h1 style="text-align: center">Hello student!</h1>
-<h3 style="text-align: center">Courses that you can enroll in</h3>
-<br>
-<br>
-<table class = "table1">
+	<div style="text-align: center"><img src="/images/course2.jpg" style="width:30%;"></div>
+	<br>
+    <h3 style="text-align: center">Courses that you can enroll in</h3>
+    <br>
+    <br>
+    <table class = "table1">
     <tr>
-        <th>GPA</th>
+       <td>GPA:&nbsp&nbsp</td> 
+       <td th:text="${student.getGpa()}"></td>
     </tr>
-    <tr>
-    <td th:text="${student.getGpa()}"></td>
-    </tr>
-</table>
-<br>
-<br>
-<br>
-<table class="table2">
-    <tr style="text-align: center">
+    </table>
+    <br>
+<table class="table table-hover">
+<thead>
+    <tr class = "table-light" style="text-align: center">
         <th width="15%">Course Id</th>
         <th width="40%">Course Name</th>
         <th width="15%">Credits</th>
@@ -52,7 +48,9 @@ font-size: 18px;
         <td width="40%" th:text="${enrols.getCourse().getCourseName()}">Course Name</td>
         <td width="15%" th:text="${enrols.getCourse().getCredits()}">Credits</td>
         <td width="15%"th:text="${enrols.getGrade()}">Grade</td>
+        <th width="15%"></th>
     </tr>
+</thead>
 </table>
 </div>
 

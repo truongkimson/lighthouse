@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en" >
-<head>
+<head th:replace = "fragments::header-home">
     <meta charset="UTF-8">
     <title>Home</title>
 </head>
@@ -11,6 +11,9 @@
     <a th:href = "@{admin}">Admin</a>
 
 
-
+<div style="text-align: center"><img src="/images/best-school-management-system-horz-new.jpg"></div>
+<div style="text-align: center"><img src="/images/education-news.png"></div>
+<div style="text-align: center"><img src="/images/news-2.png"></div>
+<div th:replace = "fragments::footer"></div>
 </body>
 </html>

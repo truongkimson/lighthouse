@@ -1,6 +1,12 @@
 package com.nus.lighthouse.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.Collection;
 
@@ -8,21 +14,38 @@ import java.util.Collection;
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    private int id;
+
+    @NotBlank
     private String courseName;
+    @NotBlank
     private String courseDes;
+    @Min(1)
     private int credits;
+    @Min(1)
     private int maxCap;
+    @Min(1)
     private int duration;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate enrollBy;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate examDate;
 
+    @Transient
+    private int currCap;
+
     @ManyToOne
+    @JsonBackReference
     private Lecturer lecturer;
 
-    @OneToMany(mappedBy = "course")
-    private Collection<Enrolment> enrolment;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+    private Collection<Enrolment> enrolments;
 
     public Course() {
     }
@@ -38,20 +61,17 @@ public class Course {
         this.examDate = examDate;
     }
 
-    public Collection<Enrolment> getEnrolment() {
-		return enrolment;
-	}
 
-	public void setEnrolment(Collection<Enrolment> enrolment) {
-		this.enrolment = enrolment;
-	}
+    public void setCurrCap(int currCap) {
+        this.currCap = currCap;
+    }
 
-	public int getId() {
-        return Id;
+    public int getId() {
+        return id;
     }
 
     public void setId(int courseId) {
-        this.Id = courseId;
+        this.id = courseId;
     }
 
     public String getCourseName() {
@@ -126,10 +146,24 @@ public class Course {
         this.lecturer = lecturer;
     }
 
+    public Collection<Enrolment> getEnrolments() {
+        return enrolments;
+    }
+
+    public void setEnrolments(Collection<Enrolment> enrolments) {
+        this.enrolments = enrolments;
+    }
+
+    public int getCurrCap() {
+        if (enrolments != null)
+            return enrolments.size();
+        return 0;
+    }
+
     @Override
     public String toString() {
         return "Course{" +
-                "courseId=" + Id +
+                "courseId=" + id +
                 ", courseName='" + courseName + '\'' +
                 ", courseDes='" + courseDes + '\'' +
                 ", credits=" + credits +

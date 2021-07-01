@@ -1,43 +1,92 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          rel="stylesheet">
 
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <title>Admin - Lecturer</title>
 </head>
 <body>
+<div>
+    <form action="#" method="GET" th:action="@{/admin/lecturer/}">
+        <label for="search-bar">Search</label>
+        <input id="search-bar" name="q" type="text"/>
+    </form>
+</div>
+<div>
+    <a th:href="@{/admin/lecturer/create}">Create new Lecturer</a>
+</div>
 <table class="table">
     <tr>
-        <th>Student Id</th>
+        <th>Lecturer Id</th>
         <th>Email</th>
         <th>First Name</th>
         <th>Last Name</th>
-        <th>Phone</th>
-        <th>Address</th>
-        <th>Date of birth</th>
-        <th>Enrollment date</th>
+        <th>Designation</th>
+        <th>Edit</th>
+        <th>Delete</th>
     </tr>
-    <tr th:each="student : ${studentList}">
-        <td th:text="${student.id}">Id</td>
-        <td th:text="${student.email}">Email</td>
-        <td th:text="${student.firstName}">First Name</td>
-        <td th:text="${student.lastName}">Last Name</td>
-        <td th:text="${student.phone}">Phone</td>
-        <td th:text="${student.address}">Address</td>
-        <td th:text="${student.dob}">DOB</td>
-        <td th:text="${student.enrolmentDate}">Date of enrollment</td>
+    <tr th:each="lecturer : ${lecturerList}">
+        <td th:text="${lecturer.id}">Id</td>
+        <td th:text="${lecturer.email}">Email</td>
+        <td th:text="${lecturer.firstName}">First Name</td>
+        <td th:text="${lecturer.lastName}">Last Name</td>
+        <td th:text="${lecturer.designation}">Designation</td>
+        <td><a th:href="@{/admin/lecturer/{id}/update(id=${lecturer.id})}">Edit</a></td>
+        <td>
+            <!-- Button trigger modal -->
+            <button class="btn btn-primary" th:data-target="'#exampleModal-' + ${lecturer.id}" data-toggle="modal" type="button">
+                Delete
+            </button>
+
+            <!--             Modal -->
+            <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" th:id="'exampleModal-' + ${lecturer.id}"
+                 role="dialog"
+                 tabindex="-1">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Warning</h5>
+                            <button class="close" data-dismiss="modal" type="button">
+                                <span>&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div>Are you sure you want to delete this Lecturer record?
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" data-dismiss="modal" type="button">Close
+                            </button>
+                            <form method="post" th:action="@{/admin/lecturer/{id}/delete(id=${lecturer.id})}">
+                                <input class="btn btn-primary" th:value="Delete"
+                                       type="submit">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
     </tr>
 </table>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+
+<script crossorigin="anonymous"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 </body>
 </html>

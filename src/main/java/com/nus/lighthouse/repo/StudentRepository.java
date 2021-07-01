@@ -17,8 +17,6 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
             + "OR s.phone LIKE CONCAT('%',:query,'%')"
             + "OR s.address LIKE CONCAT('%',:query,'%')")
     Collection<Student> findStudentsByQuery(@Param("query") String query);
-
-
 }
 
 

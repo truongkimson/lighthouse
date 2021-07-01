@@ -2,8 +2,11 @@ package com.nus.lighthouse.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Collection;
@@ -12,18 +15,35 @@ import java.util.Collection;
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    private int id;
+
+    @NotBlank
     private String courseName;
+    @NotBlank
     private String courseDes;
+    @Min(1)
     private int credits;
+    @Min(1)
     private int maxCap;
+    @Min(1)
     private int duration;
+
     private int examDuration;
+
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate enrollBy;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate examDate;
     private LocalTime startTime;
     private LocalTime examStartTime;
+
+
+
 
     @Transient
     private int currCap;
@@ -33,8 +53,7 @@ public class Course {
     private Lecturer lecturer;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "course")
-    @JsonBackReference
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private Collection<Enrolment> enrolments;
 
     public Course(String courseName, String courseDes, int credits, int maxCap, int duration, LocalDate startDate, LocalDate enrollBy, LocalDate examDate) {
@@ -67,21 +86,16 @@ public class Course {
 	public Course() {
     }
 
-    public int getCurrCap() {
-
-        return currCap;
-    }
-
     public void setCurrCap(int currCap) {
         this.currCap = currCap;
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int courseId) {
-        this.Id = courseId;
+        this.id = courseId;
     }
 
     public String getCourseName() {
@@ -163,6 +177,7 @@ public class Course {
     public void setEnrolments(Collection<Enrolment> enrolments) {
         this.enrolments = enrolments;
     }
+
     
     public int getExamDuration() {
 		return examDuration;
@@ -195,4 +210,14 @@ public class Course {
 				+ startDate + ", enrollBy=" + enrollBy + ", examDate=" + examDate + ", startTime=" + startTime
 				+ ", examStartTime=" + examStartTime + "]";
 	}
+
+
+    public int getCurrCap() {
+        if (enrolments != null)
+            return enrolments.size();
+        return 0;
+    }
+
+
+
 }

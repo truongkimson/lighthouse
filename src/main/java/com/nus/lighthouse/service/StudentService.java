@@ -3,61 +3,28 @@ package com.nus.lighthouse.service;
 import com.nus.lighthouse.domain.Course;
 import com.nus.lighthouse.domain.Enrolment;
 import com.nus.lighthouse.domain.Student;
-import com.nus.lighthouse.repo.CourseRepository;
-import com.nus.lighthouse.repo.EnrolmentRepository;
-import com.nus.lighthouse.repo.StudentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.nus.lighthouse.exception.EmailAlreadyExistsException;
 
 import java.util.Collection;
 
+public interface StudentService {
+    Collection<Student> getAllStudents();
+    Collection<Student> getStudentsByQuery(String query);
+    Student getStudentById(int studentId);
+    void createStudent(Student student) throws EmailAlreadyExistsException;
+    void updateStudent(Student student, int studentId) throws EmailAlreadyExistsException;
+    void deleteStudentById(int studentId);
+    Collection<Student> getStudentsAvailToEnrolByCourseId(int courseId);
+    Collection<Student> getStudentsAvailToEnrolByCourseIdAndQuery(int courseId, String query);
 
-@Service
-public class StudentService {
-    public final StudentRepository studentRepository;
-    public final EnrolmentRepository enrolmentRepository;
-    public final CourseRepository courseRepository;
-
-    @Autowired
-    public StudentService(StudentRepository studentRepository, EnrolmentRepository enrolmentRepository, CourseRepository courseRepository) {
-        this.studentRepository = studentRepository;
-        this.enrolmentRepository = enrolmentRepository;
-        this.courseRepository = courseRepository;
-    }
-
-    public Collection<Student> getAllStudents()
-    {
-        return studentRepository.findAll();
-    }
-
-    public Collection<Student> getAllStudentsByQuery(String query) {
-        return studentRepository.findStudentsByQuery(query);
-    }
-
-    public Collection<Enrolment> getEnrolmentByStudent(Student stu){
-
-        return stu.getEnrolments();
-    }
-
-    public Student getDummyStudent(){
-        return studentRepository.getById(1);
-    }
-
-    public Collection<Course> getAllCourse(){
-        return courseRepository.findAll();
-    }
-
-//    public Collection<Course> getSearchedCourses(){
-//        String placeholder = "design";
-//        return studentRepository.searchFunction(placeholder);
-//    }
-
-    public Collection<Course> getSearchedCourses(String keyword){
-        if(keyword==null){
-            return courseRepository.findAll();
-        }
-        return courseRepository.searchFunction(keyword);
-    }
-
+//    public Collection<Enrolment> getEnrolmentByStudent(Student stu);
+//    public Collection<Enrolment> getEnrolmentByStudentAndEnrolmentStatus(Student student, String Status);
+//    public Collection<Course> getAllCourse();
+    public Collection<Course> getSearchedCourses(String keyword);
+    public Collection<Enrolment> findEnrolmentByStudentAndStatus(int student, String status);
+    public Course getCourseById(int id);
+    public Enrolment createEnrolment(Enrolment enrolment);
+    public Collection<Enrolment> findEnrolmentByStudentAndStatusAndCourse(int student, String status, int course);
+    public boolean ifMaxCapacityExceeded(int courseId);
+    public void deleteEnrolment(int id);
 }
-

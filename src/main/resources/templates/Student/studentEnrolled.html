@@ -6,21 +6,63 @@
 </head>
 <body>
     <p>Hello student!</p>
-    <p> Courses that you can enroll in</p>
+    <p>These are the courses that you have applied in.</p>
     <a th:href = "@{/student/home}">Student</a>
     <a th:href = "@{/student/home}">Student</a>
     <a th:href = "@{admin}">Admin</a>
 
     <table>
+        <tr align="left">
+            <th>Enrolled Courses</th>
+        </tr>
+
+        <tr align="left">
+            <th>Course Id</th>
+            <th>Course Name</th>
+            <th>Credits</th>
+        </tr>
         <tr th:each="enrols:${enrolls}">
             <td th:text="${enrols.getCourse().getId()}"></td>
             <td th:text="${enrols.getCourse().getCourseName()}"></td>
             <td th:text="${enrols.getCourse().getCredits()}"></td>
-
-
+            <td>
+                <form th:action ="@{/student/enrolled/delete/{id}(id=${enrols.getId()})}" method="post">
+                    <input type="submit" value ="Cancel Enrolment">
+                </form>
+            </td>
         </tr>
-
-
+        <tr><br> </tr>
+        <tr> </tr>
+        <tr align="left">
+            <th>Completed Courses</th>
+        </tr>
+<!--        <tr align="left">-->
+<!--            <th>Course Id</th>-->
+<!--            <th>Course Name</th>-->
+<!--            <th>Credits</th>-->
+<!--        </tr>-->
+        <tr th:each="complete:${completed}">
+            <td th:text="${complete.getCourse().getId()}"></td>
+            <td th:text="${complete.getCourse().getCourseName()}"></td>
+            <td th:text="${complete.getCourse().getCredits()}"></td>
+        </tr>
     </table>
+<!--    <br>-->
+<!--    <br>-->
+<!--    <table>-->
+<!--        <tr align="left">-->
+<!--            <th>Completed Courses</th>-->
+<!--        </tr>-->
+<!--        <tr align="left">-->
+<!--            <th>Course Id</th>-->
+<!--            <th>Course Name</th>-->
+<!--            <th>Credits</th>-->
+<!--        </tr>-->
+<!--        <tr th:each="complete:${completed}">-->
+<!--            <td th:text="${complete.getCourse().getId()}"></td>-->
+<!--            <td th:text="${complete.getCourse().getCourseName()}"></td>-->
+<!--            <td th:text="${complete.getCourse().getCredits()}"></td>-->
+<!--        </tr>-->
+<!--    </table>-->
 </body>
 </html>

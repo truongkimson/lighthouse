@@ -27,6 +27,20 @@ public class Enrolment {
     public Enrolment() {
     }
 
+
+    public Enrolment(Student student, Course course, LocalDate registeredDate) {
+        this.registeredDate = registeredDate;
+        this.student = student;
+        this.course = course;
+    }
+
+    public Enrolment(LocalDate registeredDate, String enrolmentStatus, Student student, Course course) {
+        this.registeredDate = registeredDate;
+        this.enrolmentStatus = enrolmentStatus;
+        this.student = student;
+        this.course = course;
+    }
+
     public int getId() {
         return Id;
     }

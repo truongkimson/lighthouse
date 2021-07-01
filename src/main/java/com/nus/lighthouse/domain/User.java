@@ -1,6 +1,8 @@
 package com.nus.lighthouse.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -11,9 +13,13 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
+    @Email
+    @NotBlank
     private String email;
     private String password;
+    @NotBlank
     private String firstName;
+    @NotBlank
     private String lastName;
 
     public User() {
@@ -28,6 +34,10 @@ public class User {
 
     public int getId() {
         return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
     }
 
     public String getEmail() {
@@ -61,6 +71,8 @@ public class User {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+    public String getFullName() { return firstName + " " + lastName; }
 
     @Override
     public String toString() {

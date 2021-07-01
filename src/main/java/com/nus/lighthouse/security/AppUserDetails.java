@@ -21,6 +21,10 @@ public class AppUserDetails implements UserDetails {
         authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRole()));
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         System.out.println(authorities);

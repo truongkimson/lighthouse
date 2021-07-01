@@ -3,9 +3,11 @@ package com.nus.lighthouse.controller;
 import com.nus.lighthouse.domain.Course;
 import com.nus.lighthouse.domain.Enrolment;
 import com.nus.lighthouse.domain.Student;
+import com.nus.lighthouse.security.AppUserDetails;
 import com.nus.lighthouse.service.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,8 +39,10 @@ public class StudentController {
 
     @GetMapping("/enrolled")
     public String getEnrolledCourses(Model model){
-        Student dummy = studentService.getStudentById(10);
-        int dummyId = dummy.getId();
+//        Student dummy = studentService.getStudentById(10);
+//        int dummyId = dummy.getId();
+        AppUserDetails userDetails = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int dummyId = userDetails.getUserId();
         Collection<Enrolment> enrolled = studentService.findEnrolmentByStudentAndStatus(dummyId,"ENROLLED");
         Collection<Enrolment> completed = studentService.findEnrolmentByStudentAndStatus(dummyId,"COMPLETED");
         if(enrolled == null){
@@ -53,8 +57,10 @@ public class StudentController {
 
     @RequestMapping(value = "/enrolled/delete/{id}", method = RequestMethod.POST)
     public String deleteEnrolment(Model model, @PathVariable int id) {
-        Student dummy = studentService.getStudentById(10);
-        int dummyId = dummy.getId();
+
+        AppUserDetails userDetails = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int dummyId = userDetails.getUserId();
+
         Collection<Enrolment> enrolled = studentService.findEnrolmentByStudentAndStatus(dummyId,"ENROLLED");
         Collection<Enrolment> completed = studentService.findEnrolmentByStudentAndStatus(dummyId,"COMPLETED");
         if(enrolled == null){

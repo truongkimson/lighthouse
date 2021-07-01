@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -31,8 +32,8 @@ public class StudentServiceImpl implements StudentService {
         this.userService = userService;
     }
 
-
-
+  
+  
     @Transactional
     public Collection<Student> getAllStudents()
     {
@@ -140,11 +141,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Transactional
     public void deleteEnrolment(int id){
-        if (enrolmentRepository.getById(id) !=null){
-            enrolmentRepository.delete(enrolmentRepository.getById(id));
-        }
+        enrolmentRepository.delete(enrolmentRepository.getById(id));
     }
-
+    
     @Transactional
     public Collection<Course> getTimetableDetails(Integer id){
         return courseRepository.getTimetableDetails(id);
@@ -154,14 +153,14 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<Student> findAllStudents() {
         // TODO Auto-generated method stub
-        return srepo.findAll();
+        return studentRepository.findAll();
     }
     public List<Object[]>findStudentEnrolmentsbyStudentId(int id)
     {
-        return srepo.findStudentEnrolmentsbyStudentId(id);
+        return studentRepository.findStudentEnrolmentsbyStudentId(id);
     }
     public List<Object[]>findStudentEnrolmentsbyStudentIdd(int id)
     {
-        return srepo.findStudentEnrolmentsbyStudentIdd(id);
+        return studentRepository.findStudentEnrolmentsbyStudentIdd(id);
     }
 }

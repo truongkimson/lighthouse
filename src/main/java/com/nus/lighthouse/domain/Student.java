@@ -34,10 +34,10 @@ public class Student extends User {
     public Student() {
     }
 
-    public Student(int id, String email, String password, String firstName,
+    public Student(String email, String password, String firstName,
                    String lastName, String phone, String address,
                    LocalDate dob, LocalDate enrolmentDate) {
-        super(id, email, password, firstName, lastName);
+        super(email, password, firstName, lastName);
         this.phone = phone;
         this.address = address;
         this.dob = dob;
@@ -87,7 +87,7 @@ public class Student extends User {
 
     //Will have to implement the calculation of the GPA here
     public double getGpa() {
-        int cumulativeGrade = 0;
+        double cumulativeGrade = 0;
         int numOfSubjects = 0;
 
         for (Enrolment e :enrolments) {
@@ -135,16 +135,8 @@ public class Student extends User {
                     numOfSubjects+=(e.getCourse().getCredits());
             }
         }
-        return cumulativeGrade/numOfSubjects;
+        return cumulativeGrade / numOfSubjects;
     }
-
-    public Collection<Enrolment> getEnrolments() {
-		return enrolments;
-	}
-
-	public void setEnrolments(Collection<Enrolment> enrolments) {
-		this.enrolments = enrolments;
-	}
 
 	@Override
     public String toString() {

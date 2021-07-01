@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class Enrolment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    private int id;
     //private int courseId;
 
     private String grade;
@@ -41,13 +41,13 @@ public class Enrolment {
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public Enrolment(int id, String grade, LocalDate registeredDate, String enrolmentStatus, Student student,
                      Course course) {
         super();
-        Id = id;
+        this.id = id;
         this.grade = grade;
         this.registeredDate = registeredDate;
         this.enrolmentStatus = enrolmentStatus;
@@ -56,7 +56,7 @@ public class Enrolment {
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getGrade() {
@@ -102,7 +102,7 @@ public class Enrolment {
     @Override
     public String toString() {
         return "Enrolment{" +
-                "enrolmentId=" + Id +
+                "enrolmentId=" + id +
                 ", grade='" + grade + '\'' +
                 ", registeredDate=" + registeredDate +
                 ", enrolmentStatus='" + enrolmentStatus + '\'' +

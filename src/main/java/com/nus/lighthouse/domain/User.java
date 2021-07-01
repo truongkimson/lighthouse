@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    private int id;
     @Email
     @NotBlank
     private String email;
@@ -26,8 +26,7 @@ public class User{
     public User() {
     }
 
-    public User(int Id,String email, String password, String firstName, String lastName) {
-    	this.Id=Id;
+    public User(String email, String password, String firstName, String lastName) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
@@ -35,11 +34,11 @@ public class User{
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getEmail() {
@@ -87,7 +86,7 @@ public class User{
     @Override
     public String toString() {
         return "User{" +
-                "Id=" + Id +
+                "id=" + id +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +

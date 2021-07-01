@@ -4,8 +4,11 @@ import com.nus.lighthouse.domain.Course;
 import com.nus.lighthouse.domain.Enrolment;
 import com.nus.lighthouse.domain.Lecturer;
 import com.nus.lighthouse.domain.Student;
+import com.nus.lighthouse.exception.CourseFullException;
 import com.nus.lighthouse.exception.EmailAlreadyExistsException;
-import com.nus.lighthouse.service.*;
+import com.nus.lighthouse.service.AdminService;
+import com.nus.lighthouse.service.LecturerService;
+import com.nus.lighthouse.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,8 +64,7 @@ public class AdminController {
 
         try {
             studentService.createStudent(student);
-        }
-        catch (EmailAlreadyExistsException e) {
+        } catch (EmailAlreadyExistsException e) {
             model.addAttribute("error", e.getMessage());
             return "admin/student/create";
         }
@@ -86,8 +88,7 @@ public class AdminController {
 
         try {
             studentService.updateStudent(student, studentId);
-        }
-        catch (EmailAlreadyExistsException e){
+        } catch (EmailAlreadyExistsException e) {
             model.addAttribute("error", e.getMessage());
             return "admin/student/update";
         }
@@ -129,7 +130,8 @@ public class AdminController {
     }
 
     @PostMapping("/lecturer/create")
-    public String createLecturer(@ModelAttribute @Valid Lecturer lecturer, BindingResult bindingResult,
+    public String createLecturer(@ModelAttribute @Valid Lecturer lecturer,
+                                 BindingResult bindingResult,
                                  Model model) {
         if (bindingResult.hasErrors()) {
             return "admin/lecturer/create";
@@ -137,8 +139,7 @@ public class AdminController {
 
         try {
             lecturerService.createLecturer(lecturer);
-        }
-        catch (EmailAlreadyExistsException e) {
+        } catch (EmailAlreadyExistsException e) {
             model.addAttribute("error", e.getMessage());
             return "admin/lecturer/create";
         }
@@ -163,12 +164,11 @@ public class AdminController {
 
         try {
             lecturerService.updateLecturer(lecturer, lecturerId);
-        }
-        catch (EmailAlreadyExistsException e) {
+        } catch (EmailAlreadyExistsException e) {
             model.addAttribute("error", e.getMessage());
             return "admin/lecturer/update";
         }
-        
+
         return "redirect:/admin/lecturer";
     }
 
@@ -274,7 +274,8 @@ public class AdminController {
 
     @GetMapping("/enrolment/{courseId}/create")
     public String createEnrolments(Model model, @PathVariable("courseId") int courseId) {
-        Collection<Student> availableStudents = studentService.getStudentsAvailToEnrolByCourseId(courseId);
+        Collection<Student> availableStudents =
+                studentService.getStudentsAvailToEnrolByCourseId(courseId);
         Course course = adminService.getCourseById(courseId);
 
         model.addAttribute("course", course);
@@ -284,7 +285,7 @@ public class AdminController {
 
     @GetMapping("/enrolment/{courseId}/create/search/")
     public String createEnrolmentsFilterByQuery(Model model, @PathVariable("courseId") int courseId,
-                                   @RequestParam("q") String query) {
+                                                @RequestParam("q") String query) {
         Collection<Student> availableStudents =
                 studentService.getStudentsAvailToEnrolByCourseIdAndQuery(courseId, query);
         Course course = adminService.getCourseById(courseId);
@@ -294,7 +295,8 @@ public class AdminController {
     }
 
     @PostMapping("/enrolment/{courseId}/create/{studentId}")
-    public String createEnrolments(@PathVariable("studentId") int studentId, @PathVariable("courseId") int courseId) {
+    public String createEnrolments(@PathVariable("studentId") int studentId,
+                                   @PathVariable("courseId") int courseId, Model model) throws CourseFullException {
         adminService.enrolStudent(studentId, courseId);
         return "redirect:/admin/enrolment/" + courseId + "/create";
     }
@@ -305,4 +307,5 @@ public class AdminController {
         adminService.removeEnrolment(enrolmentId);
         return "redirect:/admin/enrolment/" + courseId + "/detail";
     }
+
 }

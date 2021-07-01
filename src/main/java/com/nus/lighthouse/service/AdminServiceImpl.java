@@ -4,6 +4,7 @@ import com.nus.lighthouse.domain.Course;
 import com.nus.lighthouse.domain.Enrolment;
 import com.nus.lighthouse.domain.Lecturer;
 import com.nus.lighthouse.domain.Student;
+import com.nus.lighthouse.exception.CourseFullException;
 import com.nus.lighthouse.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -74,6 +75,9 @@ public class AdminServiceImpl implements AdminService {
     public void enrolStudent(int studentId, int courseId) {
         Student student = studentRepository.findById(studentId).orElseThrow();
         Course course = courseRepository.findById(courseId).orElseThrow();
+        if (course.getCurrCap() >= course.getMaxCap()) {
+            throw new CourseFullException("Course is full");
+        }
         Enrolment enrolment = new Enrolment(student, course, LocalDate.now());
         enrolmentRepository.save(enrolment);
     }

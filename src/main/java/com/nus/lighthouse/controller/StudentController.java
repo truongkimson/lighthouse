@@ -130,4 +130,11 @@ public class StudentController {
         model.addAttribute("course",courseEnrol);
         return "Student/studentCoursesEnrolled";
     }
+    
+    @GetMapping("/timetable/{id}")
+    public String getTimetableDetails(@PathVariable(name = "id", required = true)Integer id, Model model){
+        Collection<Course> courses =  studentService.getTimetableDetails(id);
+        model.addAttribute("courses", courses);
+        return "Student/studentTimetable";
+    }
 }

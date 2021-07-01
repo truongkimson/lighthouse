@@ -45,7 +45,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Transactional
-    public void createStudent(Student student) throws EmailAlreadyExistsException {
+    public void createStudent(Student student) {
         if (userService.checkEmailExists(student.getEmail())) {
             throw new EmailAlreadyExistsException("Email already exists in the system");
         }
@@ -53,7 +53,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Transactional
-    public void updateStudent(Student student, int studentId) throws EmailAlreadyExistsException {
+    public void updateStudent(Student student, int studentId) {
         if (userService.checkEmailUpdateExists(student.getEmail(), studentId)) {
             throw new EmailAlreadyExistsException("Updated email already exists in the system");
         }
@@ -144,5 +144,9 @@ public class StudentServiceImpl implements StudentService {
             enrolmentRepository.delete(enrolmentRepository.getById(id));
         }
     }
-
+    
+    @Transactional
+    public Collection<Course> getTimetableDetails(Integer id){
+        return courseRepository.getTimetableDetails(id);
+}
 }

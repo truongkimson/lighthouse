@@ -42,6 +42,7 @@ public class Student extends User {
         this.address = address;
         this.dob = dob;
         this.enrolmentDate = enrolmentDate;
+        this.setRole("ROLE_STU");
     }
 
     public String getPhone() {

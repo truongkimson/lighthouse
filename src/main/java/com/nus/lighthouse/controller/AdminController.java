@@ -5,15 +5,23 @@ import com.nus.lighthouse.domain.Enrolment;
 import com.nus.lighthouse.domain.Lecturer;
 import com.nus.lighthouse.domain.Student;
 import com.nus.lighthouse.exception.EmailAlreadyExistsException;
-import com.nus.lighthouse.service.*;
+import com.nus.lighthouse.service.AdminService;
+import com.nus.lighthouse.service.LecturerService;
+import com.nus.lighthouse.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Enumeration;
 
 @Controller
 @RequestMapping("/admin")
@@ -32,9 +40,17 @@ public class AdminController {
 
     // student related
     @GetMapping(value = {"/student", "/"})
-    public String getAllStudents(Model model) {
+    public String getAllStudents(Model model, HttpSession session) {
         Collection<Student> allStudents = studentService.getAllStudents();
         model.addAttribute("studentList", allStudents);
+        Enumeration<String> attrList = session.getAttributeNames();
+        for (String attr : Collections.list(attrList)) {
+            System.out.println(attr);
+        }
+        SecurityContextImpl auth = (SecurityContextImpl)session.getAttribute("SPRING_SECURITY_CONTEXT");
+        Authentication auth1 = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(auth.getAuthentication().getPrincipal());
+        System.out.println(auth1.getPrincipal());
         return "admin/student/index";
     }
 

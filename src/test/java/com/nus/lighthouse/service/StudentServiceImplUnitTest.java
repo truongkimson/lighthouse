@@ -67,7 +67,7 @@ public class StudentServiceImplUnitTest {
 		assertTrue(stud1.getFirstName().equals(list.get(0).getFirstName()));
 	}
 	
-	@Test
+	/*@Test
 	@Order(3)
 	public void getAllCourseTest() {
 		Course c1 = new Course();
@@ -79,7 +79,7 @@ public class StudentServiceImplUnitTest {
 		list.add(c2);
 		Mockito.when(courserepo.findAll()).thenReturn(list);
 		assertThat(studsvcImpl.getAllCourse()).isEqualTo(list);
-	}
+	}*/
 	
 	/*@Test
 	@Order(4)

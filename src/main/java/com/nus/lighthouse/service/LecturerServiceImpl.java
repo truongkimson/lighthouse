@@ -1,7 +1,9 @@
 package com.nus.lighthouse.service;
 
+import com.nus.lighthouse.domain.Course;
 import com.nus.lighthouse.domain.Lecturer;
 import com.nus.lighthouse.exception.EmailAlreadyExistsException;
+import com.nus.lighthouse.repo.CourseRepository;
 import com.nus.lighthouse.repo.LecturerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,11 +15,15 @@ import java.util.Collection;
 public class LecturerServiceImpl implements LecturerService {
     public final LecturerRepository lecturerRepository;
     public final UserService userService;
+    public final CourseRepository courseRepository;
+    
 
     @Autowired
-    public LecturerServiceImpl(LecturerRepository lecturerRepository, UserServiceImpl userService) {
+    public LecturerServiceImpl(LecturerRepository lecturerRepository, UserServiceImpl userService,
+    		CourseRepository courseRepository) {
         this.lecturerRepository = lecturerRepository;
         this.userService = userService;
+        this.courseRepository = courseRepository; 
     }
 
 
@@ -54,5 +60,9 @@ public class LecturerServiceImpl implements LecturerService {
     public void deleteLecturerById(int lecturerId) {
         lecturerRepository.deleteById(lecturerId);
     }
-
+    
+    @Transactional
+    public Collection<Course> getlectTimetableDetails(Integer id){
+        return courseRepository.getlectTimetableDetails(id);
+        }
 }

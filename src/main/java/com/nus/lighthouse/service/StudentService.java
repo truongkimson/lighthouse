@@ -27,4 +27,5 @@ public interface StudentService {
     public Collection<Enrolment> findEnrolmentByStudentAndStatusAndCourse(int student, String status, int course);
     public boolean ifMaxCapacityExceeded(int courseId);
     public void deleteEnrolment(int id);
+    Collection<Course> getTimetableDetails(Integer id);
 }

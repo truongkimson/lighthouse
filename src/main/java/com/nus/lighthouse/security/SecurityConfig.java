@@ -15,8 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     UserDetailsService userDetailsService;
-//    @Autowired
-//    PasswordEncoder passwordEncoder;
 
     @Autowired
     public SecurityConfig(
@@ -30,13 +28,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
-//                .passwordEncoder(passwordEncoder);
-//        auth.inMemoryAuthentication().withUser("user1").password(passwordEncoder().encode
-//        ("password1")).roles("STU")
-//                .and()
-//                .withUser("user2").password(passwordEncoder().encode("password2")).roles("ADM")
-//                .and()
-//                .withUser("user3").password(passwordEncoder().encode("password3")).roles("LEC");
     }
 
     @Override

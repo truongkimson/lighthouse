@@ -27,6 +27,7 @@ public class Lecturer extends User{
     public Lecturer(String email, String password, String firstName, String lastName, String designation) {
         super(email, password, firstName, lastName);
         this.designation = designation;
+        this.setRole("ROLE_LEC");
     }
 
     public String getDesignation() {

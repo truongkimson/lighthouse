@@ -1,24 +1,5 @@
 package com.nus.lighthouse.service;
 
-import org.junit.jupiter.api.TestMethodOrder;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-
 import com.nus.lighthouse.LighthouseApplication;
 import com.nus.lighthouse.domain.Course;
 import com.nus.lighthouse.domain.Enrolment;
@@ -27,6 +8,23 @@ import com.nus.lighthouse.domain.User;
 import com.nus.lighthouse.repo.CourseRepository;
 import com.nus.lighthouse.repo.EnrolmentRepository;
 import com.nus.lighthouse.repo.StudentRepository;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = LighthouseApplication.class)
@@ -67,19 +65,21 @@ public class StudentServiceImplUnitTest {
 		assertTrue(stud1.getFirstName().equals(list.get(0).getFirstName()));
 	}
 	
-	/*@Test
-	@Order(3)
-	public void getAllCourseTest() {
-		Course c1 = new Course();
-		c1.setCourseName("Software Design");
-		Course c2 = new Course();
-		c2.setCourseName("Web Development");
-		List<Course> list = new ArrayList<>();
-		list.add(c1);
-		list.add(c2);
-		Mockito.when(courserepo.findAll()).thenReturn(list);
-		assertThat(studsvcImpl.getAllCourse()).isEqualTo(list);
-	}*/
+
+//	@Test
+//	@Order(3)
+//	public void getAllCourseTest() {
+//		Course c1 = new Course();
+//		c1.setCourseName("Software Design");
+//		Course c2 = new Course();
+//		c2.setCourseName("Web Development");
+//		List<Course> list = new ArrayList<>();
+//		list.add(c1);
+//		list.add(c2);
+//		Mockito.when(courserepo.findAll()).thenReturn(list);
+//		assertThat(studsvcImpl.getAllCourse()).isEqualTo(list);
+//	}
+
 	
 	/*@Test
 	@Order(4)

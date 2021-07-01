@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head th:replace = "fragments::header-lecturer">
+<meta charset="ISO-8859-1">
+<title>View course enrolments</title>
+</head>
+<body>
+<h1 th:if="${not #lists.isEmpty(enrolments)}">Edit grades- Select student</h1>
+	<table th:if="${not #lists.isEmpty(enrolments)}" >
+		<tr >
+			<th>Course name</th>
+			<th>Student name</th>
+			<th>Grade</th>
+			<th>Edit grade</th>
+
+		</tr>
+		<tr th:each="EnrolDataByCourse:${enrolments}" >
+			<td th:text=${EnrolDataByCourse.coursename}>Id</td>
+			<td th:text="${EnrolDataByCourse.firstname}+' '+${EnrolDataByCourse.lastname}"> Name</td>
+			<td th:text=${EnrolDataByCourse.grade}>Grade</td>
+			<td ><a th:href="@{/lecturer/edit/}+${EnrolDataByCourse.eid}">Edit</a></td>
+
+		</tr>
+	</table>
+<a href = "http://localhost:8080/lecturer/home">Back to home</a>
+</body>
+<div th:replace = "fragments::footer"></div>
+</html>

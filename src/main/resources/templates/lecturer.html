@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en" >
-<head>
+<head th:replace = "fragments::header-lecturer">
     <meta charset="UTF-8">
     <title>Home</title>
 </head>
+
+
 <body>
-    <p>Hello World!</p>
-    <a th:href = "@{student}">Student</a>
-    <a th:href = "@{lecturer}">Student</a>
-    <a th:href = "@{admin}">Student</a>
+    <p>Hello Lecturer! What do you want to do today?</p>
+<!--    <a th:href = "@{viewCoursesTaught}">View courses taught</a>-->
+<!--    <a th:href = "@{viewcourseenrollment}">View course enrolment</a>-->
+<!--    <a th:href = "@{selectfromcoursesedit}">Edit grades</a>-->
+<!--    <a th:href = "@{seeallstudents}">View performance</a>-->
 
 
 
 </body>
+<div th:replace = "fragments::footer"></div>
 </html>

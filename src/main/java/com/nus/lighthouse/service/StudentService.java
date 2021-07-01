@@ -7,4 +7,5 @@ import com.nus.lighthouse.domain.Student;
 public interface StudentService {
 	public List<Student> findAllStudents();
 	public List<Object[]>findStudentEnrolmentsbyStudentId(int id);
+	public List<Object[]>findStudentEnrolmentsbyStudentIdd(int id);
 }

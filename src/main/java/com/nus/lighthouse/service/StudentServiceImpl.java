@@ -24,5 +24,9 @@ public class StudentServiceImpl implements StudentService{
 	{
 		return srepo.findStudentEnrolmentsbyStudentId(id);
 	}
+	public List<Object[]>findStudentEnrolmentsbyStudentIdd(int id)
+	{
+		return srepo.findStudentEnrolmentsbyStudentIdd(id);
+	}
 	
 }

@@ -39,4 +39,21 @@ public class StudentRepoUnitTest {
 		}
 		assert(!allcourses.isEmpty());
 	}
+	@Test
+	@Order(2)
+	public void showstudentperformancee()
+	{
+		List<Object[]> allcourses= srepo.findStudentEnrolmentsbyStudentIdd(10);
+		for(Object[]x:allcourses)
+		{
+			String firstname=String.valueOf(x[0]);
+			String lastname=String.valueOf(x[1]);
+			String coursename=String.valueOf(x[2]);
+			String grade=String.valueOf(x[3]);
+			int credits=Integer.valueOf(x[4].toString());
+			String status=String.valueOf(x[5]);
+			System.out.println(firstname+" "+lastname+" "+coursename+" "+grade+" "+credits+" "+status);
+		}
+		assert(!allcourses.isEmpty());
+	}
 }

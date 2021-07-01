@@ -5,6 +5,7 @@ import com.nus.lighthouse.domain.Enrolment;
 import com.nus.lighthouse.domain.Student;
 import com.nus.lighthouse.domain.utils.CourseDataByLecturerData;
 import com.nus.lighthouse.domain.utils.EnrolDataByCourse;
+import com.nus.lighthouse.domain.utils.EnrolDataByStudent;
 import com.nus.lighthouse.service.CourseService;
 import com.nus.lighthouse.service.CourseServiceImpl;
 import com.nus.lighthouse.service.EnrolmentService;
@@ -20,12 +21,9 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
@@ -165,15 +163,17 @@ public class LecturerController {
     }
     @RequestMapping("/seeperformance/{id}")
     public String seeperformance(Model model,@PathVariable("id") Integer id){
-		List<Object[]> performance=sservice.findStudentEnrolmentsbyStudentId(id);
-		List<EnrolDataByCourse> enroldata=new ArrayList<EnrolDataByCourse>();
+		List<Object[]> performance=sservice.findStudentEnrolmentsbyStudentIdd(id);
+		List<EnrolDataByStudent> enroldata=new ArrayList<EnrolDataByStudent>();
 		for(Object[] x:performance)
 		{
-			EnrolDataByCourse record=new EnrolDataByCourse();
+			EnrolDataByStudent record=new EnrolDataByStudent();
 			record.setFirstname(String.valueOf(x[0]));
 			record.setLastname(String.valueOf(x[1]));
 			record.setCoursename(String.valueOf(x[2]));
 			record.setGrade(String.valueOf(x[3]));
+			record.setCredits(Integer.valueOf(x[4].toString()));
+			record.setStatus(String.valueOf(x[5]));
 			enroldata.add(record);
 		}
 		model.addAttribute("performance", enroldata);

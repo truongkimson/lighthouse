@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Integer> {
-	@Query(value="Select s.firstName, s.lastName,c.courseName, e.grade from Student s join s.enrolments e join e.course c where s.id like :id")
+	@Query(value="Select s.firstName, s.lastName,c.courseName, e.grade from Student s join s.enrolments e join e.course c where s.id = :id")
 	List<Object[]> findStudentEnrolmentsbyStudentId(@Param("id")Integer id);
+	@Query(value="Select s.firstName, s.lastName, c.courseName, e.grade, c.credits, e.enrolmentStatus from Student s join s.enrolments e join e.course c where s.id = :id")
+	List<Object[]> findStudentEnrolmentsbyStudentIdd(@Param("id")Integer id);
 }

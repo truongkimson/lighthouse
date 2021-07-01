@@ -6,6 +6,7 @@ import com.nus.lighthouse.domain.Student;
 import com.nus.lighthouse.exception.EmailAlreadyExistsException;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface StudentService {
     Collection<Student> getAllStudents();
@@ -28,4 +29,8 @@ public interface StudentService {
     public boolean ifMaxCapacityExceeded(int courseId);
     public void deleteEnrolment(int id);
     Collection<Course> getTimetableDetails(Integer id);
+
+    public List<Student> findAllStudents();
+    public List<Object[]>findStudentEnrolmentsbyStudentId(int id);
+    public List<Object[]>findStudentEnrolmentsbyStudentIdd(int id);
 }

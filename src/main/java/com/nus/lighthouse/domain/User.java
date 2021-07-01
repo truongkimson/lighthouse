@@ -1,18 +1,18 @@
 package com.nus.lighthouse.domain;
 
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(name = "unique_email",columnNames = {"email"})})
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "user_type")
-@Table(uniqueConstraints = {@UniqueConstraint(name = "unique_email",
-        columnNames = {"email"})})
-public class User {
+public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    private int id;
     @Email
     @NotBlank
     private String email;
@@ -34,11 +34,11 @@ public class User {
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getEmail() {
@@ -86,7 +86,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "Id=" + Id +
+                "id=" + id +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +

@@ -47,6 +47,8 @@ public class Course {
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private Collection<Enrolment> enrolments;
 
+    public Course() {
+    }
 
     public Course(String courseName, String courseDes, int credits, int maxCap, int duration, LocalDate startDate, LocalDate enrollBy, LocalDate examDate) {
         this.courseName = courseName;
@@ -59,8 +61,6 @@ public class Course {
         this.examDate = examDate;
     }
 
-    public Course() {
-    }
 
     public void setCurrCap(int currCap) {
         this.currCap = currCap;

@@ -9,24 +9,23 @@ import java.time.LocalDate;
 public class Enrolment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    private int id;
     //private int courseId;
 
     private String grade;
     private LocalDate registeredDate;
     private String enrolmentStatus;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
     private Student student;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
     private Course course;
 
     public Enrolment() {
     }
-
 
     public Enrolment(Student student, Course course, LocalDate registeredDate) {
         this.registeredDate = registeredDate;
@@ -42,7 +41,22 @@ public class Enrolment {
     }
 
     public int getId() {
-        return Id;
+        return id;
+    }
+
+    public Enrolment(int id, String grade, LocalDate registeredDate, String enrolmentStatus, Student student,
+                     Course course) {
+        super();
+        this.id = id;
+        this.grade = grade;
+        this.registeredDate = registeredDate;
+        this.enrolmentStatus = enrolmentStatus;
+        this.student = student;
+        this.course = course;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getGrade() {
@@ -88,11 +102,16 @@ public class Enrolment {
     @Override
     public String toString() {
         return "Enrolment{" +
-                "enrolmentId=" + Id +
+                "enrolmentId=" + id +
                 ", grade='" + grade + '\'' +
                 ", registeredDate=" + registeredDate +
                 ", enrolmentStatus='" + enrolmentStatus + '\'' +
                 ", student=" + student +
                 '}';
     }
+
+	public boolean isPresent() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

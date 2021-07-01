@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="ISO-8859-1">
+<title>Student performance</title>
+</head>
+<body>
+<h1 th:if="${not #lists.isEmpty(students)}">View Student Performance - Select a student</h1>
+	<table th:if="${not #lists.isEmpty(students)}" >
+		<tr >
+			<th>Id</th>
+			<th>Student Name</th>
+			<th>Select</th>
+
+		</tr>
+		<tr th:each="student:${students}" >
+			<td th:text=${student.id}>Id</td>
+			<td th:text="${student.firstName}+' '+${student.lastName}"> Name</td>
+			<td ><a th:href="@{/lecturer/seeperformance/}+${student.id}">Select</a></td>
+		</tr>
+	</table>
+<a href = "http://localhost:8080/lecturer/home">Back to home</a>
+</body>
+</html>

@@ -87,7 +87,7 @@ public class Student extends User {
 
     //Will have to implement the calculation of the GPA here
     public double getGpa() {
-        int cumulativeGrade = 0;
+        double cumulativeGrade = 0;
         int numOfSubjects = 0;
 
         for (Enrolment e :enrolments) {
@@ -135,10 +135,10 @@ public class Student extends User {
                     numOfSubjects+=(e.getCourse().getCredits());
             }
         }
-        return cumulativeGrade/numOfSubjects;
+        return cumulativeGrade / numOfSubjects;
     }
 
-    @Override
+	@Override
     public String toString() {
         return super.toString() + "Student{" +
                 "phone='" + phone + '\'' +

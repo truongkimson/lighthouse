@@ -3,6 +3,7 @@ package com.nus.lighthouse.service;
 import com.nus.lighthouse.domain.Course;
 import com.nus.lighthouse.domain.Lecturer;
 import com.nus.lighthouse.exception.EmailAlreadyExistsException;
+import com.nus.lighthouse.exception.LecturerNotFoundException;
 import com.nus.lighthouse.repo.CourseRepository;
 import com.nus.lighthouse.repo.LecturerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
+import java.util.NoSuchElementException;
 
 @Service
 public class LecturerServiceImpl implements LecturerService {
@@ -36,7 +38,12 @@ public class LecturerServiceImpl implements LecturerService {
     }
 
     public Lecturer getLecturerById(int lecturerId) {
-        return lecturerRepository.findById(lecturerId).orElseThrow();
+        try {
+            return lecturerRepository.findById(lecturerId).orElseThrow();
+        }
+        catch (NoSuchElementException e) {
+            throw new LecturerNotFoundException("Lecturer not found");
+        }
     }
 
     @Transactional

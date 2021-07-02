@@ -4,6 +4,7 @@ import com.nus.lighthouse.domain.Course;
 import com.nus.lighthouse.domain.Enrolment;
 import com.nus.lighthouse.domain.Student;
 import com.nus.lighthouse.exception.EmailAlreadyExistsException;
+import com.nus.lighthouse.exception.StudentNotFoundException;
 import com.nus.lighthouse.repo.CourseRepository;
 import com.nus.lighthouse.repo.EnrolmentRepository;
 import com.nus.lighthouse.repo.StudentRepository;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 
@@ -104,8 +106,13 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Transactional
-    public Student getStudentById(int id){
-        return studentRepository.getById(id);
+    public Student getStudentById(int id) {
+        try {
+            return studentRepository.findById(id).orElseThrow();
+        }
+        catch (NoSuchElementException e) {
+            throw new StudentNotFoundException("Student not found");
+        }
     }
 
     @Transactional

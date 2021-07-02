@@ -1,35 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org/">
 <head th:replace = "fragments::header-lecturer">
-<script>
-function showgpa()
-{
-	let result=0;
-	let creditsum=0;
-	var allgrades = document.getElementsByClassName("points");
-	var allcredit = document.getElementsByClassName("credit");
-	var obj = {
-		    "A+": 5,
-		    "A": 5,
-		    "A-": 4.5,
-		    "B+": 4,
-		    "B": 3.5,
-		    "B-": 3,
-		    "C+": 2.5,
-		    "C": 2,
-		    "C-": 1.5,
-		    "D+": 1.5,
-		    "D": 1,
-		    "F":0,
-		    null:0
-		};
-    for (let i = 0; i < allgrades.length; i++) {
-    	  result+=obj[allgrades[i].innerHTML]*allcredit[i].innerHTML;
-    	  creditsum+=1*(allcredit[i].innerHTML);
-      }
-	document.getElementById('gpa').innerHTML=result/creditsum;
-}
-</script>
 <meta charset="ISO-8859-1">
 <title>Student performance</title>
 </head>
@@ -50,9 +21,9 @@ function showgpa()
 			<td th:text="${EnrolDataByStudent.status}"> Status</td>
 		</tr>
 	</table>
-<button onclick="showgpa()">Calculate CGPA</button>
+<script type="text/javascript" th:src="@{/js/showgpa.js}"></script>
+<button th:onclick="showgpa()">Calculate CGPA</button>
 <p id="gpa"></p>
-<a href = "http://localhost:8080/lecturer/home">Back to home</a>
 </body>
 <div th:replace = "fragments::footer"></div>
 </html>

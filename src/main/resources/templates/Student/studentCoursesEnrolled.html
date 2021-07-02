@@ -12,32 +12,41 @@
 </head>
 
 <style>
-.table1 {
-  margin-left: auto;
-  margin-right: auto;
-}
 
 .course {
-margin: 250px;
-font-size: 18px;
+margin: 180px;
+font-size: 20px;
 }
 </style>
 
 <body>
 <div class="course">
     <h1 style="text-align: center">Hello student!</h1>
-    <h3 style="text-align: center">You have enrolled in the following 1</h3>
-    <br>
-    <br>
-    <div style="text-align: center">
-    <a th:href = "@{/student/home}">Student</a>
-    <a th:href = "@{enrollCourses/searched}">Searched</a>
-    <a th:href = "@{admin}">Admin</a></div>
-    <br>
-    <br>
+    <h3 style="text-align: center">You have enrolled in the following</h3>
+<!--    <br>-->
+<!--    <br>-->
+<!--    <div style="text-align: center">-->
+<!--    <a th:href = "@{/student/home}">Student</a>-->
+<!--    <a th:href = "@{enrollCourses/searched}">Searched</a>-->
+<!--    <a th:href = "@{admin}">Admin</a></div>-->
+<!--    <br>-->
+<!--    <br>-->
 
     <table class="table1">
         <tr>
+	<div style="text-align: center"><img src="/images/studentcourse.png" style="width:30%;"></div>
+	<br>
+    <h3 style="text-align: center">You have enrolled in the following 1</h3>
+<!--    <br>-->
+<!--    <div style="text-align: center">-->
+<!--    <a class="btn btn-primary" role="button" aria-pressed="true" th:href = "@{/student/home}">Student</a>-->
+<!--    <a class="btn btn-primary" role="button" aria-pressed="true" th:href = "@{enrollCourses/searched}">Searched</a>-->
+<!--    <a class="btn btn-primary" role="button" aria-pressed="true" th:href = "@{admin}">Admin</a>-->
+<!--    </div>-->
+    <br>
+    <table class="table table-hover">
+    <thead>
+    	<tr class = "table-light">
             <th width="20%" align="left">Course Name</th>
             <th width="40%" align="left">Course Description</th>
             <th width="10%" align="left">Credits</th>
@@ -49,6 +58,7 @@ font-size: 18px;
             <td width="10%" th:text="${course.getCredits()}"></td>
             <td width="30%" th:text="${status}"></td>
         </tr>
+    </thead>
     </table>
 
 </div>

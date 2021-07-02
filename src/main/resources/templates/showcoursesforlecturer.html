@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org/">
-<head>
+<head th:replace = "fragments::header-lecturer">
 <meta charset="ISO-8859-1">
 <title>My courses</title>
 </head>
@@ -24,4 +24,5 @@
 	</table>
 <a href = "http://localhost:8080/lecturer/home">Back to home</a>
 </body>
+<div th:replace = "fragments::footer"></div>
 </html>

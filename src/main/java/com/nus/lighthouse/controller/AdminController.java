@@ -1,6 +1,9 @@
 package com.nus.lighthouse.controller;
 
-import com.nus.lighthouse.domain.*;
+import com.nus.lighthouse.domain.Course;
+import com.nus.lighthouse.domain.Enrolment;
+import com.nus.lighthouse.domain.Lecturer;
+import com.nus.lighthouse.domain.Student;
 import com.nus.lighthouse.exception.CourseFullException;
 import com.nus.lighthouse.exception.EmailAlreadyExistsException;
 import com.nus.lighthouse.service.AdminService;
@@ -15,8 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Enumeration;
 
 @Controller
 @RequestMapping("/admin")
@@ -38,12 +39,6 @@ public class AdminController {
     public String getAllStudents(Model model, HttpSession session) {
         Collection<Student> allStudents = studentService.getAllStudents();
         model.addAttribute("studentList", allStudents);
-        Enumeration<String> attrList = session.getAttributeNames();
-        for (String attr : Collections.list(attrList)) {
-            System.out.println(attr);
-        }
-
-        System.out.println(session.getAttribute("currentUser"));
         return "admin/student/index";
     }
 
@@ -313,10 +308,5 @@ public class AdminController {
     @ModelAttribute("lecturerList")
     public Collection<Lecturer> createLecturerList() {
         return lecturerService.getAllLecturers();
-    }
-
-    @ModelAttribute("currentUser")
-    public User getCurrentUser(HttpSession session) {
-        return (User)session.getAttribute("currentUser");
     }
 }

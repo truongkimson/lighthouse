@@ -12,7 +12,7 @@ import java.util.Collection;
 @Entity
 @DiscriminatorValue("LEC")
 public class Lecturer extends User{
-    @NotBlank
+    @NotBlank(message = "Designation field cannot be blank")
     private String designation;
 
     // some random comments

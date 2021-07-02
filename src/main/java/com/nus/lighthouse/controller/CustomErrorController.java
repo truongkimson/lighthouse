@@ -19,6 +19,7 @@ public class CustomErrorController implements ErrorController {
 
         if (status != null) {
             mav.addObject("errorMsg", errorCodeHandler((Integer)status));
+            mav.addObject("returnUrl", "/");
             return mav;
         }
         mav.addObject("errorMsg", "Unknown error, Please contact our support");

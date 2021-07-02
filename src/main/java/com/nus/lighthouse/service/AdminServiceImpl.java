@@ -5,6 +5,7 @@ import com.nus.lighthouse.domain.Enrolment;
 import com.nus.lighthouse.domain.Lecturer;
 import com.nus.lighthouse.domain.Student;
 import com.nus.lighthouse.exception.CourseFullException;
+import com.nus.lighthouse.exception.CourseNotFoundException;
 import com.nus.lighthouse.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.NoSuchElementException;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -39,7 +41,12 @@ public class AdminServiceImpl implements AdminService {
     }
 
     public Course getCourseById(int courseId) {
-        return courseRepository.findById(courseId).orElseThrow();
+        try {
+            return courseRepository.findById(courseId).orElseThrow();
+        }
+        catch (NoSuchElementException e) {
+            throw new CourseNotFoundException("Course not found");
+        }
     }
 
     public Collection<Course> getCoursesByQuery(String query) {

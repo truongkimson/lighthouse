@@ -1,18 +1,12 @@
 package com.nus.lighthouse.controller;
 
-import com.nus.lighthouse.domain.Course;
-import com.nus.lighthouse.domain.Enrolment;
-import com.nus.lighthouse.domain.Lecturer;
-import com.nus.lighthouse.domain.Student;
+import com.nus.lighthouse.domain.*;
 import com.nus.lighthouse.exception.CourseFullException;
 import com.nus.lighthouse.exception.EmailAlreadyExistsException;
 import com.nus.lighthouse.service.AdminService;
 import com.nus.lighthouse.service.LecturerService;
 import com.nus.lighthouse.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,7 +34,7 @@ public class AdminController {
     }
 
     // student related
-    @GetMapping(value = {"/student", "/"})
+    @GetMapping(value = {"/student", "/home"})
     public String getAllStudents(Model model, HttpSession session) {
         Collection<Student> allStudents = studentService.getAllStudents();
         model.addAttribute("studentList", allStudents);
@@ -48,10 +42,8 @@ public class AdminController {
         for (String attr : Collections.list(attrList)) {
             System.out.println(attr);
         }
-        SecurityContextImpl auth = (SecurityContextImpl)session.getAttribute("SPRING_SECURITY_CONTEXT");
-        Authentication auth1 = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(auth.getAuthentication().getPrincipal());
-        System.out.println(auth1.getPrincipal());
+
+        System.out.println(session.getAttribute("currentUser"));
         return "admin/student/index";
     }
 
@@ -117,10 +109,6 @@ public class AdminController {
     }
 
     // lecturer related
-    @ModelAttribute("lecturerList")
-    public Collection<Lecturer> createLecturerList() {
-        return lecturerService.getAllLecturers();
-    }
 
     @GetMapping("/lecturer")
     public String getAllLecturers(Model model) {
@@ -322,4 +310,13 @@ public class AdminController {
         return "redirect:/admin/enrolment/" + courseId + "/detail";
     }
 
+    @ModelAttribute("lecturerList")
+    public Collection<Lecturer> createLecturerList() {
+        return lecturerService.getAllLecturers();
+    }
+
+    @ModelAttribute("currentUser")
+    public User getCurrentUser(HttpSession session) {
+        return (User)session.getAttribute("currentUser");
+    }
 }

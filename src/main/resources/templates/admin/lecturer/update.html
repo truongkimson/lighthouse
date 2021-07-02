@@ -15,19 +15,51 @@
 
     <title>Admin - Update Lecturer</title>
 </head>
+
+<style>
+.table1 {
+  font-size: 18px;
+  font-family: NeuzeitGrotesk;
+}
+
+td{
+padding-bottom: 12px;
+padding-top: 6px;
+}
+.designation {
+padding-bottom: 30px;
+padding-top: 5px;
+}
+
+.class{
+width: 350px;
+}
+</style>
+
 <body>
+<div class ="container-fluid">
+<div class = "row">
+<div class ="col-6">
+<div style = "padding:120px 0px 160px 100px">
+<img src="/images/student111.jpg" style="height:70%;">
+</div>
+</div>
+<div class ="col-6">
+<div style = "padding: 200px 0px 0px 100px">
+<h3>Update lecturer</h3>
+<br>
 <div>
     <p class="alert alert-danger " th:if="${error} != null" th:text="${error}"></p>
 </div>
 <form action="#" method="post" th:action="@{/admin/lecturer/{lecturerId}/update(lecturerId=${lecturer.id})}"
       th:object="${lecturer}">
-    <table>
+    <table class="table1">
         <tr>
             <td><input hidden readonly th:field="*{id}" type="number"/></td>
         </tr>
         <tr>
             <td><label for="first-name">First Name</label></td>
-            <td><input id="first-name" th:field="*{firstName}" type="text"/></td>
+            <td><input class="class" id="first-name" th:field="*{firstName}" type="text"/></td>
         </tr>
         <tr>
             <td class="alert alert-danger" colspan="2" th:errors="*{firstName}"
@@ -35,7 +67,7 @@
         </tr>
         <tr>
             <td><label for="last-name"></label>Last Name</td>
-            <td><input id="last-name" th:field="*{lastName}" type="text"/></td>
+            <td><input class="class" id="last-name" th:field="*{lastName}" type="text"/></td>
         </tr>
         <tr>
             <td class="alert alert-danger" colspan="2" th:errors="*{lastName}"
@@ -43,22 +75,26 @@
         </tr>
         <tr>
             <td><label for="email">Email</label></td>
-            <td><input id="email" th:field="*{email}" type="text"/></td>
+            <td><input class="class" id="email" th:field="*{email}" type="text"/></td>
         </tr>
         <tr>
             <td class="alert alert-danger" colspan="2" th:errors="*{email}"
                 th:if="${#fields.hasErrors('email')}"></td>
         </tr>
         <tr>
-            <td><label for="designation">Designation</label></td>
-            <td><input id="designation" th:field="*{designation}" type="text"/></td>
+            <td class="designation"><label for="designation">Designation</label></td>
+            <td class="designation"><input class="class" id="designation" th:field="*{designation}" type="text"/></td>
         </tr>
         <tr>
-            <td><input type="submit" value="Update"></td>
+        	<td width="40%"></td>
+            <td align="right"><input class="btn btn-primary" type="submit" value="Update"></td>
         </tr>
     </table>
 </form>
-
+</div>
+</div>
+</div>
+</div>
 <script crossorigin="anonymous"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

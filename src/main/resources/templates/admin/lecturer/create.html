@@ -15,16 +15,48 @@
 
   <title>Admin - Create Lecturer</title>
 </head>
+
+<style>
+.table1 {
+  font-size: 18px;
+  font-family: NeuzeitGrotesk;
+}
+
+td{
+padding-bottom: 12px;
+padding-top: 6px;
+}
+
+.designation {
+padding-bottom: 30px;
+padding-top: 5px;
+}
+
+.class{
+width: 350px;
+}
+</style>
+
 <body>
-<h3> Create new Lecturer</h3>
+<div class="container-fuild">
+<div class = "row">
+<div class ="col-6">
+<div style = "padding:100px 0px 120px 180px">
+<img src="/images/create1.png" style="height:100%;">
+</div>
+</div>
+<div class ="col-6">
+<div style = "padding: 200px 0px 0px 30px">
+<h3>Create new lecturer</h3>
+<br>
 <div>
   <p class="alert alert-danger " th:if="${error} != null" th:text="${error}"></p>
 </div>
 <form action="#" method="post" th:action="@{/admin/lecturer/create}" th:object="${lecturer}">
-  <table>
+  <table class= "table1">
     <tr>
       <td><label for="first-name">First Name</label></td>
-      <td><input id="first-name" type="text" th:field="*{firstName}"/></td>
+      <td><input class="class" id="first-name" type="text" th:field="*{firstName}"/></td>
     </tr>
     <tr>
       <td class="alert alert-danger" colspan="2" th:errors="*{firstName}"
@@ -32,7 +64,7 @@
     </tr>
     <tr>
       <td><label for="last-name"></label>Last Name</td>
-      <td><input id="last-name" type="text" th:field="*{lastName}"/></td>
+      <td><input class="class" id="last-name" type="text" th:field="*{lastName}"/></td>
     </tr>
     <tr>
       <td class="alert alert-danger" colspan="2" th:errors="*{lastName}"
@@ -40,26 +72,30 @@
     </tr>
     <tr>
       <td><label for="email">Email</label></td>
-      <td><input id="email" type="text" th:field="*{email}"/></td>
+      <td><input class="class" id="email" type="text" th:field="*{email}"/></td>
     </tr>
     <tr>
       <td class="alert alert-danger" colspan="2" th:errors="*{email}"
           th:if="${#fields.hasErrors('email')}"></td>
     </tr>
     <tr>
-      <td><label for="designation">Designation</label></td>
-      <td><input id="designation" type="text" th:field="*{designation}"/></td>
+      <td class="designation"><label for="designation">Designation</label></td>
+      <td class="designation"><input class="class" id="designation" type="text" th:field="*{designation}"/></td>
     </tr>
     <tr>
       <td class="alert alert-danger" colspan="2" th:errors="*{designation}"
           th:if="${#fields.hasErrors('designation')}"></td>
     </tr>
     <tr>
-      <td><input type="submit" value="Create"></td>
+    	<td width="40%"></td>
+      	<td align="right"><input class="btn btn-primary" type="submit" value="Create"></td>
     </tr>
   </table>
 </form>
-
+</div>
+</div>
+</div>
+</div>
 <script crossorigin="anonymous"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

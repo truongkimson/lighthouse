@@ -14,13 +14,45 @@
 
     <title>Admin - Create Course</title>
 </head>
+
+<style>
+.table1 {
+  font-size: 18px;
+  font-family: NeuzeitGrotesk;
+}
+
+td{
+padding-bottom: 12px;
+padding-top: 6px;
+}
+
+.lecturer {
+padding-bottom: 30px;
+padding-top: 5px;
+}
+
+.class{
+width: 350px;
+}
+</style>
+
 <body>
+<div class ="container-fluid">
+<div class = "row">
+<div class ="col-6">
+<div style = "padding:100px 0px 160px 180px">
+<img src="/images/course1234455.jpg" style="height:100%;">
+</div>
+</div>
+<div class ="col-6"> 
+<div style = "padding: 140px 0px 0px 30px">
 <h3>Create new course</h3>
+<br>
 <form action="#" method="post" th:action="@{/admin/course/create}" th:object="${course}">
-    <table>
+    <table class = "table1">
         <tr>
             <td><label for="course-name">Course Name</label></td>
-            <td><input id="course-name" th:field="*{courseName}" type="text"/></td>
+            <td><input class="class" id="course-name" th:field="*{courseName}" type="text"/></td>
         </tr>
         <tr>
             <td class="alert alert-danger" colspan="2" th:errors="*{courseName}"
@@ -28,7 +60,7 @@
         </tr>
         <tr>
             <td><label for="course-desc">Course Description</label></td>
-            <td><textarea id="course-desc" th:field="*{courseDes}"></textarea></td>
+            <td><textarea class="class" id="course-desc" th:field="*{courseDes}"></textarea></td>
         </tr>
         <tr>
             <td class="alert alert-danger" colspan="2" th:errors="*{courseDes}"
@@ -36,7 +68,7 @@
         </tr>
         <tr>
             <td><label for="credits">Credits</label></td>
-            <td><input id="credits" th:field="*{credits}" type="number"/></td>
+            <td><input class="class" id="credits" th:field="*{credits}" type="number"/></td>
         </tr>
         <tr>
             <td class="alert alert-danger" colspan="2" th:errors="*{credits}"
@@ -44,7 +76,7 @@
         </tr>
         <tr>
             <td><label for="duration">Duration</label></td>
-            <td><input id="duration" th:field="*{duration}" type="number"/></td>
+            <td><input class="class" id="duration" th:field="*{duration}" type="number"/></td>
         </tr>
         <tr>
             <td class="alert alert-danger" colspan="2" th:errors="*{duration}"
@@ -52,7 +84,7 @@
         </tr>
         <tr>
             <td><label for="max-cap">Max Capacity</label></td>
-            <td><input id="max-cap" th:field="*{maxCap}" type="number"/></td>
+            <td><input class="class" id="max-cap" th:field="*{maxCap}" type="number"/></td>
         </tr>
         <tr>
             <td class="alert alert-danger" colspan="2" th:errors="*{maxCap}"
@@ -60,7 +92,7 @@
         </tr>
         <tr>
             <td><label for="start-date">Start Date</label></td>
-            <td><input id="start-date" th:field="*{startDate}" type="date"/></td>
+            <td><input class="class" id="start-date" th:field="*{startDate}" type="date"/></td>
         </tr>
         <tr>
             <td class="alert alert-danger" colspan="2" th:errors="*{startDate}"
@@ -68,7 +100,7 @@
         </tr>
         <tr>
             <td><label for="enroll-by">Enroll By</label></td>
-            <td><input id="enroll-by" th:field="*{enrollBy}" type="date"/></td>
+            <td><input class="class" id="enroll-by" th:field="*{enrollBy}" type="date"/></td>
         </tr>
         <tr>
             <td class="alert alert-danger" colspan="2" th:errors="*{enrollBy}"
@@ -76,27 +108,31 @@
         </tr>
         <tr>
             <td><label for="exam-date">Exam Date</label></td>
-            <td><input id="exam-date" th:field="*{examDate}" type="date"/></td>
+            <td><input class="class" id="exam-date" th:field="*{examDate}" type="date"/></td>
         </tr>
         <tr>
             <td class="alert alert-danger" colspan="2" th:errors="*{examDate}"
                 th:if="${#fields.hasErrors('examDate')}"></td>
         </tr>
         <tr>
-            <td><label for="lecturer">Lecturer</label></td>
-            <td>
-                <select id="lecturer" name="lecturerId">
+            <td class ="lecturer"><label for="lecturer">Lecturer</label></td>
+            <td class ="lecturer">
+                <select class="class" id="lecturer" name="lecturerId">
                     <option th:each="lecturer: ${lecturerList}" th:text="${lecturer.getFullName()}"
                             th:value="${lecturer.id}"></option>
                 </select>
             </td>
         </tr>
         <tr>
-            <td><input type="submit" value="Create"/></td>
+        	<td width="40%"></td>
+            <td align = "right"><input class="btn btn-primary" type="submit" value="Create"/></td>
         </tr>
     </table>
 </form>
-
+</div>
+</div>
+</div>
+</div>
 <script crossorigin="anonymous"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>

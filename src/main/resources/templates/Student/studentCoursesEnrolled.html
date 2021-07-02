@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en" >
-<head th:replace = "fragments::header-student">
+<head th:replace = "fragments::header-student('coursePage')" >
     <meta charset="UTF-8">
     <title>Student</title>
     <script type="text/javascript">
@@ -22,7 +22,7 @@ font-size: 20px;
 <body>
 <div class="course">
     <h1 style="text-align: center">Hello student!</h1>
-    <h3 style="text-align: center">You have enrolled in the following</h3>
+<!--    <h3 style="text-align: center">You have enrolled in the following</h3>-->
 <!--    <br>-->
 <!--    <br>-->
 <!--    <div style="text-align: center">-->
@@ -36,7 +36,7 @@ font-size: 20px;
         <tr>
 	<div style="text-align: center"><img src="/images/studentcourse.png" style="width:30%;"></div>
 	<br>
-    <h3 style="text-align: center">You have enrolled in the following 1</h3>
+    <h3 style="text-align: center">You have enrolled in the following</h3>
 <!--    <br>-->
 <!--    <div style="text-align: center">-->
 <!--    <a class="btn btn-primary" role="button" aria-pressed="true" th:href = "@{/student/home}">Student</a>-->

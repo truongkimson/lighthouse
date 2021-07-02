@@ -16,6 +16,7 @@
     <title>Admin - Student</title>
 </head>
 <body>
+<p th:text="${currentUser.getFullName()}"></p>
 <div>
     <form action="#" method="GET" th:action="@{/admin/student/}">
         <label for="search-bar">Search</label>

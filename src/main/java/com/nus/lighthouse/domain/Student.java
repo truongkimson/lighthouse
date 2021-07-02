@@ -89,51 +89,53 @@ public class Student extends User {
     public double getGpa() {
         double cumulativeGrade = 0;
         int numOfSubjects = 0;
-
         for (Enrolment e :enrolments) {
-            switch (e.getGrade()){
-                case "A+" :
-                case "A":
-                    cumulativeGrade+=5.0* (e.getCourse().getCredits());
-                    numOfSubjects+=(e.getCourse().getCredits());
-                    break;
-                case "A-":
-                    cumulativeGrade+=4.5*(e.getCourse().getCredits());
-                    numOfSubjects+=(e.getCourse().getCredits());
-                    break;
-                case "B+":
-                    cumulativeGrade+=4.0*(e.getCourse().getCredits());
-                    numOfSubjects+=(e.getCourse().getCredits());
-                    break;
-                case "B":
-                    cumulativeGrade+=3.5*(e.getCourse().getCredits());
-                    numOfSubjects+=(e.getCourse().getCredits());
-                    break;
-                case "B-":
-                    cumulativeGrade+=3.0*(e.getCourse().getCredits());
-                    numOfSubjects+=(e.getCourse().getCredits());
-                    break;
-                case "C+":
-                    cumulativeGrade+=2.5*(e.getCourse().getCredits());
-                    numOfSubjects+=(e.getCourse().getCredits());
-                    break;
-                case "C":
-                    cumulativeGrade+=2.0*(e.getCourse().getCredits());
-                    numOfSubjects+=(e.getCourse().getCredits());
-                    break;
-                case "C-":
-                case "D+":
-                    cumulativeGrade+=1.5*(e.getCourse().getCredits());
-                    numOfSubjects+=(e.getCourse().getCredits());
-                    break;
-                case "D":
-                    cumulativeGrade+=1.0*(e.getCourse().getCredits());
-                    numOfSubjects+=(e.getCourse().getCredits());
-                    break;
-                default:
-                    cumulativeGrade+=0*(e.getCourse().getCredits());
-                    numOfSubjects+=(e.getCourse().getCredits());
+            if(e.getGrade()!=null){
+                switch (e.getGrade()){
+                    case "A+" :
+                    case "A":
+                        cumulativeGrade+=5.0* (e.getCourse().getCredits());
+                        numOfSubjects+=(e.getCourse().getCredits());
+                        break;
+                    case "A-":
+                        cumulativeGrade+=4.5*(e.getCourse().getCredits());
+                        numOfSubjects+=(e.getCourse().getCredits());
+                        break;
+                    case "B+":
+                        cumulativeGrade+=4.0*(e.getCourse().getCredits());
+                        numOfSubjects+=(e.getCourse().getCredits());
+                        break;
+                    case "B":
+                        cumulativeGrade+=3.5*(e.getCourse().getCredits());
+                        numOfSubjects+=(e.getCourse().getCredits());
+                        break;
+                    case "B-":
+                        cumulativeGrade+=3.0*(e.getCourse().getCredits());
+                        numOfSubjects+=(e.getCourse().getCredits());
+                        break;
+                    case "C+":
+                        cumulativeGrade+=2.5*(e.getCourse().getCredits());
+                        numOfSubjects+=(e.getCourse().getCredits());
+                        break;
+                    case "C":
+                        cumulativeGrade+=2.0*(e.getCourse().getCredits());
+                        numOfSubjects+=(e.getCourse().getCredits());
+                        break;
+                    case "C-":
+                    case "D+":
+                        cumulativeGrade+=1.5*(e.getCourse().getCredits());
+                        numOfSubjects+=(e.getCourse().getCredits());
+                        break;
+                    case "D":
+                        cumulativeGrade+=1.0*(e.getCourse().getCredits());
+                        numOfSubjects+=(e.getCourse().getCredits());
+                        break;
+                    default:
+                        cumulativeGrade+=0*(e.getCourse().getCredits());
+//                    numOfSubjects+=(e.getCourse().getCredits());
+                }
             }
+
         }
         return cumulativeGrade / numOfSubjects;
     }

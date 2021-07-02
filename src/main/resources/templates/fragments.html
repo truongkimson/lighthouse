@@ -32,7 +32,7 @@
 				</ul>
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">Logout</a>
+                        <a class="nav-link" aria-current="page" href="/logout">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -48,7 +48,7 @@
         <div class="container-fluid">
             <a class="navbar-brand me-auto" href="/">
                 <div class ="container-fluid">
-                    <img src="/images/lighthouselogo-transparent.png" alt="" width="80" height="24">
+                    <img src="/images/lighthouselogo-transparent.png" alt="" height="36">
                 </div>
             </a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -71,7 +71,7 @@
                 </ul>
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">Logout</a>
+                        <a class="nav-link" aria-current="page" href="/logout">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -82,35 +82,35 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </div>
 
-<div th:fragment = "header-admin">
+<div th:fragment = "header-admin(activeTab)">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand me-auto" href="/">
                 <div class ="container-fluid">
-                    <img src="/images/lighthouselogo-transparent.png" alt="" width="80" height="24">
+                    <img src="/images/lighthouselogo-transparent.png" alt="" height="36">
                 </div>
 			</a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/student/home">Admin</a>
+                        <a class="nav-link active" aria-current="page" href="/admin/student">Admin</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/student/enrolled">Student</a>
+                        <a th:class="${activeTab == 'studentPage'}? 'nav-link active' : 'nav-link'" aria-current="page" href="/admin/student">Student</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/student/enrollCourses">Lecturer</a>
+                        <a th:class="${activeTab == 'lecturerPage'}? 'nav-link active' : 'nav-link'" aria-current="page" href="/admin/lecturer">Lecturer</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/student/grades">Course</a>
+                        <a th:class="${activeTab == 'coursePage'}? 'nav-link active' : 'nav-link'" aria-current="page" href="/admin/course">Course</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/student/grades">Enrollment</a>
+                        <a th:class="${activeTab == 'enrolmentPage'}? 'nav-link active' : 'nav-link'" aria-current="page" href="/admin/enrolment">Enrollment</a>
                     </li>
 				</ul>
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">Logout</a>
+                        <a class="nav-link" aria-current="page" href="/logout">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -124,7 +124,7 @@
         <div class="container-fluid">
             <a class="navbar-brand me-auto" href="/">
                 <div class ="container-fluid">
-                    <img src="/images/lighthouselogo-transparent.png" alt="" width="80" height="24">
+                    <img src="/images/lighthouselogo-transparent.png" alt="" height="36">
                 </div>
 			</a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -147,7 +147,7 @@
 				</ul>
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">Logout</a>
+                        <a class="nav-link" aria-current="page" href="/logout">Logout</a>
                     </li>
                 </ul>
             </div>

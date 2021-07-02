@@ -30,7 +30,7 @@ font-size: 20px;
     <br>
     <table class = "table1">
     <tr th:with ="studentGpa=${student.getGpa()}">
-       <td>GPA:&nbsp&nbsp</td> 
+       <td>GPA:&nbsp&nbsp</td>
        <td th:text="${#numbers.formatDecimal(studentGpa, 1, 'COMMA', 2, 'POINT')}"></td>
     </tr>
     </table>

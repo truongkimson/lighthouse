@@ -92,7 +92,9 @@ public class StudentController {
         AppUserDetails userDetails = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int dummyId = userDetails.getUserId();
         Student dummy = studentService.getStudentById(dummyId);
-        Collection<Enrolment> enrolled = studentService.findEnrolmentByStudentAndStatus(dummyId,"COMPLETED");
+//        Collection<Enrolment> enrolled = studentService.findEnrolmentByStudentAndStatus(dummyId,"COMPLETED");
+        Collection<Enrolment> enrolled = studentService.findEnrolmentByGradeExists(dummyId);
+
 
         if(enrolled == null){
             return "Student/student";

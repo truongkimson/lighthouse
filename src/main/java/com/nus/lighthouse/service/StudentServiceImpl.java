@@ -163,4 +163,11 @@ public class StudentServiceImpl implements StudentService {
     {
         return studentRepository.findStudentEnrolmentsbyStudentIdd(id);
     }
+
+    @Transactional
+    public Collection<Enrolment>findEnrolmentByGradeExists(int id)
+    {
+        return enrolmentRepository.findEnrolmentByGradeExists(id);
+    }
+
 }

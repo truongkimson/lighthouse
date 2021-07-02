@@ -5,7 +5,7 @@
     <title>Home</title>
 </head>
 <body>
-    <p>Hello Lecturer! What do you want to do today?</p>
+    <p>Hello Lecturer <span th:text="${name}"></span>! What do you want to do today?</p>
     <a th:href = "@{viewCoursesTaught}">View courses taught</a>
     <a th:href = "@{viewcourseenrollment}">View course enrolment</a>
     <a th:href = "@{selectfromcoursesedit}">Edit grades</a>

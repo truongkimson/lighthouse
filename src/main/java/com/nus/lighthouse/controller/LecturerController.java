@@ -3,6 +3,7 @@ package com.nus.lighthouse.controller;
 
 import com.nus.lighthouse.domain.Enrolment;
 import com.nus.lighthouse.domain.Student;
+import com.nus.lighthouse.domain.User;
 import com.nus.lighthouse.domain.utils.CourseDataByLecturerData;
 import com.nus.lighthouse.domain.utils.EnrolDataByCourse;
 import com.nus.lighthouse.domain.utils.EnrolDataByStudent;
@@ -12,6 +13,7 @@ import com.nus.lighthouse.service.EnrolmentService;
 import com.nus.lighthouse.service.EnrolmentServiceImpl;
 import com.nus.lighthouse.service.StudentService;
 import com.nus.lighthouse.service.StudentServiceImpl;
+import com.nus.lighthouse.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,9 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,8 +35,10 @@ import org.springframework.validation.BindingResult;
 @Controller
 @RequestMapping("/lecturer")
 public class LecturerController {
-	private int lecturerid=14;
+	private int lecturerid;
 	private int courseid;
+	@Autowired
+	private UserService uservice;
 	@Autowired
 	private CourseService cservice;
 	@Autowired
@@ -51,7 +58,14 @@ public class LecturerController {
 		this.sservice = sserviceImpl;
 	}
 	@RequestMapping("/home")
-    public String showhome(){
+    public String showhome(Model model){
+		SecurityContext securityContext = SecurityContextHolder.getContext();
+        UserDetails user = (UserDetails) securityContext.getAuthentication().getPrincipal();
+        String username=user.getUsername();
+        User myUser=uservice.findbyEmail(username);
+        this.lecturerid=myUser.getId();
+        String fullname=myUser.getFirstName()+" "+myUser.getLastName();
+        model.addAttribute("name", fullname);
 		return "lecturer";
 	}
 

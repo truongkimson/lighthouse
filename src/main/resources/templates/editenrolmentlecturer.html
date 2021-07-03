@@ -4,32 +4,65 @@
 <meta charset="ISO-8859-1">
 <title>Enrolment form</title>
 </head>
+
+<style>
+.table1 {
+  font-size: 18px;
+  font-family: NeuzeitGrotesk;
+}
+
+.class{
+width: 350px;
+}
+</style>
+
 <body>
-<h1>Enrolment form</h1>
+<div class ="container-fluid">
+<div class = "row">
+<div class ="col-6">
+<div style = "padding:120px 0px 160px 100px">
+<img src="/images/student111.jpg" style="height:70%;">
+</div>
+</div>
+<div class ="col-6">
+<div style = "padding: 200px 0px 0px 100px">
+<h3>Enrolment form</h3>
+<br>
 	<form name="myForm" action="#" th:object="${enrolment}" th:action="@{/lecturer/save}"
 		method="post" onsubmit="return validateform()">
+		<div class="table1">
 		<fieldset>
-			Enrolment ID<input type="number" th:field="*{Id}" th:readonly=true>
+			Enrolment ID &nbsp&nbsp&nbsp <input class="class" type="number" th:field="*{Id}" th:readonly=true>
 		</fieldset>		
+		<br>
 		<fieldset>
-			Grade <input name="grade" type="text" th:field="*{grade}">
+			Grade  &nbsp&nbsp&nbsp <input class="class" name="grade" type="text" th:field="*{grade}">
 		</fieldset>
+		<br>
 		<fieldset>
-			Date Registered<input type="date" th:field="*{registeredDate}" th:readonly=true>
+			Date Registered  &nbsp&nbsp&nbsp <input class="class" type="date" th:field="*{registeredDate}" th:readonly=true>
 		</fieldset>
+		<br>
 		<fieldset>
-			Enrollment Status<input type="text" th:field="*{enrolmentStatus}" th:readonly=true>
+			Enrollment Status  &nbsp&nbsp&nbsp <input class="class" type="text" th:field="*{enrolmentStatus}" th:readonly=true>
 		</fieldset>
-				<fieldset>
+		<br>
+		<fieldset>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		</fieldset>
+		<br>
+		<div style = "text-align:center">
 		<fieldset>
-			<input type="submit" value="Save"/>
+			<input class="btn btn-primary" role="button" aria-pressed="true" type="submit" value="Save"/>
 			&nbsp; &nbsp; 	
-			<input type="reset" value="Reset"/>
-		</fieldset>
-
+			<input class="btn btn-primary" role="button" aria-pressed="true" type="reset" value="Reset"/>
+		</fieldset></div>
+	</div>
 	</form>
+</div>
+</div>
+</div>
+</div>
 <script type="text/javascript" th:src="@{/js/validateform.js}"></script>
 </body>
 <div th:replace = "fragments::footer"></div>

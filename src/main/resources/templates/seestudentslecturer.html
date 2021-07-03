@@ -5,20 +5,25 @@
 <title>Student performance</title>
 </head>
 <body>
-<h1 th:if="${not #lists.isEmpty(students)}">View Student Performance - Select a student</h1>
-	<table th:if="${not #lists.isEmpty(students)}" >
-		<tr >
+<div style = "padding: 30px 800px 0px 50px; min-height: 520px;">
+<h3 style = "text-align: left;" th:if="${not #lists.isEmpty(students)}">View Student Performance - Select a student</h3>
+<br>
+<table class="table table-hover" th:if="${not #lists.isEmpty(students)}" >
+<thead>
+		<tr class="table-active">
 			<th>Id</th>
 			<th>Student Name</th>
 			<th>Select</th>
-
 		</tr>
 		<tr th:each="student:${students}" >
 			<td th:text=${student.id}>Id</td>
 			<td th:text="${student.firstName}+' '+${student.lastName}"> Name</td>
-			<td ><a th:href="@{/lecturer/seeperformance/}+${student.id}">Select</a></td>
+			<td ><a class="btn btn-primary" role="button" aria-pressed="true" th:href="@{/lecturer/seeperformance/}+${student.id}">Select</a></td>
 		</tr>
-	</table>
+</thead>
+</table>
+</div>
+<div style="text-align: right"><img src="/images/enrolment222.png" style="width:40%;"></div>
 </body>
 <div th:replace = "fragments::footer"></div>
 </html>

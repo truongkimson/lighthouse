@@ -2,22 +2,26 @@
 <html xmlns:th="https://www.thymeleaf.org/">
 <head th:replace = "fragments::header-lecturer">
 <meta charset="ISO-8859-1">
-<title>View course enrolments</title>
+<title>View course enrolment</title>
 </head>
 <body>
-<h1 th:if="${not #lists.isEmpty(enrolments)}">View course enrolments</h1>
-	<table th:if="${not #lists.isEmpty(enrolments)}" >
-		<tr >
+<div style = "padding: 30px 800px 0px 50px; min-height: 520px;">
+<h3 style = "text-align: left;" th:if="${not #lists.isEmpty(enrolments)}">View course enrolment</h3>
+<br>
+<table class="table table-hover" th:if="${not #lists.isEmpty(enrolments)}" >
+	<thead>
+		<tr class="table-active">
 			<th>Course name</th>
 			<th>Student name</th>
-
 		</tr>
 		<tr th:each="EnrolDataByCourse:${enrolments}" >
 			<td th:text=${EnrolDataByCourse.coursename}>Id</td>
 			<td th:text="${EnrolDataByCourse.firstname}+' '+${EnrolDataByCourse.lastname}"> Name</td>
-
 		</tr>
-	</table>
+	</thead>	
+</table>
+</div>
+<div style="text-align: right"><img src="/images/enrolment222.png" style="width:40%;"></div>
 </body>
 <div th:replace = "fragments::footer"></div>
 </html>

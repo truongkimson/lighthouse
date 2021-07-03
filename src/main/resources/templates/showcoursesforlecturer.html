@@ -4,16 +4,18 @@
 <meta charset="ISO-8859-1">
 <title>My courses</title>
 </head>
+
 <body>
-<h1 th:if="${not #lists.isEmpty(courses)}">View courses taught</h1>
-	<table th:if="${not #lists.isEmpty(courses)}" >
-		<tr >
+<div style = "padding: 30px 800px 0px 50px; min-height: 520px;">
+<h3 style = "text-align: left;" th:if="${not #lists.isEmpty(courses)}">View courses taught</h3>
+<br>
+	<table class="table table-hover" th:if="${not #lists.isEmpty(courses)}" >
+	<thead>
+		<tr class="table-active">
 			<th>Id</th>
 			<th>Course Name</th>
 			<th>Class Size</th>
 			<th>Current Enrolment</th>
-
-			
 		</tr>
 		<tr th:each="CourseDataByLecturerData:${courses}" >
 			<td th:text=${CourseDataByLecturerData.id}>Id</td>
@@ -21,7 +23,10 @@
 			<td th:text=${CourseDataByLecturerData.maxCap}>Id</td>
 			<td th:text="${CourseDataByLecturerData.count}"> Name</td>
 		</tr>
+	</thead>
 	</table>
+</div>
+<div style="text-align: right"><img src="/images/enrolment222.png" style="width:40%;"></div>
 </body>
 <div th:replace = "fragments::footer"></div>
 </html>

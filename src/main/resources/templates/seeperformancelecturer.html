@@ -5,14 +5,17 @@
 <title>Student performance</title>
 </head>
 <body>
-<h1 th:if="${not #lists.isEmpty(performance)}">View Student Performance- <span th:text="${performance[0].firstname} +' '+ ${performance[0].lastname} "></span> </h1>
-	<table th:if="${not #lists.isEmpty(performance)}" >
-		<tr >
+<body>
+<div style = "padding: 30px 800px 0px 50px; min-height: 520px;">
+<h3 style = "text-align: left;" th:if="${not #lists.isEmpty(performance)}">View Student Performance- <span th:text="${performance[0].firstname} +' '+ ${performance[0].lastname} "></span></h3>
+<br>
+<table class="table table-hover" th:if="${not #lists.isEmpty(performance)}" >
+<thead>
+		<tr class="table-active">
 			<th>Course Name</th>
 			<th>Grade</th>
 			<th>Credits</th>
 			<th>Status</th>
-
 		</tr>
 		<tr th:each="EnrolDataByStudent:${(performance)}" >
 			<td th:text=${EnrolDataByStudent.coursename}>Id</td>
@@ -20,10 +23,15 @@
 			<td th:text="${EnrolDataByStudent.credits}" class="credit"> Credits</td>
 			<td th:text="${EnrolDataByStudent.status}"> Status</td>
 		</tr>
-	</table>
+</thead>
+</table>
+<div style = "text-align:right">
 <script type="text/javascript" th:src="@{/js/showgpa.js}"></script>
-<button th:onclick="showgpa()">Calculate CGPA</button>
-<p id="gpa"></p>
+<button class="btn btn-success" th:onclick="showgpa()">Calculate CGPA</button>
+<p style = "font-weight:bold" id="gpa"></p>
+</div>
+</div>
+<div style="text-align: right"><img src="/images/enrolment222.png" style="width:40%;"></div>
 </body>
 <div th:replace = "fragments::footer"></div>
 </html>

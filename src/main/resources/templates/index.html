@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <title>Home</title>
 </head>
+
+<style>
+.footer {
+   position: relative;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   text-align: center;
+   height: 50px;
+   border-top: 1px solid grey;
+}
+</style>
+
 <body>
 <div th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
     <div th:case="false">
@@ -15,7 +28,10 @@
 </div>
 <div style="text-align: center"><img src="/images/best-school-management-system-horz-new.jpg"></div>
 <div style="text-align: center"><img src="/images/education-news.png"></div>
+<br>
 <div style="text-align: center"><img src="/images/news-2.png"></div>
+<br>
+<br>
 <div th:replace = "fragments::footer"></div>
 </body>
 </html>

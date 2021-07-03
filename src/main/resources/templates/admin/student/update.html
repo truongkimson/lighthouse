@@ -35,19 +35,46 @@ padding-top: 5px;
 .class{
 width: 350px;
 }
+
+.test {
+width: 100%
+}
+
+.test-1{
+width: 50%;
+float:left;
+padding-top:175px;
+padding-left:100px;
+}
+
+.test-2{
+width: 50%;
+float:left;
+padding-top:170px;
+}
+
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   text-align: center;
+   height: 50px;
+   border-top: 1px solid grey;
+}
 </style>
 
 <body>
 <div th:replace = "fragments::header-admin('studentPage')"></div>
-<div class="container-fluid">
-<div class = "row">
-<div class ="col-6">
-<div style = "padding:120px 0px 160px 100px">
-<img src="/images/student111.jpg" style="height:70%;">
+<!-- div class ="container-fluid" -->
+<div class = "test">
+<div class ="test-1">
+<div>
+<img src="/images/student111.jpg" style="width:87%;">
 </div>
 </div>
-<div class ="col-6">
-<div style = "padding: 200px 0px 0px 100px">
+<div class ="test-2"> 
+<div>
 <h3>Update Student</h3>
 <br>
 <div>
@@ -121,7 +148,6 @@ width: 350px;
         </tr>
     </table>
 </form>
-</div>
 </div>
 </div>
 </div>

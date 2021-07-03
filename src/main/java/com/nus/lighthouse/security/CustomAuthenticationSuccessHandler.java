@@ -79,5 +79,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         User user = userRepository.findById(userDetails.getUserId()).orElse(null);
 
         session.setAttribute("currentUser", user);
+        assert user != null;
+        session.setAttribute("userName", user.getFullName());
     }
 }

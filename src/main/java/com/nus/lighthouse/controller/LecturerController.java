@@ -1,31 +1,38 @@
 package com.nus.lighthouse.controller;
 
 
+import com.nus.lighthouse.domain.Course;
 import com.nus.lighthouse.domain.Enrolment;
 import com.nus.lighthouse.domain.Student;
 import com.nus.lighthouse.domain.User;
 import com.nus.lighthouse.domain.utils.CourseDataByLecturerData;
 import com.nus.lighthouse.domain.utils.EnrolDataByCourse;
 import com.nus.lighthouse.domain.utils.EnrolDataByStudent;
+import com.nus.lighthouse.security.AppUserDetails;
 import com.nus.lighthouse.service.CourseService;
 import com.nus.lighthouse.service.CourseServiceImpl;
 import com.nus.lighthouse.service.EnrolmentService;
 import com.nus.lighthouse.service.EnrolmentServiceImpl;
+import com.nus.lighthouse.service.LecturerService;
+import com.nus.lighthouse.service.LecturerServiceImpl;
 import com.nus.lighthouse.service.StudentService;
 import com.nus.lighthouse.service.StudentServiceImpl;
 import com.nus.lighthouse.service.UserService;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +44,12 @@ import org.springframework.validation.BindingResult;
 public class LecturerController {
 	private int lecturerid;
 	private int courseid;
+    public final LecturerService lecturerService;
+    
+    @Autowired
+    public LecturerController(LecturerService lecturerService) {
+        this.lecturerService = lecturerService;
+    }
 	@Autowired
 	private UserService uservice;
 	@Autowired
@@ -57,6 +70,7 @@ public class LecturerController {
 	public void setStudentService(StudentServiceImpl sserviceImpl) {
 		this.sservice = sserviceImpl;
 	}
+	
 	@RequestMapping("/home")
     public String showhome(Model model){
 		SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -192,5 +206,15 @@ public class LecturerController {
 		}
 		model.addAttribute("performance", enroldata);
 		return "seeperformancelecturer";
+    }
+    
+    
+    @GetMapping("/timetable")
+    public String getTimetableDetails(Model model){
+        AppUserDetails userDetails = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int id = userDetails.getUserId();
+        Collection<Course> courses =  lecturerService.getlectTimetableDetails(id);
+        model.addAttribute("courses", courses);
+        return "Lecturer/lecturerTimetable";
     }
 }

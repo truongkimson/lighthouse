@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en" >
-<head th:replace = "fragments::header-home">
+<head>
     <meta charset="UTF-8">
     <title>Home</title>
 </head>
 <body>
-
+<div th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
+    <div th:case="false">
+        <div th:replace = "fragments::header-home('Log In', '/login', null)"></div>
+    </div>
+    <div th:case="true">
+        <div th:replace = "fragments::header-home('Log Out', '/logout', ${#session.getAttribute('userName')})"></div>
+    </div>
+</div>
 <div style="text-align: center"><img src="/images/best-school-management-system-horz-new.jpg"></div>
 <div style="text-align: center"><img src="/images/education-news.png"></div>
 <div style="text-align: center"><img src="/images/news-2.png"></div>

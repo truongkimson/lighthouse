@@ -15,11 +15,6 @@ import javax.servlet.http.HttpSession;
 @ControllerAdvice
 public class GlobalControllerAdvice {
 
-    @ModelAttribute("currentUser")
-    public User getCurrentUser(HttpSession session) {
-        return (User)session.getAttribute("currentUser");
-    }
-
     @ExceptionHandler(CourseFullException.class)
     public ModelAndView handleCourseFullError(Exception ex) {
         ModelAndView mav = new ModelAndView("error/error");

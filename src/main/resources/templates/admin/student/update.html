@@ -15,7 +15,40 @@
 
     <title>Admin - Update Student</title>
 </head>
+
+<style>
+.table1 {
+  font-size: 18px;
+  font-family: NeuzeitGrotesk;
+}
+
+td{
+padding-bottom: 12px;
+padding-top: 6px;
+}
+
+.enrolment {
+padding-bottom: 30px;
+padding-top: 5px;
+}
+
+.class{
+width: 350px;
+}
+</style>
+
 <body>
+<div class="container-fluid">
+<div class = "row">
+<div class ="col-6">
+<div style = "padding:120px 0px 160px 100px">
+<img src="/images/student111.jpg" style="height:70%;">
+</div>
+</div>
+<div class ="col-6">
+<div style = "padding: 200px 0px 0px 100px">
+<h3>Update Student</h3>
+<br>
 <div>
     <p class="alert alert-danger " th:if="${error} != null" th:text="${error}"></p>
 </div>
@@ -27,7 +60,7 @@
         </tr>
         <tr>
             <td><label for="first-name">First Name</label></td>
-            <td><input id="first-name" th:field="*{firstName}" type="text"/></td>
+            <td><input class="class" id="first-name" th:field="*{firstName}" type="text"/></td>
         </tr>
         <tr>
             <td class="alert alert-danger" colspan="2" th:errors="*{firstName}"
@@ -35,7 +68,7 @@
         </tr>
         <tr>
             <td><label for="last-name"></label>Last Name</td>
-            <td><input id="last-name" th:field="*{lastName}" type="text"/></td>
+            <td><input class="class" id="last-name" th:field="*{lastName}" type="text"/></td>
         </tr>
         <tr>
             <td class="alert alert-danger" colspan="2" th:errors="*{lastName}"
@@ -43,7 +76,7 @@
         </tr>
         <tr>
             <td><label for="email">Email</label></td>
-            <td><input id="email" th:field="*{email}" type="text"/></td>
+            <td><input class="class" id="email" th:field="*{email}" type="text"/></td>
         </tr>
         <tr>
             <td class="alert alert-danger" colspan="2" th:errors="*{email}"
@@ -51,7 +84,7 @@
         </tr>
         <tr>
             <td><label for="phone">Phone</label></td>
-            <td><input id="phone" th:field="*{phone}" type="text"/></td>
+            <td><input class="class" id="phone" th:field="*{phone}" type="text"/></td>
         </tr>
         <tr>
             <td class="alert alert-danger" colspan="2" th:errors="*{phone}"
@@ -59,7 +92,7 @@
         </tr>
         <tr>
             <td><label for="address">Address</label></td>
-            <td><input id="address" th:field="*{address}" type="text"/></td>
+            <td><input class="class" id="address" th:field="*{address}" type="text"/></td>
         </tr>
         <tr>
             <td class="alert alert-danger" colspan="2" th:errors="*{address}"
@@ -67,27 +100,30 @@
         </tr>
         <tr>
             <td><label for="dob"></label>Date of birth</td>
-            <td><input id="dob" th:field="*{dob}" type="date"/></td>
+            <td><input class="class" id="dob" th:field="*{dob}" type="date"/></td>
         </tr>
         <tr>
             <td class="alert alert-danger" colspan="2" th:errors="*{dob}"
                 th:if="${#fields.hasErrors('dob')}"></td>
         </tr>
         <tr>
-            <td><label for="enrolment-date"></label>Enrolment date</td>
-            <td><input id="enrolment-date" th:field="*{enrolmentDate}" type="date"/></td>
+            <td class="enrolment"><label for="enrolment-date"></label>Enrolment date</td>
+            <td class="enrolment"><input class="class" id="enrolment-date" th:field="*{enrolmentDate}" type="date"/></td>
         </tr>
         <tr>
             <td class="alert alert-danger" colspan="2" th:errors="*{enrolmentDate}"
                 th:if="${#fields.hasErrors('enrolmentDate')}"></td>
         </tr>
         <tr>
-            <td><input type="submit" value="Update"></td>
+        	<td width="40%"></td>
+            <td align="right"><input class="btn btn-primary" type="submit" value="Update"></td>
         </tr>
     </table>
 </form>
-
-
+</div>
+</div>
+</div>
+</div>
 <script crossorigin="anonymous"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

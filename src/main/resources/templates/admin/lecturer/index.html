@@ -14,19 +14,40 @@
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <title>Admin - Lecturer</title>
 </head>
+
+<style>
+.class {
+width: 500px;
+height: 40px;
+}
+</style>
+
 <body>
-<div>
+<br>
+<br>
+<br>
+<div class="container-fluid">
+<div class="row">
+<div class = "col-2"> 
+<div style = "padding: 0px 0px 20px 20px">
+    <a class="btn btn-outline-secondary" role="button" aria-pressed="true" th:href="@{/admin/lecturer/create}">Create new Lecturer</a>
+</div>
+</div>
+<div class = "col-10">
+<div style = "padding: 0px 20px 20px; text-align: right">
     <form action="#" method="GET" th:action="@{/admin/lecturer/}">
         <label for="search-bar">Search</label>
-        <input id="search-bar" name="q" type="text"/>
+        <input class = "class" id="search-bar" name="q" type="text"/>
     </form>
 </div>
-<div>
-    <a th:href="@{/admin/lecturer/create}">Create new Lecturer</a>
 </div>
-<table class="table">
-    <tr>
-        <th>Lecturer Id</th>
+</div>
+</div>
+
+<table class="table table-hover">
+<thead>
+    <tr class="table-active">
+        <th style ="text-align:right">Lecturer Id</th>
         <th>Email</th>
         <th>First Name</th>
         <th>Last Name</th>
@@ -35,12 +56,12 @@
         <th>Delete</th>
     </tr>
     <tr th:each="lecturer : ${lecturerList}">
-        <td th:text="${lecturer.id}">Id</td>
+        <td align="right" th:text="${lecturer.id}">Id</td>
         <td th:text="${lecturer.email}">Email</td>
         <td th:text="${lecturer.firstName}">First Name</td>
         <td th:text="${lecturer.lastName}">Last Name</td>
         <td th:text="${lecturer.designation}">Designation</td>
-        <td><a th:href="@{/admin/lecturer/{id}/update(id=${lecturer.id})}">Edit</a></td>
+        <td><a class="btn btn-primary" role="button" aria-pressed="true" th:href="@{/admin/lecturer/{id}/update(id=${lecturer.id})}">Edit</a></td>
         <td>
             <!-- Button trigger modal -->
             <button class="btn btn-primary" th:data-target="'#exampleModal-' + ${lecturer.id}" data-toggle="modal" type="button">
@@ -76,8 +97,12 @@
             </div>
         </td>
     </tr>
+</thead>
 </table>
-
+<br>
+<br>
+<br>
+<br>
 
 <script crossorigin="anonymous"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

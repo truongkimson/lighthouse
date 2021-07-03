@@ -15,20 +15,40 @@
 
     <title>Admin - Student</title>
 </head>
+
+<style>
+.class {
+width: 500px;
+height: 40px;
+}
+</style>
+
 <body>
-<p th:text="${currentUser.getFullName()}"></p>
-<div>
+<br>
+<br>
+<br>
+<div class="container-fluid">
+<div class="row">
+<div class = "col-2"> 
+<div style = "padding: 0px 0px 20px 20px">
+    <a class="btn btn-outline-secondary" role="button" aria-pressed="true" th:href="@{/admin/student/create}">Create new Student</a>
+</div>
+</div>
+<div class = "col-10">
+<div style = "padding: 0px 20px 20px; text-align: right">
     <form action="#" method="GET" th:action="@{/admin/student/}">
         <label for="search-bar">Search</label>
-        <input id="search-bar" name="q" type="text"/>
+        <input class = "class" id="search-bar" name="q" type="text"/>
     </form>
 </div>
-<div>
-    <a th:href="@{/admin/student/create}">Create new Student</a>
 </div>
-<table class="table">
-    <tr>
-        <th>Student Id</th>
+</div>
+</div>
+
+<table class="table table-hover">
+<thead>
+    <tr class="table-active">
+        <th style ="text-align:right">Student Id</th>
         <th>Email</th>
         <th>First Name</th>
         <th>Last Name</th>
@@ -40,7 +60,7 @@
         <th>Delete</th>
     </tr>
     <tr th:each="student : ${studentList}">
-        <td th:text="${student.id}">Id</td>
+        <td align="right" th:text="${student.id}">Id</td>
         <td th:text="${student.email}">Email</td>
         <td th:text="${student.firstName}">First Name</td>
         <td th:text="${student.lastName}">Last Name</td>
@@ -48,7 +68,7 @@
         <td th:text="${student.address}">Address</td>
         <td th:text="${student.dob}">DOB</td>
         <td th:text="${student.enrolmentDate}">Date of enrollment</td>
-        <td><a th:href="@{/admin/student/{id}/update(id=${student.id})}">Edit</a></td>
+        <td><a class="btn btn-primary" role="button" aria-pressed="true" th:href="@{/admin/student/{id}/update(id=${student.id})}">Edit</a></td>
         <td>
             <!-- Button trigger modal -->
             <button class="btn btn-primary" th:data-target="'#exampleModal-' + ${student.id}" data-toggle="modal" type="button">
@@ -85,8 +105,12 @@
             </div>
         </td>
     </tr>
+    </thead>
 </table>
-
+<br>
+<br>
+<br>
+<br>
 
 <script crossorigin="anonymous"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

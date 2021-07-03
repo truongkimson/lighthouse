@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace = "fragments::header-admin('enrolmentPage')">
+<head>
     <meta charset="UTF-8">
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -24,6 +24,7 @@ height: 40px;
 </style>
 
 <body>
+<div th:replace = "fragments::header-admin('enrolmentPage')"></div>
 <br>
 <br>
 <h3 style="text-align: left; padding-left: 40px" th:text="${course.id} + ' - ' + ${course.courseName}"></h3>

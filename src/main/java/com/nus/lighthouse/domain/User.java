@@ -13,13 +13,13 @@ public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Email
-    @NotBlank
+    @Email(message="Please enter a valid email")
+    @NotBlank(message="Email field cannot be blank")
     private String email;
     private String password;
-    @NotBlank
+    @NotBlank(message="First name field cannot be blank")
     private String firstName;
-    @NotBlank
+    @NotBlank(message="Last name field cannot be blank")
     private String lastName;
     private String role;
 

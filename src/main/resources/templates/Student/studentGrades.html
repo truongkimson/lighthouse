@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en" >
-<head th:replace = "fragments::header-student">
+<head th:replace = "fragments::header-student('gradePage')" >
     <meta charset="UTF-8">
     <title>Student</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -22,15 +22,16 @@ font-size: 20px;
 
 <body>
 <div class="course">
+    <h1 style="text-align: center">Hello student!</h1>
 	<div style="text-align: center"><img src="/images/course2.jpg" style="width:30%;"></div>
 	<br>
-    <h3 style="text-align: center">Courses that you can enroll in</h3>
+    <h3 style="text-align: center">Grades achieved this semester</h3>
     <br>
     <br>
     <table class = "table1">
-    <tr>
-       <td>GPA:&nbsp&nbsp</td> 
-       <td th:text="${student.getGpa()}"></td>
+    <tr th:with ="studentGpa=${student.getGpa()}">
+       <td>GPA:&nbsp&nbsp</td>
+       <td th:text="${#numbers.formatDecimal(studentGpa, 1, 'COMMA', 2, 'POINT')}"></td>
     </tr>
     </table>
     <br>
@@ -41,14 +42,14 @@ font-size: 20px;
         <th width="40%">Course Name</th>
         <th width="15%">Credits</th>
         <th width="15%">Grade</th>
-        <th width="15%">GPA</th>
+<!--        <th width="15%">GPA</th>-->
     </tr>
     <tr style="text-align: center" th:each="enrols:${enrolls}">
         <td width="15%" th:text="${enrols.getCourse().getId()}">Course Id</td>
         <td width="40%" th:text="${enrols.getCourse().getCourseName()}">Course Name</td>
         <td width="15%" th:text="${enrols.getCourse().getCredits()}">Credits</td>
         <td width="15%"th:text="${enrols.getGrade()}">Grade</td>
-        <th width="15%"></th>
+<!--        <th width="15%"></th>-->
     </tr>
 </thead>
 </table>

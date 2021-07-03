@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Collection;
 
@@ -16,24 +17,27 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotBlank
+    @NotBlank(message = "Course name field cannot be blank")
     private String courseName;
-    @NotBlank
+    @NotBlank(message = "Course description cannot be blank")
     private String courseDes;
-    @Min(1)
+    @Min(value = 1, message = "Credits value must be greater than 0")
     private int credits;
-    @Min(1)
+    @Min(value = 1, message = "Maximum capacity must be greater than 0")
     private int maxCap;
-    @Min(1)
+    @Min(value = 1, message = "Duration must be greater than 0")
     private int duration;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "Start date cannot be empty")
     private LocalDate startDate;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "Enroll by date cannot be empty")
     private LocalDate enrollBy;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "Exam date cannot be empty")
     private LocalDate examDate;
 
     @Transient

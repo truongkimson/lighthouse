@@ -39,10 +39,12 @@ public class StudentController {
 
     @GetMapping("/enrolled")
     public String getEnrolledCourses(Model model){
-//        Student dummy = studentService.getStudentById(10);
-//        int dummyId = dummy.getId();
+//        User curr = (User)session.getAttribute("currentUser");
+//        int dummyId =curr.getId();
         AppUserDetails userDetails = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int dummyId = userDetails.getUserId();
+
+
         Collection<Enrolment> enrolled = studentService.findEnrolmentByStudentAndStatus(dummyId,"ENROLLED");
         Collection<Enrolment> completed = studentService.findEnrolmentByStudentAndStatus(dummyId,"COMPLETED");
         if(enrolled == null){
@@ -57,10 +59,8 @@ public class StudentController {
 
     @RequestMapping(value = "/enrolled/delete/{id}", method = RequestMethod.POST)
     public String deleteEnrolment(Model model, @PathVariable int id) {
-
         AppUserDetails userDetails = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int dummyId = userDetails.getUserId();
-
         Collection<Enrolment> enrolled = studentService.findEnrolmentByStudentAndStatus(dummyId,"ENROLLED");
         Collection<Enrolment> completed = studentService.findEnrolmentByStudentAndStatus(dummyId,"COMPLETED");
         if(enrolled == null){
@@ -87,18 +87,15 @@ public class StudentController {
     }
 
 
-    @GetMapping ("/enrollCourses/description/{courseId}")
-    public String getCourseDescription(Model model, @PathVariable("courseId") int courseId){
-        Course selected = studentService.getCourseById(courseId);
-        model.addAttribute("selected", selected);
-        return "Student/studentCoursesDescription";
-    }
-
     @GetMapping("/grades")
     public String getCourseGrades(Model model){
-        Student dummy = studentService.getStudentById(10);
-        int dummyId = dummy.getId();
-        Collection<Enrolment> enrolled = studentService.findEnrolmentByStudentAndStatus(dummyId,"COMPLETED");
+        AppUserDetails userDetails = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int dummyId = userDetails.getUserId();
+        Student dummy = studentService.getStudentById(dummyId);
+//        Collection<Enrolment> enrolled = studentService.findEnrolmentByStudentAndStatus(dummyId,"COMPLETED");
+        Collection<Enrolment> enrolled = studentService.findEnrolmentByGradeExists(dummyId);
+
+
         if(enrolled == null){
             return "Student/student";
         }
@@ -109,9 +106,42 @@ public class StudentController {
         }
     }
 
+    @GetMapping ("/enrollCourses/description/{courseId}")
+    public String getCourseDescription(Model model, @PathVariable("courseId") int courseId){
+        AppUserDetails userDetails = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int dummyId = userDetails.getUserId();
+        Student dummy = studentService.getStudentById(dummyId);
+        Course selected = studentService.getCourseById(courseId);
+        LocalDate now = LocalDate.now();
+        String status;
+        Boolean ifCanEnrol = false;
+        if(selected.getEnrollBy().isBefore(now)){
+            status = "You have missed the deadline for registration";
+            model.addAttribute("status",status);
+        }
+        else if(studentService.findEnrolmentByStudentAndStatusAndCourse(dummy.getId(),"ENROLLED",courseId).size()>0){
+            status = "You have already enrolled this course";
+            model.addAttribute("status",status);
+        }
+        else if(studentService.ifMaxCapacityExceeded(courseId)){
+            status = "The course has reached its maximum capacity for this semester";
+            model.addAttribute("status",status);
+        }
+        else{
+            status = "You have successfully enrolled in this course";
+            ifCanEnrol = true;
+            model.addAttribute("status",status);
+        }
+        model.addAttribute("ifCanEnrol",ifCanEnrol);
+        model.addAttribute("selected", selected);
+        return "Student/studentCoursesDescription";
+    }
+
     @RequestMapping("enrollCourses/enrol/{courseId}")
     public String createEnrolment(Model model,@PathVariable("courseId") int courseId){
-        Student dummy = studentService.getStudentById(10);
+        AppUserDetails userDetails = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int dummyId = userDetails.getUserId();
+        Student dummy = studentService.getStudentById(dummyId);
         Course courseEnrol = studentService.getCourseById(courseId);
         LocalDate now = LocalDate.now();
         Enrolment enrolment = new Enrolment(now,"ENROLLED",dummy,courseEnrol);
@@ -129,18 +159,28 @@ public class StudentController {
             model.addAttribute("status",status);
         }
         else{
-            studentService.createEnrolment(enrolment);
             status = "You have successfully enrolled in this course";
+            studentService.createEnrolment(enrolment);
             model.addAttribute("status",status);
         }
         model.addAttribute("course",courseEnrol);
         return "Student/studentCoursesEnrolled";
     }
     
-    @GetMapping("/timetable/{id}")
-    public String getTimetableDetails(@PathVariable(name = "id", required = true)Integer id, Model model){
-        Collection<Course> courses =  studentService.getTimetableDetails(id);
+    @GetMapping("/timetable")
+    public String getTimetableDetails(Model model){
+        AppUserDetails userDetails = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int dummyId = userDetails.getUserId();
+        Collection<Course> courses =  studentService.getTimetableDetails(dummyId);
         model.addAttribute("courses", courses);
         return "Student/studentTimetable";
     }
+//@GetMapping("/timetable/{id}")
+//    public String getTimetableDetails(@PathVariable(name = "id", required = true)Integer id, Model model){
+//        AppUserDetails userDetails = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        int dummyId = userDetails.getUserId();
+//        Collection<Course> courses =  studentService.getTimetableDetails(dummyId);
+//        model.addAttribute("courses", courses);
+//        return "Student/studentTimetable";
+//    }
 }

@@ -1,17 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en" >
+<html xmlns:th="https://www.thymeleaf.org/">
 <head th:replace = "fragments::header-lecturer">
-    <meta charset="UTF-8">
-    <title>Home</title>
+<meta charset="ISO-8859-1">
+<title>Home</title>
 </head>
-
-
 <body>
-    <p>Hello Lecturer! What do you want to do today?</p>
-<!--    <a th:href = "@{viewCoursesTaught}">View courses taught</a>-->
-<!--    <a th:href = "@{viewcourseenrollment}">View course enrolment</a>-->
-<!--    <a th:href = "@{selectfromcoursesedit}">Edit grades</a>-->
-<!--    <a th:href = "@{seeallstudents}">View performance</a>-->
+    <p>Hello Lecturer <span th:text="${name}"></span>! What do you want to do today?</p>
 
 
 

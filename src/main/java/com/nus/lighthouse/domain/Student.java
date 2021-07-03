@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
@@ -13,16 +14,18 @@ import java.util.Collection;
 @Entity
 @DiscriminatorValue("STU")
 public class Student extends User {
-    @NotBlank
-    @Pattern(regexp = "[0-9]{8}")
+    @NotBlank(message = "Phone number field cannot be blank")
+    @Pattern(regexp = "[0-9]{8}", message = "Phone number must have 8 digits. 0 - 9")
     private String phone;
-    @NotBlank
+    @NotBlank(message = "Address field cannot be blank")
     private String address;
-    @Past
+    @Past(message = "Please select a date in the past")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "Date of birth cannot be empty")
     private LocalDate dob;
-    @Past
+    @Past(message = "Please select a date in the past")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "Enrolment date cannot be empty")
     private LocalDate enrolmentDate;
     @Transient
     private double gpa;
@@ -89,51 +92,53 @@ public class Student extends User {
     public double getGpa() {
         double cumulativeGrade = 0;
         int numOfSubjects = 0;
-
         for (Enrolment e :enrolments) {
-            switch (e.getGrade()){
-                case "A+" :
-                case "A":
-                    cumulativeGrade+=5.0* (e.getCourse().getCredits());
-                    numOfSubjects+=(e.getCourse().getCredits());
-                    break;
-                case "A-":
-                    cumulativeGrade+=4.5*(e.getCourse().getCredits());
-                    numOfSubjects+=(e.getCourse().getCredits());
-                    break;
-                case "B+":
-                    cumulativeGrade+=4.0*(e.getCourse().getCredits());
-                    numOfSubjects+=(e.getCourse().getCredits());
-                    break;
-                case "B":
-                    cumulativeGrade+=3.5*(e.getCourse().getCredits());
-                    numOfSubjects+=(e.getCourse().getCredits());
-                    break;
-                case "B-":
-                    cumulativeGrade+=3.0*(e.getCourse().getCredits());
-                    numOfSubjects+=(e.getCourse().getCredits());
-                    break;
-                case "C+":
-                    cumulativeGrade+=2.5*(e.getCourse().getCredits());
-                    numOfSubjects+=(e.getCourse().getCredits());
-                    break;
-                case "C":
-                    cumulativeGrade+=2.0*(e.getCourse().getCredits());
-                    numOfSubjects+=(e.getCourse().getCredits());
-                    break;
-                case "C-":
-                case "D+":
-                    cumulativeGrade+=1.5*(e.getCourse().getCredits());
-                    numOfSubjects+=(e.getCourse().getCredits());
-                    break;
-                case "D":
-                    cumulativeGrade+=1.0*(e.getCourse().getCredits());
-                    numOfSubjects+=(e.getCourse().getCredits());
-                    break;
-                default:
-                    cumulativeGrade+=0*(e.getCourse().getCredits());
-                    numOfSubjects+=(e.getCourse().getCredits());
+            if(e.getGrade()!=null){
+                switch (e.getGrade()){
+                    case "A+" :
+                    case "A":
+                        cumulativeGrade+=5.0* (e.getCourse().getCredits());
+                        numOfSubjects+=(e.getCourse().getCredits());
+                        break;
+                    case "A-":
+                        cumulativeGrade+=4.5*(e.getCourse().getCredits());
+                        numOfSubjects+=(e.getCourse().getCredits());
+                        break;
+                    case "B+":
+                        cumulativeGrade+=4.0*(e.getCourse().getCredits());
+                        numOfSubjects+=(e.getCourse().getCredits());
+                        break;
+                    case "B":
+                        cumulativeGrade+=3.5*(e.getCourse().getCredits());
+                        numOfSubjects+=(e.getCourse().getCredits());
+                        break;
+                    case "B-":
+                        cumulativeGrade+=3.0*(e.getCourse().getCredits());
+                        numOfSubjects+=(e.getCourse().getCredits());
+                        break;
+                    case "C+":
+                        cumulativeGrade+=2.5*(e.getCourse().getCredits());
+                        numOfSubjects+=(e.getCourse().getCredits());
+                        break;
+                    case "C":
+                        cumulativeGrade+=2.0*(e.getCourse().getCredits());
+                        numOfSubjects+=(e.getCourse().getCredits());
+                        break;
+                    case "C-":
+                    case "D+":
+                        cumulativeGrade+=1.5*(e.getCourse().getCredits());
+                        numOfSubjects+=(e.getCourse().getCredits());
+                        break;
+                    case "D":
+                        cumulativeGrade+=1.0*(e.getCourse().getCredits());
+                        numOfSubjects+=(e.getCourse().getCredits());
+                        break;
+                    default:
+                        cumulativeGrade+=0*(e.getCourse().getCredits());
+//                    numOfSubjects+=(e.getCourse().getCredits());
+                }
             }
+
         }
         return cumulativeGrade / numOfSubjects;
     }

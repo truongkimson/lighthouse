@@ -1,27 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace = "fragments::header-lecturer">
 <meta charset="ISO-8859-1">
-<script>
-function validateForm() {
-  let x = document.forms["myForm"]["grade"].value;
-  var validgrades = ["A+", "A", "A-","B+", "B", "B-","C+", "C", "C-", "D+", "D","F"];
-  var flag= new Boolean();
-    for (let i = 0; i < validgrades.length; i++) {
-	  if (x==validgrades[i])
-	{ return flag;
-	}
-  }
-  alert("Invalid grade");
-  return !flag;
-}
-</script>
 <title>Enrolment form</title>
 </head>
 <body>
 <h1>Enrolment form</h1>
 	<form name="myForm" action="#" th:object="${enrolment}" th:action="@{/lecturer/save}"
-		method="post" onsubmit="return validateForm()">
+		method="post" onsubmit="return validateform()">
 		<fieldset>
 			Enrolment ID<input type="number" th:field="*{Id}" th:readonly=true>
 		</fieldset>		
@@ -44,6 +30,7 @@ function validateForm() {
 		</fieldset>
 
 	</form>
-<a href = "http://localhost:8080/lecturer/home">Back to home</a>
+<script type="text/javascript" th:src="@{/js/validateform.js}"></script>
 </body>
+<div th:replace = "fragments::footer"></div>
 </html>

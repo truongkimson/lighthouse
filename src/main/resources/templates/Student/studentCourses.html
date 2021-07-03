@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org" lang="en" >
-<head th:replace = "fragments::header-student">
+<head th:replace = "fragments::header-student('coursePage')" >
     <meta charset="UTF-8">
     <title>Student</title>
     <script type="text/javascript">
@@ -26,11 +26,12 @@ font-size: 20px;
 
 <body>
 <div class="course">
+    <h1 style="text-align: center">Hello student!</h1>
 	<div style="text-align: center"><img src="/images/studentcourse.png" style="width:30%;"></div>
 	<br>
 <!--    <h3 style="text-align: center">You have enrolled in the following 1</h3>-->
-    <h1 style="text-align: center">Hello student!</h1>
-    <h3 style="text-align: center">You have enrolled in the following</h3>
+
+    <h3 style="text-align: center">Please select a course to enrol in</h3>
     <br>
 <!--    <div style="text-align: center">-->
 <!--    <a th:href = "@{/student/home}">Student</a>-->
@@ -59,13 +60,13 @@ font-size: 20px;
     <thead>
         <tr class = "table-light">
             <th>Course Name</th>
-            <th width="40%"></th>
+            <th width="5%"></th>
             <th width=""></th>
         </tr>
         <tr th:each="course:${courses}">
             <td th:text="${course.getCourseName()}"></td>
-            <td width="40%"></td>
-            <td><a class="btn btn-primary active" type="submit" value="Submit" th:href = "@{enrollCourses/description/{courseId}(courseId=${course.id})}" >Submit</a></td>
+            <td width="5%"></td>
+            <td><a class="btn btn-primary active" type="submit" value="Submit" th:href = "@{enrollCourses/description/{courseId}(courseId=${course.id})}" >Course Details</a></td>
         </tr>
        </thead>
     </table>

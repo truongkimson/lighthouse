@@ -24,23 +24,15 @@
                         <a class="nav-link active" aria-current="page" href="/student/home">Student</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/admin/student">Lecturer</a>
+                        <a class="nav-link active" aria-current="page" href = "http://localhost:8080/lecturer/home">Lecturer</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/admin/">Administrator</a>
+                        <a class="nav-link active" aria-current="page" href = "http://localhost:8080/admin/home">Administrator</a>
                     </li>
 				</ul>
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="/logout">Logout</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                        </svg>
-                        Hello Student</a>
                     </li>
                 </ul>
             </div>
@@ -51,7 +43,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </div>
 
-<div th:fragment = "header-student">
+<div th:fragment = "header-student(activeTab)" >
     <nav class="navbar navbar-expand-lg navbar-light bg-light position:relative">
         <div class="container-fluid">
             <a class="navbar-brand me-auto" href="/">
@@ -65,26 +57,21 @@
                         <a class="nav-link active" aria-current="page" href="/student/home">Student</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/student/enrolled">Enrolled Courses</a>
+                        <a th:class="${activeTab == 'enrolPage'}? 'nav-link active' : 'nav-link'" aria-current="page" href="/student/enrolled">Enrolled Courses</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/student/enrollCourses">Courses</a>
+                        <a th:class="${activeTab == 'coursePage'}? 'nav-link active' : 'nav-link'" aria-current="page" href="/student/enrollCourses">Courses</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/student/grades">Grades</a>
+                        <a th:class="${activeTab == 'gradePage'}? 'nav-link active' : 'nav-link'" aria-current="page" href="/student/grades">Grades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:class="${activeTab == 'timetablePage'}? 'nav-link active' : 'nav-link'" aria-current="page" href="/student/timetable">Timetable</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">Logout</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                        </svg>
-                        Hello Student</a>
+                        <a class="nav-link" aria-current="page" href="/logout">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -95,7 +82,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </div>
 
-<div th:fragment = "header-admin">
+<div th:fragment = "header-admin(activeTab)">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand me-auto" href="/">
@@ -109,35 +96,28 @@
                         <a class="nav-link active" aria-current="page" href="/admin/student">Admin</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/admin/student">Student</a>
+                        <a th:class="${activeTab == 'studentPage'}? 'nav-link active' : 'nav-link'" aria-current="page" href="/admin/student">Student</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/admin/lecturer">Lecturer</a>
+                        <a th:class="${activeTab == 'lecturerPage'}? 'nav-link active' : 'nav-link'" aria-current="page" href="/admin/lecturer">Lecturer</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/admin/course">Course</a>
+                        <a th:class="${activeTab == 'coursePage'}? 'nav-link active' : 'nav-link'" aria-current="page" href="/admin/course">Course</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/admin/enrolment">Enrollment</a>
+                        <a th:class="${activeTab == 'enrolmentPage'}? 'nav-link active' : 'nav-link'" aria-current="page" href="/admin/enrolment">Enrollment</a>
                     </li>
 				</ul>
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="/logout">Logout</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                        </svg>
-                        Hello Student</a>
-                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 </div>
+</header>
 
 <div th:fragment = "header-lecturer">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -146,7 +126,7 @@
                 <div class ="container-fluid">
                     <img src="/images/lighthouselogo-transparent.png" alt="" height="36">
                 </div>
-            </a>
+			</a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
@@ -159,12 +139,12 @@
                         <a class="nav-link" aria-current="page" href="/lecturer/viewcourseenrollment">View Course Enrolment</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/lecturer/selectfromcoursesedit">Edit Grade</a>
+                        <a class="nav-link" aria-current="page" href="/lecturer/selectfromcoursesedit">Edit Grades</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/lecturer/seeallstudents">View Performance</a>
+                        <a class="nav-link" aria-current="page" href="/lecturer/seeallstudents">See Student Performance</a>
                     </li>
-                </ul>
+				</ul>
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="/logout">Logout</a>
@@ -174,14 +154,12 @@
         </div>
     </nav>
 </div>
-
-
 </header>
 
 <div th:fragment ="footer">
     <footer class="border-top footer text-center">
-        <div class="container-full">
-            <p style = "margin: 10px">© 2021 Copyright</p>
+        <div class="container-full";>
+            Lighthouse - © 2021 Copyright
         </div>
     </footer>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">

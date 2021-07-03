@@ -1,8 +1,11 @@
 package com.nus.lighthouse.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.nus.lighthouse.domain.utils.ValidateString;
 
 import javax.persistence.*;
+
+
 import java.time.LocalDate;
 
 @Entity
@@ -11,7 +14,7 @@ public class Enrolment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     //private int courseId;
-
+    @ValidateString(acceptedValues={"A+","A","A-","B+","B","B-","C+","C","C-","D+","D","F"}, message="Invalid grade")
     private String grade;
     private LocalDate registeredDate;
     private String enrolmentStatus;

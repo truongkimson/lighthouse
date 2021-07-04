@@ -4,9 +4,22 @@
 <meta charset="ISO-8859-1">
 <title>Student performance</title>
 </head>
+
+<style>
+.footer {
+   position: relative;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   text-align: center;
+   height: 50px;
+   border-top: 1px solid grey;
+}
+</style>
+
 <body>
 <body>
-<div style = "padding: 30px 800px 0px 50px; min-height: 520px;">
+<div style = "padding: 30px 50px 0px 50px; min-height: 520px;">
 <h3 style = "text-align: left;" th:if="${not #lists.isEmpty(performance)}">View Student Performance- <span th:text="${performance[0].firstname} +' '+ ${performance[0].lastname} "></span></h3>
 <br>
 <table class="table table-hover" th:if="${not #lists.isEmpty(performance)}" >
@@ -31,7 +44,7 @@
 <p style = "font-weight:bold" id="gpa"></p>
 </div>
 </div>
-<div style="text-align: right"><img src="/images/enrolment222.png" style="width:40%;"></div>
+<div style="text-align: center; bottom:0px"><img src="/images/enrolment222.png" style="width:40%;"></div>
 </body>
 <div th:replace = "fragments::footer"></div>
 </html>

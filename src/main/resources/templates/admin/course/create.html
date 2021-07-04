@@ -34,19 +34,45 @@ padding-top: 5px;
 .class{
 width: 350px;
 }
+
+.test {
+width: 100%
+}
+
+.test-1{
+width: 50%;
+float:left;
+padding-top:60px;
+}
+
+.test-2{
+width: 50%;
+float:left;
+padding-top:130px;
+}
+
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   text-align: center;
+   height: 50px;
+   border-top: 1px solid grey;
+}
 </style>
 
 <body>
 <div th:replace = "fragments::header-admin('coursePage')"></div>
-<div class ="container-fluid">
-<div class = "row">
-<div class ="col-6">
-<div style = "padding:100px 0px 160px 180px">
-<img src="/images/course1234455.jpg" style="height:100%;">
+<!-- div class ="container-fluid" -->
+<div class = "test">
+<div class ="test-1">
+<div>
+<img src="/images/course1234455.jpg" style="width:87%;">
 </div>
 </div>
-<div class ="col-6"> 
-<div style = "padding: 140px 0px 0px 30px">
+<div class ="test-2"> 
+<div>
 <h3>Create new course</h3>
 <br>
 <form action="#" method="post" th:action="@{/admin/course/create}" th:object="${course}">
@@ -133,7 +159,7 @@ width: 350px;
 </div>
 </div>
 </div>
-</div>
+<!-- /div -->
 <script crossorigin="anonymous"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>

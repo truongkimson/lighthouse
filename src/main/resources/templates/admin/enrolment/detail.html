@@ -21,24 +21,33 @@
 width: 500px;
 height: 40px;
 }
+
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   text-align: center;
+   height: 50px;
+   border-top: 1px solid grey;
+}
 </style>
 
 <body>
 <div th:replace = "fragments::header-admin('enrolmentPage')"></div>
 <br>
-<br>
 <h3 style="text-align: left; padding-left: 40px" th:text="${course.id} + ' - ' + ${course.courseName}"></h3>
 <div>
-    <p style="text-align: left; padding: 0px 0px 20px 40px">Current capacity: <span th:text="${course.getCurrCap()} + ' / ' + ${course.maxCap}"></span></p>
+    <p style="text-align: left; padding-left: 40px">Current capacity: <span th:text="${course.getCurrCap()} + ' / ' + ${course.maxCap}"></span></p>
 </div>
-<br>
-<div style = "padding: 0px 180px 20px; text-align: center">
+<div style = "padding: 0px 0px 20px; text-align: center">
     <a class="btn btn-outline-secondary" role="button" aria-pressed="true" th:href="@{/admin/enrolment/{id}/create(id=${course.id})}">Enroll students</a>
 </div>
+<div style = "padding: 0px 30px 0px 30px">
 <table class="table table-hover">
 <thead>
     <tr class="table-active">
-        <th style ="text-align:right">Student Id</th>
+        <th>Student Id</th>
         <th>Email</th>
         <th>First Name</th>
         <th>Last Name</th>
@@ -48,7 +57,7 @@ height: 40px;
         <th>Remove</th>
     </tr>
     <tr th:each="enrolment : ${enrolmentList}">
-        <td align="right" th:text="${enrolment.student.id}">Id</td>
+        <td th:text="${enrolment.student.id}">Id</td>
         <td th:text="${enrolment.student.email}">Email</td>
         <td th:text="${enrolment.student.firstName}">First Name</td>
         <td th:text="${enrolment.student.lastName}">Last Name</td>
@@ -91,10 +100,7 @@ height: 40px;
         </td>
     </tr>
 </table>
-<br>
-<br>
-<br>
-<br>
+</div>
 
 <script crossorigin="anonymous"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
